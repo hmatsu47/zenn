@@ -1,0 +1,22 @@
+{
+  "name": "zenn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmatsu47/zenn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmatsu47/zenn/issues"
+  },
+  "homepage": "https://github.com/hmatsu47/zenn#readme",
+  "dependencies": {
+    "zenn-cli": "^0.1.107"
+  }
+}
