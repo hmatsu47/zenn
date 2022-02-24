@@ -123,6 +123,6 @@ v1（MySQL 5.6）→ v2（MySQL 5.7）と比べても**要配慮な変更点が�
 :::
 ---
 
-- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（2）調査の進め方と参考資料](/articles/aurora-mysql3-002-ref-material)**
+- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（2）調査の進め方と参考資料](/hmatsu47/articles/aurora-mysql3-002-ref-material)**
 
 に続きます。

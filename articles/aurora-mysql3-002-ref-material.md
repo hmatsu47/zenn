@@ -8,7 +8,7 @@ published: true
 
 これは
 
-- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（1）はじめに](/articles/aurora-mysql3-001-top)**
+- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（1）はじめに](/hmatsu47/articles/aurora-mysql3-001-top)**
 
 の続きです。
 
@@ -43,7 +43,7 @@ https://severalnines.com/database-blog/moving-mysql-57-mysql-80-what-you-should-
 
 # 参考資料② AWS 公式の Aurora 関連ドキュメント
 
-[前回の記事](/articles/aurora-mysql3-001-top)で示した
+[前回の記事](/hmatsu47/articles/aurora-mysql3-001-top)で示した
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.MySQL56.EOL.html
 
