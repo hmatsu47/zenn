@@ -65,8 +65,9 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
   - 複数値インデックス
     - https://qiita.com/hmatsu47/items/3e49a473bc36aeefc706
   - 行更新の内部処理効率化
-  - ドキュメントストアとしての利用
-    - https://qiita.com/hmatsu47/items/2de98cd0c9472e72a52a
+  - ~~ドキュメントストアとしての利用~~
+    - ~~https://qiita.com/hmatsu47/items/2de98cd0c9472e72a52a~~
+    - Aurora MySQL v3 は X プラグインをサポートしていませんでした…残念
 - GIS 機能
   - SRID 対応
     - https://qiita.com/hmatsu47/items/97839fd9c3db1d2e9557
