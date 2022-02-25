@@ -15,6 +15,10 @@ https://endoflife.software/applications/databases/mysql
 
 仮に今回の v1（MySQL 5.6）同様だとすると Aurora MySQL v2 の EoL は本家の 2 年後の 2025/10 あたりでしょうか。ちょっと微妙ですね。
 
+:::message
+こちらを見ると、2024/2/29 より前に EoL になることはなさそうですが、v1 の日付から類推すると 2024/7/31 あたりに EoL になりそう、とも…？
+:::
+
 というわけで、**これから数週間の予定で Aurora MySQL v3（MySQL 8.0 互換）移行に必要そうな情報をかき集めてみます。**
 
 :::message
