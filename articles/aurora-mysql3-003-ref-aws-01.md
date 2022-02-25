@@ -20,6 +20,10 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 
 より、重要な情報を拾っていきます。
 
+:::message
+2022/2/25 時点で公開されている情報をもとに書いています。
+:::
+
 - Aurora MySQL v1 から直接 v3 へはアップグレードできない
 - Aurora MySQL v1 → v2 はインプレースアップグレードできるが、処理時間が掛かる
   - 特に v1.22.3 より前のバージョンからアップグレードする場合
