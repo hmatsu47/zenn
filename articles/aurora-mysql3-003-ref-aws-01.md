@@ -24,13 +24,13 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 2022/2/25 時点で公開されている情報をもとに書いています。
 :::
 
-- **[Aurora MySQL v1 から直接 v3 へはアップグレードできない](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora%20MySQL%20v1%20から直接%20v3%20へはアップグレードできない)**
-- **[Aurora MySQL v1 → v2 はインプレースアップグレードできるが、処理時間が掛かる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora%20MySQL%20v1%20→%20v2%20はインプレースアップグレードできるが、処理時間が掛かる)**
+- **[Aurora MySQL v1 から直接 v3 へはアップグレードできない](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora-MySQL-v1-から直接-v3-へはアップグレードできない)**
+- **[Aurora MySQL v1 → v2 はインプレースアップグレードできるが、処理時間が掛かる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora-MySQL-v1-→-v2-はインプレースアップグレードできるが、処理時間が掛かる)**
   - 特に v1.22.3 より前のバージョンからアップグレードする場合
-- **[クローン・スナップショットからの復元や、binlog レプリケーションを組み合わせた Blue/Green デプロイも使える](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#クローン・スナップショットからの復元や、レプリケーションを組み合わせた%20Blue/Green%20デプロイも使える)**
-- **[Aurora MySQL v2 → v3 はクローン・インプレースアップグレードできない](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora%20MySQL%20v2%20→%20v3%20はクローン・インプレースアップグレードできない)**
+- **[クローン・スナップショットからの復元や、binlog レプリケーションを組み合わせた Blue/Green デプロイも使える](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#クローン・スナップショットからの復元や、レプリケーションを組み合わせた-Blue/Green-デプロイも使える)**
+- **[Aurora MySQL v2 → v3 はクローン・インプレースアップグレードできない](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#Aurora-MySQL-v2-→-v3-はクローン・インプレースアップグレードできない)**
   - スナップショットからの復元でアップグレードする
-- **[v1 → v2 の際に`engine`属性が`aurora`から`aurora-mysql`に変わる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#v1%20→%20v2%20の際に`engine`属性が`aurora`から`aurora-mysql`に変わる)**
+- **[v1 → v2 の際に`engine`属性が`aurora`から`aurora-mysql`に変わる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#v1-→-v2-の際にengine属性がauroraからaurora-mysqlに変わる)**
   - CLI や API で処理を自動化している場合に注意
 - **[パラメータグループに注意](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#パラメータグループに注意)**
   - デフォルトとは別のパラメータグループを使っている場合や、CLI・API で処理を自動化している場合は特に注意
