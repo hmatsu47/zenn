@@ -55,7 +55,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 - ロールによる権限管理
   - https://qiita.com/hmatsu47/items/e4a49d32685220d492a9
 
-## 従来から存在する機能が強化されている
+## 既存の機能が強化されている
 
 同様に、いくつか挙げます。
 
