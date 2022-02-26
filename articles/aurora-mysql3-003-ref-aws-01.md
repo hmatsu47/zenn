@@ -57,7 +57,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 
 https://aws.amazon.com/jp/blogs/database/performing-major-version-upgrades-for-amazon-aurora-mysql-with-minimum-downtime/
 
-v3 が GA になる前の記事なので v3 へのアップグレードへの言及はありません。
+v3 が GA になる前の記事なので v3 アップグレードへの言及はありません。
 
 クローン後に差分を binlog レプリケーションして Green 環境を構築する話が出ていますが、v1 → v3 に応用するなら、
 
