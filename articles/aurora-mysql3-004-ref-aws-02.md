@@ -102,6 +102,10 @@ https://dev.mysql.com/doc/refman/8.0/ja/charset-charsets.html
 
 以前紹介した **[サイボウズのブログ記事](https://blog.cybozu.io/entry/2021/05/24/175000#utf8mb4-%E3%81%AE%E7%85%A7%E5%90%88%E9%A0%86%E5%BA%8F%E3%81%AE%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E5%80%A4%E3%81%AE%E5%A4%89%E6%9B%B4)** でも`utf8mb4`のデフォルト照合順序が変わった問題について触れていました。
 
+:::message
+Aurora MySQL v1 同様、v3 初期リリースでは`utf8`は`utf8mb3`（3 バイトまでの UTF-8）のエイリアスですが、今後のマイナーバージョンで`utf8mb4`のエイリアスに変更される可能性があります。
+:::
+
 パフォーマンス面では、
 
 https://yoku0825.blogspot.com/2018/12/utf8mb40900aici.html
