@@ -3,7 +3,7 @@ title: "Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計
 emoji: "📙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["aws", "aurora", "mysql"]
-published: false
+published: true
 ---
 
 これは
@@ -14,9 +14,9 @@ published: false
 
 今回は AWS 公式の Aurora 関連ドキュメントのうち、
 
-- **ベースとなる MySQL のバージョンアップ（5.6 → 8.0）による差異**
-- **本家 MySQL 8.0 と Aurora MySQL v3 の相違点**
-- **Aurora 独自機能の変更点**
+- **[ベースとなる MySQL のバージョンアップ（5.6 → 8.0）による差異](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%99%E3%83%BC%E3%82%B9%E3%81%A8%E3%81%AA%E3%82%8B-mysql-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97%EF%BC%885.6-%E2%86%92-8.0%EF%BC%89%E3%81%AB%E3%82%88%E3%82%8B%E5%B7%AE%E7%95%B0)**
+- **[本家 MySQL 8.0 と Aurora MySQL v3 の相違点](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E6%9C%AC%E5%AE%B6-mysql-8.0-%E3%81%A8-aurora-mysql-v3-%E3%81%AE%E7%9B%B8%E9%81%95%E7%82%B9)**
+- **[Aurora 独自機能の変更点](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#aurora-%E7%8B%AC%E8%87%AA%E6%A9%9F%E8%83%BD%E3%81%AE%E5%A4%89%E6%9B%B4%E7%82%B9)**
 
 を中心に取り上げてみます。
 
