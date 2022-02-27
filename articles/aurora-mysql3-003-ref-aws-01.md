@@ -35,6 +35,14 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 - **[パラメータグループに注意](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AB%E6%B3%A8%E6%84%8F)**
   - デフォルトとは別のパラメータグループを使っている場合や、CLI・API で処理を自動化している場合は特に注意
 
+:::message
+**2022/2/27 追記：**
+CLI を使った具体的なアップグレード操作については取り上げていませんが、以下のリンク先に例示があります。
+
+- **[Aurora MySQL インプレースアップグレードのチュートリアル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.MajorVersionUpgrade.html#AuroraMySQL.Upgrading.Tutorial)**
+- **[Aurora MySQL バージョン 1 からバージョン 3 へのアップグレードの例](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-upgrade-example-v1-v3)**
+:::
+
 ## Aurora MySQL v1 から直接 v3 へはアップグレードできない
 
 一旦 v2 に移行してから v3 に移行しましょう、という話です。
