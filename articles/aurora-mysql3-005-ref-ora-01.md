@@ -192,3 +192,7 @@ https://dev.mysql.com/doc/refman/5.7/en/mysql-nutshell.html
 :::message
 もしかすると、調査のアテが外れて泣きながらリリースノート（英語）の全ページに目を通すことになっているかもしれません。
 :::
+
+- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（6）詳細調査について](/hmatsu47/articles/aurora-mysql3-006-research-01)**
+
+に続きます。
