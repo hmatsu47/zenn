@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/2/28 現在、以下のような進捗状況です。
+2022/3/1 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -31,3 +31,18 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 
 - **[オペレータ・ビルトイン関数](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.md)**
   - MySQL 8.0 で 64 ビットを超えるビット演算に対応したことによる非互換
+  - `&&`・`\|\|`（`OR`のシノニム）・`!`が非推奨に
+  - GIS 関数の実装変更（5.6 → 5.7 → 8.0）および`ST_`・`MBR`が頭に付かない関数の削除
+  - `BINARY`オペレータが非推奨に
+    - MySQL 8.0.27 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
+  - 時刻関連の関数の変更
+    - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
+      - `CAST(... AS BINARY)`に置換
+  - `DATE_ADD()`・`DATE_SUB()`の動作非互換
+    - MySQL 8.0.28 で元の動作に
+      - 将来の Aurora MySQL v3 で取り込まれる可能性が高い
+  - 暗号関連の関数（DES など古いもの）が非推奨に
+  - `FOUND_ROWS()`・`SQL_CALC_FOUND_ROWS`が非推奨に
+  - `GREATEST()`・`LEAST()`の引数の型推測（キャスト）ルール変更
+
+※「L」で始まる関数＋αまで完了しています。
