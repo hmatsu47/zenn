@@ -31,7 +31,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 
 - **[オペレータ・ビルトイン関数](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.md)**
   - MySQL 8.0 で 64 ビットを超えるビット演算に対応したことによる非互換
-  - `&&`・`\|\|`（`OR`のシノニム）・`!`が非推奨に
+  - `&&`・`||`（`OR`のシノニム）・`!`が非推奨に
   - GIS 関数の実装変更（5.6 → 5.7 → 8.0）
     - 非互換の可能性
   - `ST_`・`MBR`が頭に付かないなどの古い名前の GIS 関数の削除
