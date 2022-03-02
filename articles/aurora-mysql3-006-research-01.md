@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/1 現在、以下のような進捗状況です。
+2022/3/2 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -26,8 +26,6 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 
 - **[予約語](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md)**
   - 計 30 個
-
-## 進行中
 
 - **[オペレータ・ビルトイン関数](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.md)**
   - MySQL 8.0 で 64 ビットを超えるビット演算に対応したことによる非互換
@@ -37,7 +35,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - `ST_`・`MBR`が頭に付かないなどの古い名前の GIS 関数の削除
   - `BINARY`オペレータが非推奨に
     - MySQL 8.0.27 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
-  - 時刻関連の関数の変更
+  - 時刻関連の関数の変更（タイムスタンプの内部処理 64 ビット化）
     - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
       - `CAST(... AS BINARY)`に置換
   - `DATE_ADD()`・`DATE_SUB()`の動作非互換
@@ -51,5 +49,12 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
   - 正規表現ライブラリ変更
     - 非互換の可能性
+  - `IDENTIFIED BY PASSWORD()`などパスワード関連の一部機能の廃止
+  - `PROCEDURE ANALYSE()`廃止
+  - `ROUND()`・`TRUNCATE()`戻り値の型決定方法の非互換
+  - `INSERT ... ON DUPLICATE KEY UPDATE`で`UPDATE`句の`VALUES()`が非推奨に
+  - `WAIT_UNTIL_SQL_THREAD_AFTER_GTID`が非推奨に
 
-※「N」で始まる関数＋αまで完了しています。
+## 進行中
+
+- **[サーバ変数とオプション（パラメータ）](https://dev.mysql.com/doc/mysqld-version-reference/en/options-variables.html)**
