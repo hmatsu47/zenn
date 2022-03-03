@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/2 現在、以下のような進捗状況です。
+2022/3/3 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -58,3 +58,5 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 ## 進行中
 
 - **[サーバ変数とオプション（パラメータ）](https://dev.mysql.com/doc/mysqld-version-reference/en/options-variables.html)**
+  - Aurora MySQL v1 と v3 の差分のうち、「h」で始まるパラメータまで確認済み
+    - 一旦 v2 は諦めました
