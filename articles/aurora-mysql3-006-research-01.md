@@ -57,6 +57,6 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 
 ## 進行中
 
-- **[サーバ変数とオプション（パラメータ）](https://dev.mysql.com/doc/mysqld-version-reference/en/options-variables.html)**
+- **[サーバ変数とオプション（パラメータ）](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/work/aurora_param_diff.csv)**
   - Aurora MySQL v1 と v3 の差分のうち、「h」で始まるパラメータまで確認済み
     - 一旦 v2 は諦めました
