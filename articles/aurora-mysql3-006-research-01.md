@@ -49,6 +49,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
   - 正規表現ライブラリ変更
     - 非互換の可能性
+  - `OLD_PASSWORD()`廃止（MySQL 5.7 で）
   - `IDENTIFIED BY PASSWORD()`などパスワード関連の一部機能の廃止
   - `PROCEDURE ANALYSE()`廃止
   - `ROUND()`・`TRUNCATE()`戻り値の型決定方法の非互換
@@ -58,7 +59,10 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - 厳密モードのデフォルト化以外はそれほど気を付ける点はなさそう
   - デフォルトのパラメータグループから変える必要がある項目が減った印象
 
-## 未着手
+## 調査中
 
 - **マニュアル全体の差分調査**
   - ステートメントの非互換・構文解析の非互換・その他
+    - `DATE(2)`型廃止
+    - `DELAYED`廃止
+  - MySQL 5.7 の削除・廃止分まで確認済み
