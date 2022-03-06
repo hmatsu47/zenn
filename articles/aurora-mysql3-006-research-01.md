@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/5 現在、以下のような進捗状況です。
+2022/3/6 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -54,9 +54,11 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - `ROUND()`・`TRUNCATE()`戻り値の型決定方法の非互換
   - `INSERT ... ON DUPLICATE KEY UPDATE`で`UPDATE`句の`VALUES()`が非推奨に
   - `WAIT_UNTIL_SQL_THREAD_AFTER_GTID`が非推奨に
+- **[サーバ変数とオプション（パラメータ）](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param.md)**
+  - 厳密モードのデフォルト化以外はそれほど気を付ける点はなさそう
+  - デフォルトのパラメータグループから変える必要がある項目が減った印象
 
-## 進行中
+## 未着手
 
-- **[サーバ変数とオプション（パラメータ）](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/work/aurora_param_diff.csv)**
-  - Aurora MySQL v1 と v3 の差分のうち、「o」で始まるパラメータまで確認済み
-    - 一旦 v2 は諦めました
+- **マニュアル全体の差分調査**
+  - ステートメントの非互換・構文解析の非互換・その他
