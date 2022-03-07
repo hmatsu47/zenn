@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/6 現在、以下のような進捗状況です。
+2022/3/7 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -56,7 +56,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - `INSERT ... ON DUPLICATE KEY UPDATE`で`UPDATE`句の`VALUES()`が非推奨に
   - `WAIT_UNTIL_SQL_THREAD_AFTER_GTID`が非推奨に
 - **[サーバ変数とオプション（パラメータ）](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param.md)**
-  - 厳密モードのデフォルト化以外はそれほど気を付ける点はなさそう
+  - 厳密モードのデフォルト化と`AUTO_INCREMENT`値のロックモードの変更以外はそれほど気を付ける点はなさそう
   - デフォルトのパラメータグループから変える必要がある項目が減った印象
 
 ## 調査中
@@ -65,4 +65,12 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - ステートメントの非互換・構文解析の非互換・その他
     - `DATE(2)`型廃止
     - `DELAYED`廃止
-  - MySQL 5.7 の削除・廃止分まで確認済み
+    - `utf8mb4`のデフォルト照合順序が`utf8mb4_0900_ai_ci`へ
+    - `CHANGE MASTER TO`→`CHANGE REPLICATION SOURCE TO`
+    - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
+    - `GROUP BY ASC/DESC`廃止
+    - `START SLAVE`→`START REPLICA`
+    - 64 文字を超える外部キー制約名を持つテーブルは NG に
+    - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
+    - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
+  - MySQL 8.0 での検索 391 件中 80 件目（5.3 The mysql System Schema）まで確認済み
