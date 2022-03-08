@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/7 現在、以下のような進捗状況です。
+2022/3/8 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -63,14 +63,34 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 
 - **マニュアル全体の差分調査**
   - ステートメントの非互換・構文解析の非互換・その他
+    - 64 文字を超える外部キー制約名を持つテーブルは NG に
+    - `CHANGE MASTER TO`→`CHANGE REPLICATION SOURCE TO`
+    - `CHECK`制約の有効化
+      - 過去に無視された制約の定義が有効あるいはエラーに
+    - Connector を対応バージョンに入れ替え
+    - `CREATE TABLE ... SELECT`のトランザクションの扱いが変更（8.0.21）
+      - 行ベースレプリケーションで 1 つのトランザクションとして記録
+    - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
     - `DATE(2)`型廃止
     - `DELAYED`廃止
-    - `utf8mb4`のデフォルト照合順序が`utf8mb4_0900_ai_ci`へ
-    - `CHANGE MASTER TO`→`CHANGE REPLICATION SOURCE TO`
-    - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
+    - `GRANT`操作の読み取りロックの変更（8.0.22）
     - `GROUP BY ASC/DESC`廃止
+    - GTID レプリケーションの非互換
     - `START SLAVE`→`START REPLICA`
-    - 64 文字を超える外部キー制約名を持つテーブルは NG に
-    - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
+    - `SELECT`・`UNION`パーサールールの変更
+      - ロック句を含む `SELECT`ステートメントにはカッコが必要に
+    - `SHOW ENGINE INNODB MUTEX`一旦廃止後再導入（仕様変更に注意）
+    - `SHOW SLAVE STATUS`→`SHOW REPLICA STATUS`
+    - `TABLE ... UNION (TABLE)`の挙動の変更
+    - `UNION DISTINCT`・`UNION ALL`の挙動の変更
+    - `UNION`の制限変更
+    - `utf8mb4`のデフォルト照合順序が`utf8mb4_0900_ai_ci`へ
+    - アトミック DDL 導入によるレプリケーションの挙動変化
+      - `IF EXISTS`が付かない`DROP TABLE`・`DROP VIEW`のレプリケーション差異
+    - デフォルト認証が変わったことにより、Aurora MySQL v3 で新規ユーザを作成した場合に既存アプリケーションから接続できない可能性がある
+      - `CREATE USER`時に`mysql_native_password`を指定する
+    - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
-  - MySQL 8.0 での検索 391 件中 80 件目（5.3 The mysql System Schema）まで確認済み
+    - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
+
+  - MySQL 8.0 での検索 391 件中 170 件目（15.8.2 Configuring InnoDB for Read-Only Operation）まで確認済み
