@@ -72,10 +72,12 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
       - 行ベースレプリケーションで 1 つのトランザクションとして記録
     - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
     - `DATE(2)`型廃止
-    - `DELAYED`廃止
+    - `DELAYED`廃止（InnoDB では元から使えず）
     - `GRANT`操作の読み取りロックの変更（8.0.22）
     - `GROUP BY ASC/DESC`廃止
     - GTID レプリケーションの非互換
+    - `KEY`パーティショニングのカラムインデックス接頭辞が非推奨に（8.0.21）
+    - `RESET SLAVE`→`RESET REPLICA`
     - `START SLAVE`→`START REPLICA`
     - `SELECT`・`UNION`パーサールールの変更
       - ロック句を含む `SELECT`ステートメントにはカッコが必要に
@@ -92,5 +94,4 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
     - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
-
-  - MySQL 8.0 での検索 391 件中 170 件目（15.8.2 Configuring InnoDB for Read-Only Operation）まで確認済み
+  - MySQL 8.0 での検索 391 件中 200 件目（B.3.3.2 How to Reset the Root Password）まで確認済み
