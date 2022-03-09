@@ -18,7 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/8 現在、以下のような進捗状況です。
+2022/3/9 現在、以下のような進捗状況です。
 
 随時追加・更新していきます。
 
@@ -71,22 +71,28 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - `CREATE TABLE ... SELECT`のトランザクションの扱いが変更（8.0.21）
       - 行ベースレプリケーションで 1 つのトランザクションとして記録
     - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
-    - `DATE(2)`型廃止
     - `DELAYED`廃止（InnoDB では元から使えず）
     - `GRANT`操作の読み取りロックの変更（8.0.22）
-    - `GROUP BY ASC/DESC`廃止
+    - `GROUP BY ASC/DESC`廃止（8.0.13）
+      - グループ化関数を使用した`ORDER BY`サポート（8.0.12）
     - GTID レプリケーションの非互換
     - `KEY`パーティショニングのカラムインデックス接頭辞が非推奨に（8.0.21）
+    - `ORDER BY 【列番号】`・カッコで囲まれたクエリー式内で発生し外部クエリーにも適用される`ORDER BY`（動作不定）が非推奨に
     - `RESET SLAVE`→`RESET REPLICA`
     - `START SLAVE`→`START REPLICA`
     - `SELECT`・`UNION`パーサールールの変更
       - ロック句を含む `SELECT`ステートメントにはカッコが必要に
     - `SHOW ENGINE INNODB MUTEX`一旦廃止後再導入（仕様変更に注意）
     - `SHOW SLAVE STATUS`→`SHOW REPLICA STATUS`
+    - `SQL_CALC_FOUND_ROWS`が非推奨に（8.0.17）
+    - SQL モードの非推奨・削除
+      - `ERROR_FOR_DIVISION_BY_ZERO`, `PAD_CHAR_TO_FULL_LENGTH`（非推奨）
+      - `DB2`, `MAXDB`, `MSSQL`, `MYSQL323`, `MYSQL40`, `ORACLE`, `POSTGRESQL`, `NO_FIELD_OPTIONS`, `NO_KEY_OPTIONS`, `NO_TABLE_OPTIONS`, `NO_AUTO_CREATE_USER`（削除）
     - `TABLE ... UNION (TABLE)`の挙動の変更
     - `UNION DISTINCT`・`UNION ALL`の挙動の変更
     - `UNION`の制限変更
     - `utf8mb4`のデフォルト照合順序が`utf8mb4_0900_ai_ci`へ
+    - `YEAR(2)`型廃止・`YEAR(4)`非推奨→`YEAR`へ
     - アトミック DDL 導入によるレプリケーションの挙動変化
       - `IF EXISTS`が付かない`DROP TABLE`・`DROP VIEW`のレプリケーション差異
     - デフォルト認証が変わったことにより、Aurora MySQL v3 で新規ユーザを作成した場合に既存アプリケーションから接続できない可能性がある
@@ -94,4 +100,4 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
     - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
-  - MySQL 8.0 での検索 391 件中 200 件目（B.3.3.2 How to Reset the Root Password）まで確認済み
+  - MySQL 8.0 での検索 391 件中 250 件目（5.4.2.5 Priority-Based Error Log Filtering (log_filter_internal)）まで確認済み
