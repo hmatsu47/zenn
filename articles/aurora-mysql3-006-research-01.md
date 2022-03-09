@@ -84,7 +84,6 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
       - ロック句を含む `SELECT`ステートメントにはカッコが必要に
     - `SHOW ENGINE INNODB MUTEX`一旦廃止後再導入（仕様変更に注意）
     - `SHOW SLAVE STATUS`→`SHOW REPLICA STATUS`
-    - `SQL_CALC_FOUND_ROWS`が非推奨に（8.0.17）
     - SQL モードの非推奨・削除
       - `ERROR_FOR_DIVISION_BY_ZERO`, `PAD_CHAR_TO_FULL_LENGTH`（非推奨）
       - `DB2`, `MAXDB`, `MSSQL`, `MYSQL323`, `MYSQL40`, `ORACLE`, `POSTGRESQL`, `NO_FIELD_OPTIONS`, `NO_KEY_OPTIONS`, `NO_TABLE_OPTIONS`, `NO_AUTO_CREATE_USER`（削除）
