@@ -77,6 +77,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
       - グループ化関数を使用した`ORDER BY`サポート（8.0.12）
     - GTID レプリケーションの非互換
     - `KEY`パーティショニングのカラムインデックス接頭辞が非推奨に（8.0.21）
+    - `LOCK TABLES ... WRITE`による明示的テーブルロック時の`innodb_table_locks=0`無効化
     - `ORDER BY 【列番号】`・カッコで囲まれたクエリー式内で発生し外部クエリーにも適用される`ORDER BY`（動作不定）が非推奨に
     - `RESET SLAVE`→`RESET REPLICA`
     - `START SLAVE`→`START REPLICA`
@@ -98,5 +99,16 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
       - `CREATE USER`時に`mysql_native_password`を指定する
     - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
+    - 内部一時テーブルの変更（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
-  - MySQL 8.0 での検索 391 件中 250 件目（5.4.2.5 Priority-Based Error Log Filtering (log_filter_internal)）まで確認済み
+  - MySQL 8.0 での検索 391 件中 330 件目（24.6 Restrictions and Limitations on Partitioning）まで確認済み
+
+## 調査対象外
+
+- **`INFORMATION_SCHEMA`・パフォーマンススキーマ・`sys`スキーマの各テーブル・ビュー**
+  - 大幅に変更されており、利用対象のテーブル等をピンポイントで調べたほうが効率が良いため
+    - https://dev.mysql.com/doc/refman/8.0/ja/information-schema.html
+    - https://dev.mysql.com/doc/refman/8.0/ja/performance-schema.html
+    - https://dev.mysql.com/doc/refman/8.0/ja/sys-schema.html
+  - なお、Aurora MySQL 3.01 時点では、パフォーマンスインサイト（パフォーマンススキーマの情報を利用）で取得可能なデータに異常？がある可能性も
+    - https://qiita.com/hmatsu47/items/9db2ad8e8f41e44a54b7#%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%A4%E3%83%B3%E3%82%B5%E3%82%A4%E3%83%88%E3%81%8C
