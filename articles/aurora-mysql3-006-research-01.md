@@ -104,6 +104,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - `YEAR(2)`型廃止・`YEAR(4)`非推奨→`YEAR`へ
     - アトミック DDL 導入によるレプリケーションの挙動変化
       - `IF EXISTS`が付かない`DROP TABLE`・`DROP VIEW`のレプリケーション差異
+    - クライアントの`--ssl`・`--ssl-verify-server-cert`オプションが削除
     - デフォルト認証が変わったことにより、Aurora MySQL v3 で新規ユーザを作成した場合に既存アプリケーションから接続できない可能性がある
       - `CREATE USER`時に`mysql_native_password`を指定する
     - プリペアドステートメント内のユーザー変数への参照のタイプの決定タイミング変更（8.0.22）
