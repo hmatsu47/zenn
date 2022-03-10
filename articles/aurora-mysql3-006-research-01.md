@@ -18,9 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/9 現在、以下のような進捗状況です。
-
-随時追加・更新していきます。
+2022/3/10 現在、以下のような進捗状況です（各項目の調査を完了し整理中）。
 
 ## 完了
 
@@ -59,11 +57,10 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
   - 厳密モードのデフォルト化と`AUTO_INCREMENT`値のロックモードの変更以外はそれほど気を付ける点はなさそう
   - デフォルトのパラメータグループから変える必要がある項目が減った印象
 
-## 調査中
-
 - **マニュアル全体の差分調査**
   - ステートメントの非互換・構文解析の非互換・その他
     - 64 文字を超える外部キー制約名を持つテーブルは NG に
+    - `\N`は`NULL`のシノニムではなくなった
     - `CHANGE MASTER TO`→`CHANGE REPLICATION SOURCE TO`
     - `CHECK`制約の有効化
       - 過去に無視された制約の定義が有効あるいはエラーに
@@ -72,6 +69,12 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
       - 行ベースレプリケーションで 1 つのトランザクションとして記録
     - `CREATE TEMPORARY TABLE`での`TABLESPACE = {innodb_file_per_table | innodb_temporary}`非推奨
     - `DELAYED`廃止（InnoDB では元から使えず）
+    - `EXPLAIN`の`EXTENDED`・`PARTITIONS`キーワード削除（常に有効）
+    - `FLOAT`・`DECIMAL`・`DOUBLE`型（シノニム含む）の`UNSIGNED`属性非推奨
+    - `FLOAT`・`DOUBLE`型（シノニム含む）の`AUTO_INCREMENT`非推奨
+    - `FLOAT(M,D)`・`DOUBLE(M,D)`（シノニム含む）非推奨
+    - `FLUSH HOSTS`が非推奨に（8.0.23）
+    - `GRANT`で暗黙のユーザ作成およびユーザ属性のみの変更を廃止
     - `GRANT`操作の読み取りロックの変更（8.0.22）
     - `GROUP BY ASC/DESC`廃止（8.0.13）
       - グループ化関数を使用した`ORDER BY`サポート（8.0.12）
@@ -80,28 +83,38 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - `LOCK TABLES ... WRITE`による明示的テーブルロック時の`innodb_table_locks=0`無効化
     - `ORDER BY 【列番号】`・カッコで囲まれたクエリー式内で発生し外部クエリーにも適用される`ORDER BY`（動作不定）が非推奨に
     - `RESET SLAVE`→`RESET REPLICA`
-    - `START SLAVE`→`START REPLICA`
+    - `RIGHT JOIN`の実行結果が非互換の可能性（8.0.22）
+      - 以前の結果が不正確な可能性あり
+    - `SELECT ... INTO ... FROM`が非推奨に（8.0.22）
     - `SELECT`・`UNION`パーサールールの変更
       - ロック句を含む `SELECT`ステートメントにはカッコが必要に
     - `SHOW ENGINE INNODB MUTEX`一旦廃止後再導入（仕様変更に注意）
+    - `SHOW GRANTS`で（動的権限導入により）`ALL PRIVILEGES`が表示されなくなった
     - `SHOW SLAVE STATUS`→`SHOW REPLICA STATUS`
     - SQL モードの非推奨・削除
       - `ERROR_FOR_DIVISION_BY_ZERO`, `PAD_CHAR_TO_FULL_LENGTH`（非推奨）
       - `DB2`, `MAXDB`, `MSSQL`, `MYSQL323`, `MYSQL40`, `ORACLE`, `POSTGRESQL`, `NO_FIELD_OPTIONS`, `NO_KEY_OPTIONS`, `NO_TABLE_OPTIONS`, `NO_AUTO_CREATE_USER`（削除）
+    - `START SLAVE`→`START REPLICA`
     - `TABLE ... UNION (TABLE)`の挙動の変更
     - `UNION DISTINCT`・`UNION ALL`の挙動の変更
     - `UNION`の制限変更
+    - `utf8mb3`が非推奨に
+      - 現時点では MySQL 8.0 含め`utf8`は`utf8mb3`のシノニム
     - `utf8mb4`のデフォルト照合順序が`utf8mb4_0900_ai_ci`へ
     - `YEAR(2)`型廃止・`YEAR(4)`非推奨→`YEAR`へ
     - アトミック DDL 導入によるレプリケーションの挙動変化
       - `IF EXISTS`が付かない`DROP TABLE`・`DROP VIEW`のレプリケーション差異
     - デフォルト認証が変わったことにより、Aurora MySQL v3 で新規ユーザを作成した場合に既存アプリケーションから接続できない可能性がある
       - `CREATE USER`時に`mysql_native_password`を指定する
+    - プリペアドステートメント内のユーザー変数への参照のタイプの決定タイミング変更（8.0.22）
+    - レプリケーション設定の不整合（ギャップ）にかかわる設定項目の変更（8.0.19）
+    - 一時テーブルの`ROW`・`MIXED`形式バイナリログ記録の変更（5.7.25・8.0.4）
     - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
+    - 数値データ型の`ZEROFILL`属性が非推奨に
     - 内部一時テーブルの変更（Aurora MySQL v1 → v3 変更点でもピックアップ）
     - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
-  - MySQL 8.0 での検索 391 件中 330 件目（24.6 Restrictions and Limitations on Partitioning）まで確認済み
+    - 文字列データ型の`BINARY`属性が非推奨に
 
 ## 調査対象外
 
