@@ -18,9 +18,7 @@ Zenn 記事を逐一追加していくのも冗長ですので、GitHub リポ�
 
 https://github.com/hmatsu47/aurora_mysql1to3diff
 
-2022/3/10 現在、以下のような進捗状況です（各項目の調査を完了し整理中）。
-
-## 完了
+2022/3/11 現在、一通り完了しました。
 
 - **[予約語](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md)**
   - 計 30 個
@@ -126,3 +124,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
     - https://dev.mysql.com/doc/refman/8.0/ja/sys-schema.html
   - なお、Aurora MySQL 3.01 時点では、パフォーマンスインサイト（パフォーマンススキーマの情報を利用）で取得可能なデータに異常？がある可能性も
     - https://qiita.com/hmatsu47/items/9db2ad8e8f41e44a54b7#%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%A4%E3%83%B3%E3%82%B5%E3%82%A4%E3%83%88%E3%81%8C
+
+---
+
+次回は実際の DB クラスタとインスタンスのパラメータ、テーブル、アプリケーションコード（SQL 文の記述）の確認です。
