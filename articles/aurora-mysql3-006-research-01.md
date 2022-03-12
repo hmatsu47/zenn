@@ -128,3 +128,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 ---
 
 次回は実際の DB クラスタとインスタンスのパラメータ、テーブル、アプリケーションコード（SQL 文の記述）の確認です。
+
+- **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（7）パラメータ・コード確認](/hmatsu47/articles/aurora-mysql3-007-research-02)**
+
+に続きます。
