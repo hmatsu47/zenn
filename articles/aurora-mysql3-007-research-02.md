@@ -3,7 +3,7 @@ title: "Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["aws", "aurora", "mysql"]
-published: false
+published: true
 ---
 
 これは
