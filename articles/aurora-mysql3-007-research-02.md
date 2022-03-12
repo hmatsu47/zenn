@@ -56,7 +56,7 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 
 # アプリケーション・コードとテーブル定義の検討
 
-## SQL 文以外
+## ライブラリ
 
 DB 接続用のライブラリ（MySQL Connector/J）を MySQL 8.0 対応バージョンに変更します。
 
