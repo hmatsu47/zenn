@@ -100,6 +100,14 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all
 
 `DOUBLE(M,D)`がありました。こちらも現時点では「非推奨」であり、一旦別タイミングでの対応とします。
 
+### その他 SQL ステートメントなど
+
+https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md#sql-%E3%82%B9%E3%83%86%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%E3%81%AA%E3%81%A9
+
+**[サイボウズのブログ記事](https://blog.cybozu.io/entry/2021/05/24/175000#GROUP-BY-a-ASC-%E3%81%AE%E5%BB%83%E6%AD%A2)** にもあった`GROUP BY 【列名】 ASC/DESC`ですが、 **暗黙の昇順ソート** （`ASC`が省略されているもの）が比較的多数見つかりました。
+
+これは見逃しやすいので注意が必要です。
+
 # 実際に動かしてみないとわからないものもある
 
 ここまでは調査資料から判別できましたが、一部、それが難しい項目もあります。
