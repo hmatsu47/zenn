@@ -64,10 +64,21 @@ DB 接続用のライブラリ（MySQL Connector/J）を MySQL 8.0 対応バー�
 
 その際、TLS 接続（TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
 
-- TLS 接続の場合
-  - TLS バージョンの問題が生じる可能性あり
-- 非 TLS 接続の場合
-  - 接続パラメータに`sslMode=DISABLED`（互換性の問題がある場合は、非推奨のパラメータ`useSSL=false`）が必要
+### TLS 接続の場合
+
+TLS バージョンの問題が生じる可能性があります（Aurora MySQL 移行より前に新しいバージョンのライブラリに更新する場合）。
+
+https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Security.html#AuroraMySQL.Security.SSL.TLS_Version
+
+### 非 TLS 接続の場合
+
+ライブラリのバージョンによっては、接続パラメータに`sslMode=DISABLED`が必要になる場合があります。
+
+https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.html
+
+:::message
+移行作業中に互換性の問題が生じる恐れがある場合は、代わりに非推奨の`useSSL=false`を指定し、問題が生じる恐れがなくなった時点で`sslMode=DISABLED`に書き換えます。
+:::
 
 ## SQL 文とテーブル定義
 
