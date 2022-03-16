@@ -62,10 +62,10 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 
 DB 接続用のライブラリ（MySQL Connector/J）を MySQL 8.0 対応バージョンに変更します。
 
-その際、TLS 接続（初期接続時にキャッシュがない、あるいは TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
+その際、TLS 接続（TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
 
 - TLS 接続の場合
-  - TLS バージョン、性能の問題が生じる可能性あり
+  - TLS バージョンの問題が生じる可能性あり
 - 非 TLS 接続の場合
   - 接続パラメータに`sslMode=DISABLED`（互換性の問題がある場合は、非推奨のパラメータ`useSSL=false`）が必要
 
