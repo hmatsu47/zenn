@@ -156,3 +156,10 @@ https://dev.mysql.com/doc/refman/8.0/ja/union.html#union-distinct-all
 ---
 
 ここからも不定期更新ですが、次回は実際の動作確認です。
+
+---
+
+**2022/3/18 追記：**
+動作確認用の環境を構築する際に問題になった点を Qiita に書きました（小ネタ）。
+
+https://qiita.com/hmatsu47/items/d3f34f39c28a4b802966
