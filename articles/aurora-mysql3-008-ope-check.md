@@ -39,7 +39,7 @@ published: false
 - **インプレースアップグレード（v1 → v2）＋スナップショット復元（v2 → v3）**
 - **テーブル設計（インデックス等を含む）のダンプ＆リストア＋DMS によるデータ移行＋ユーザ権限移行**
 - **MySQL Shell の `dumpInstance()` & `loadDump()`（またはその他のテーブルダンプ・リストアツール）＋ユーザ権限移行**
-  - 参考 : **[Aurora MySQL バージョン 1（5.6 互換）→バージョン 3（8.0 互換）間の dumpInstance() & loadDump() を試す](https://qiita.com/hmatsu47/items/9db2ad8e8f41e44a54b7)**
+  - **参考 : [Aurora MySQL バージョン 1（5.6 互換）→バージョン 3（8.0 互換）間の dumpInstance() & loadDump() を試す](https://qiita.com/hmatsu47/items/9db2ad8e8f41e44a54b7)**
 
 など、実際の移行作業で使う方法や移行パスを意識して確認環境を用意したほうが良いです。
 
