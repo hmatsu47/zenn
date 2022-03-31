@@ -1,0 +1,7 @@
+title: "Aurora MySQL v1 → v3（3.01.0 移行計画編）"
+summary: "Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）の移行を計画するための本です。"
+topics: ["aws", "aurora", "mysql"] # トピック（5つまで）
+published: false # falseだと下書き
+price: 0 # 有料の場合200〜5000
+chapters:
+  - 01-top
