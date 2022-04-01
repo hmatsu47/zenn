@@ -2,7 +2,7 @@
 title: "Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（1）はじめに"
 emoji: "🌌"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["aws", "aurora", "mysql"]
+topics: ["aws", "aurora", "mysql", "移行", "バージョンアップ"]
 published: true
 ---
 Amazon Aurora MySQL 互換エディション（以降「Aurora MySQL」と表記）のバージョン 1（MySQL 5.6 互換・以降「v1」）の EoL が発表されました。
@@ -17,6 +17,7 @@ https://endoflife.software/applications/databases/mysql
 
 :::message
 こちらを見ると、2024/2/29 より前に EoL になることはなさそうですが、v1 の日付から類推すると 2024/7/31 あたりに EoL になりそう、とも…？
+ - https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
 :::
 
 というわけで、**これから数週間の予定で Aurora MySQL v3（MySQL 8.0 互換）移行に必要そうな情報をかき集めてみます。**
