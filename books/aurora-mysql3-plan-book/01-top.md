@@ -15,7 +15,7 @@ https://endoflife.software/applications/databases/mysql
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
 
-このような状況にあるため、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。
+このような状況のもと、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。
 
 # 免責事項、制限事項等
 
@@ -32,4 +32,5 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Versio
 - 本書記載の内容は著者個人の調査等によるものであり、所属する組織とは無関係です。
 - 本書の内容は 2022 年 3 月現在の情報をもとに構成しています。
 - 移行先の Aurora MySQL のマイナーバージョンは 3.01.0 を想定しています。
+  - マイナーバージョン 3.01.0 は MySQL 8.0.23 をベースに開発されています。
   - Aurora MySQL v3 は、ベースとなる MySQL 8.0 の Continuous Delivery Model（継続提供モデル）に倣い、マイナーバージョンごとの機能追加が想定されています。
