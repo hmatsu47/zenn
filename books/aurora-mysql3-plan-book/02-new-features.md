@@ -58,7 +58,7 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
   - 再起動後は保持されるが、スナップショットからの復元時などには保持されない
     - **[AUTO_INCREMENT 値](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-autoincrement)**
 - **リソースグループ**
-- `UNDO`テーブル領域の新機能
+- **`UNDO`テーブル領域の新機能**
   - Aurora ではストレージレイヤのアーキテクチャが異なるため
 - **TLS 1.3**
 - **MySQL プラグインの設定**
@@ -73,6 +73,10 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 独自機能として残り、適用範囲が拡大されました。
 
 - **[新しいパラレルクエリの最適化](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-features-pq)**
+  - 以下を含む SQL 文をサポート
+    - `TEXT`・`BLOB`・`JSON`・`GEOMETRY`・`VARCHAR`・768 バイトより長い`CHAR`型を含んだテーブル
+    - パーティショニングテーブル
+    - `SELECT`のリスト（射影）内および`HAVING`句内の集計関数
 
 ## インスタント DDL
 
