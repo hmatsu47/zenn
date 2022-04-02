@@ -1,6 +1,8 @@
 ---
 title: "Aurora MySQL v3 の新機能"
 ---
+# この章について
+
 移行計画の前に、Aurora MySQL v3 の新機能について簡単に触れておきます。
 
 # 本家（コミュニティ版）MySQL 8.0 由来の新機能
@@ -63,6 +65,12 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 - **TLS 1.3**
 - **MySQL プラグインの設定**
 - **X プラグイン（ドキュメントストア機能）**
+
+## その他
+
+一部のキーワードが MySQL 8.0.26 からバックポートされています。
+
+- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
 
 # Aurora MySQL v3 独自機能の変更点
 

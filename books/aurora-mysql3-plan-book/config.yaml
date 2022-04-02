@@ -6,3 +6,4 @@ price: 0 # 有料の場合200〜5000
 chapters:
   - 01-top
   - 02-new-features
+  - 03-pre-plan
