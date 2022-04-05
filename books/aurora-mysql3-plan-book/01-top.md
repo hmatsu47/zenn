@@ -17,7 +17,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Versio
 
 このような状況のもと、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。
 
-# 免責事項、制限事項等
+# 注意事項など
 
 - 本書は以下の Zenn 記事を再構成したものです。
   - **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（1）はじめに](https://zenn.dev/hmatsu47/articles/aurora-mysql3-001-top)**
@@ -33,4 +33,10 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Versio
 - 本書の内容は 2022 年 3 月現在の情報をもとに構成しています。
 - 移行先の Aurora MySQL のマイナーバージョンは 3.01.0 を想定しています。
   - マイナーバージョン 3.01.0 は MySQL 8.0.23 をベースに開発されています。
-  - Aurora MySQL v3 は、ベースとなる MySQL 8.0 の Continuous Delivery Model（継続提供モデル）に倣い、マイナーバージョンごとの機能追加が想定されています。
+  - Aurora MySQL v3 は、ベースとなる MySQL 8.0 の Continuous Delivery Model（継続提供モデル）に倣い、**マイナーバージョンごとの機能追加および変更・削除が想定されています。**
+  - そのため、マイナーバージョンが上がると、対応が必要な変更点が増える可能性があります。
+
+:::message
+Aurora MySQL v3 の初期リリース（3.01.0：MySQL 8.0.23 ベース）は LTS ではありません。
+今後のマイナーバージョンで LTS リリースが設けられる予定です。
+:::
