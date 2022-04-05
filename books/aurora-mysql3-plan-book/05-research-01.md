@@ -31,7 +31,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param
 
 実際に使用しているパラメータグループ（クラスタ・DB）と比較して、対応が必要な点を見付けます。
 
-## 影響がありそうな変更点
+## 対応が必要になりそうな変更点
 
 ### `innodb_strict_mode`のデフォルトが厳密モードに
 
@@ -71,6 +71,6 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 
 動作調整のために`internal_tmp_mem_storage_engine`パラメータが追加されました。
 
-Reader インスタンスでは、この設定値を超える容量の内部テンポラリテーブルを作ることができないため、設定値のチューニングに注意が必要です。
+特に Aurora の Reader インスタンスでは設定値を超える容量の内部テンポラリテーブルを作ることができないため、設定値のチューニングに注意が必要です。
 
 https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/
