@@ -119,13 +119,13 @@ https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 
 ### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
 
-`innodb_read_only`が`1`のときに InnoDB ストレージエンジンで一時（テンポラリ）テーブルが作成できなくなったのに伴い、Reader インスタンスで`CREATE TEMPORARY TABLE … ENGINE=InnoDB`を実行する場合は SQL モード`NO_ENGINE_SUBSTITUTION`を無効にする必要があります。
+`innodb_read_only`が`1`のときに InnoDB ストレージエンジンでテンポラリテーブルが作成できなくなったのに伴い、Reader インスタンスで`CREATE TEMPORARY TABLE … ENGINE=InnoDB`を実行する場合は SQL モード`NO_ENGINE_SUBSTITUTION`を無効にする必要があります。
 
 ただし`AS SELECT`付きで実行する場合は SQL モードにかかわらずエラーになります。
 
 そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良さそうです。
 
-- **[リーダー DB インスタンスの一時テーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
+- **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
 
 ### 内部テンポラリテーブル変更
 
@@ -135,9 +135,15 @@ https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 
 MyISAM ストレージエンジンが廃止され、アーキテクチャが変わりました。
 
-- **[内部一時テーブルのストレージエンジン](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-internal-temp-tables-engine)**
+- **[内部テンポラリテーブルのストレージエンジン](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-internal-temp-tables-engine)**
 
 動作調整のために`internal_tmp_mem_storage_engine`パラメータが追加されました。
+
+:::message
+**2022/4/5 追記：**
+Reader インスタンスでは共有ストレージへの書き込みができないため、`internal_tmp_mem_storage_engine`パラメータの設定値が重要になります。
+https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/
+:::
 
 ## 本家 MySQL 8.0 と Aurora MySQL v3 の相違点
 

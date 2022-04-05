@@ -48,7 +48,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 - **ロックの改良**
   - `NO WAIT`・`SKIP LOCKED`
     - **[MySQL 8.0 で NOWAIT / SKIP LOCKED（いまさら）](https://qiita.com/hmatsu47/items/7675b026e65762d2445f)**
-- **結合（`JOIN`）の改良**
+- **結合（`JOIN`）処理の改良（高速化）**
   - ハッシュ結合（Hash join）
     - **[MySQL 8.0.20 で強化されたハッシュジョイン（Hash Join）を試してみる](https://qiita.com/hmatsu47/items/e9d3d4396fea42c8960e)**
 

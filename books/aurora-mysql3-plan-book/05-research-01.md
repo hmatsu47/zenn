@@ -57,3 +57,20 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 ### `tx_isolation`が`transaction-isolation`に
 
 これはパラメータグループというよりも、アプリケーションから DB に接続する部分の実装やライブラリのオプション設定に関わる問題ですが、以前触れた **[サイボウズのブログ記事](https://blog.cybozu.io/entry/2021/05/24/175000#%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E5%88%86%E9%9B%A2%E3%83%AC%E3%83%99%E3%83%AB%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B%E5%A4%89%E6%95%B0%E5%90%8D%E3%81%AE%E5%A4%89%E6%9B%B4)** ではこの変更の影響を受けていました。
+
+
+### `internal_tmp_mem_storage_engine`の追加（内部テンポラリテーブル変更）
+
+:::message
+`CREATE TEMPORARY TABLE`ではなく、SQL 文の実行時に内部的に使用されるテンポラリテーブルの話です。
+:::
+
+内部テンポラリテーブルでは、MyISAM ストレージエンジンが廃止されアーキテクチャが変わりました。
+
+- **[内部テンポラリテーブルのストレージエンジン](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-internal-temp-tables-engine)**
+
+動作調整のために`internal_tmp_mem_storage_engine`パラメータが追加されました。
+
+Reader インスタンスでは、この設定値を超える容量の内部テンポラリテーブルを作ることができないため、設定値のチューニングに注意が必要です。
+
+https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/

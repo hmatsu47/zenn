@@ -10,7 +10,7 @@ v1 → v3 変更点の調査結果をもとに、アプリケーションコー�
 すべてをカバーするものではありませんが、いくつかピックアップしていきます。
 
 :::message
-Chapter 05 で挙げた`tx_isolation`→`transaction-isolation`の変更も忘れずに。
+Chapter 05 で挙げた`tx_isolation`→`transaction-isolation`の変更もあります。
 :::
 
 ## ライブラリ
@@ -29,7 +29,9 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.S
 
 ライブラリのバージョンによっては、接続パラメータで SSL/TLS の無効化が必要になる場合があります。
 
-例）MySQL Connector/J で、接続パラメータに`sslMode=DISABLED`を（追加）指定します。
+例）
+
+- MySQL Connector/J で、接続パラメータに`sslMode=DISABLED`を（追加）指定する
 
 https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.html
 
@@ -84,3 +86,15 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 ## `UNION`の構文解析と動作の変更
 
 `FOR UPDATE`との組み合わせがありそうです。
+
+## Aurora MySQL 独自の問題
+
+### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
+
+`innodb_read_only`が`1`のときに InnoDB ストレージエンジンで一時（テンポラリ）テーブルが作成できなくなったのに伴い、Reader インスタンスで`CREATE TEMPORARY TABLE … ENGINE=InnoDB`を実行する場合は SQL モード`NO_ENGINE_SUBSTITUTION`を無効にする必要があります。
+
+ただし`AS SELECT`付きで実行する場合は SQL モードにかかわらずエラーになります。
+
+そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良いでしょう。
+
+- **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
