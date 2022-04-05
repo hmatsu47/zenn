@@ -9,7 +9,7 @@ title: "調査結果（1）設定パラメータ関連"
 
 # AWS 公式の Aurora 関連ドキュメントより
 
-## v1 → v2 の際に`engine`属性が`aurora`から`aurora-mysql`に変わる
+## v1 → v2 で`engine`属性が`aurora`から`aurora-mysql`に
 
 マネジメントコンソールだけ使っている場合には関係ないのですが、CLI や SDK などを使って API を呼び出すコードを書いている場合、パラメータとして指定する属性（`engine`）が変わるので修正が必要になります。
 
@@ -33,7 +33,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param
 
 ## 影響がありそうな変更点
 
-### `innodb_strict_mode`のデフォルトが **厳密モード** に
+### `innodb_strict_mode`のデフォルトが厳密モードに
 
 https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_strict_mode
 
