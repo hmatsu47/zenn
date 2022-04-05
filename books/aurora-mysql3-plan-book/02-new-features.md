@@ -91,3 +91,11 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 独自機能が廃止され、本家のインスタント DDL が採用されました。
 
 - **[インスタント DDL (Aurora MySQL バージョン 3)](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.FastDDL.html#AuroraMySQL.mysql80-instant-ddl)**
+
+## クエリキャッシュ（廃止）
+
+クエリキャッシュは I/O の低減に寄与する一方で並列スレッドのロック競合を引き起こすなどの問題があり、MySQL 5.6 の時点ですでに非推奨になっていましたが、MySQL 8.0 で廃止されました。
+
+これに合わせて、Aurora MySQL v3 でも Aurora 独自仕様のクエリキャッシュが廃止されました。
+
+Aurora MySQL v1 でクエリキャッシュを使用していた場合は、パフォーマンスの変化に気を付ける必要があります。

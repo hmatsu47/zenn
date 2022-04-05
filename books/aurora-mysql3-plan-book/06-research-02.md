@@ -13,8 +13,6 @@ title: "調査結果（2）SQL 関連"
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md
 
-すでに使用しているテーブル名・カラム名などに新しく予約語となったキーワード（`RANK`など）が含まれる場合は、前後を「`」で囲みます。
-
 - `CUBE`
 - `CUME_DIST`
 - `DENSE_RANK`
