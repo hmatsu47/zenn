@@ -51,10 +51,10 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.
 - MySQL 8.0 で 64 ビットを超えるビット演算に対応したことによる非互換
 - `&&`・`||`（`OR`のシノニム）・`!`が非推奨に
 - GIS 関数の実装変更（5.6 → 5.7 → 8.0）
-- 非互換の可能性
+  - 非互換の可能性
 - `ST_`・`MBR`が頭に付かないなどの古い名前の GIS 関数の削除
 - `BINARY`オペレータが非推奨に
-- MySQL 8.0.27 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
+  - MySQL 8.0.27 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
 - 時刻関連の関数の変更（タイムスタンプの内部処理 64 ビット化）
   - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
     - `CAST(... AS BINARY)`に置換
@@ -66,9 +66,9 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.
 - `GREATEST()`・`LEAST()`の引数の型推測（キャスト）ルール変更
 - `MASTER`→`SOURCE`読み替え（MySQL 8.0.26 からバックポート済み）
 - `MATCH()`の動作非互換
-- MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
+  - MySQL 8.0.28 の変更点なので将来の Aurora MySQL v3 で取り込まれる可能性が高い
 - 正規表現ライブラリ変更
-- 非互換の可能性
+  - 非互換の可能性
 - `OLD_PASSWORD()`廃止（MySQL 5.7 で）
 - `IDENTIFIED BY PASSWORD()`などパスワード関連の一部機能の廃止
 - `PROCEDURE ANALYSE()`廃止
