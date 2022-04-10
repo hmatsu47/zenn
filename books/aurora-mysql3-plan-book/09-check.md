@@ -72,11 +72,11 @@ Aurora MySQL v3 では本家 MySQL 8.0 由来のハッシュ結合が導入さ�
 
 ## 動作検証を完了したら DMS レプリケーション（CDC）をテストする
 
-- **図 1 ：DMS レプリケーション（CDC）を使う移行の構成例・移行前**
+- **図 1 ：DMS レプリケーション（CDC）を使う移行の構成例・移行準備段階のイメージ**
 
 ![](/images/aurora-mysql3-plan-book/dms_replication_before.png)
 
-- **図 2 ：DMS レプリケーション（CDC）を使う移行の構成例・移行時**
+- **図 2 ：DMS レプリケーション（CDC）を使う移行の構成例・移行直後のイメージ**
 
 ![](/images/aurora-mysql3-plan-book/dms_replication_after.png)
 
