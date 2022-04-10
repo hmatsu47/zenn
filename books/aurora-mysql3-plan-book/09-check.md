@@ -72,8 +72,13 @@ Aurora MySQL v3 では本家 MySQL 8.0 由来のハッシュ結合が導入さ�
 
 ## 動作検証を完了したら DMS レプリケーション（CDC）をテストする
 
-![](/images/aurora-mysql3-plan-book/dms_replication.png)
-**（図：DMS レプリケーション（CDC）を使う移行の構成例）**
+- **図 1 ：DMS レプリケーション（CDC）を使う移行の構成例・移行前**
+
+![](/images/aurora-mysql3-plan-book/dms_replication_before.png)
+
+- **図 2 ：DMS レプリケーション（CDC）を使う移行の構成例・移行時**
+
+![](/images/aurora-mysql3-plan-book/dms_replication_after.png)
 
 DMS レプリケーション（CDC）を使ってメンテナンス停止時間の短縮をはかる場合は、アプリケーションの動作検証後、移行ステップを進める前にレプリケーションに支障がないかを必ず確認しておきます。
 
