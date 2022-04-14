@@ -12,7 +12,7 @@ published: true
 
 の続きです。
 
-# 調査をどう進めるか？
+## 調査をどう進めるか？
 
 大雑把に分けると、
 
@@ -21,7 +21,7 @@ published: true
 
 の 2 通りの進め方があると思いますが、MySQL 5.7 以前から MySQL 8.0 への移行では**それ以前の 5.x 間の移行よりも注意すべき点が多く、またそのまま移行しただけでは動かなくなる可能性が低くない**ので、小規模な利用かつ稼働率や性能などの要件が緩い環境でなければ、事前の情報収集をお勧めします。
 
-# 参考資料① MySQL 5.7 以前→ 8.0 移行体験記など
+## 参考資料① MySQL 5.7 以前→ 8.0 移行体験記など
 
 探してもかなり少ないと思います。
 
@@ -41,7 +41,7 @@ https://severalnines.com/database-blog/moving-mysql-57-mysql-80-what-you-should-
 
 これ以外に Facebook（Meta）社の事例も見つかりますが、Facebook で主力として利用しているのは InnoDB とは別の MyRocks というストレージエンジンですので（すべてではないと思いますが）、混乱を避けるためにここでは割愛します。
 
-# 参考資料② AWS 公式の Aurora 関連ドキュメント
+## 参考資料② AWS 公式の Aurora 関連ドキュメント
 
 [前回の記事](/hmatsu47/articles/aurora-mysql3-001-top)で示した
 
@@ -55,7 +55,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 
 あたりの情報が参考になりそうです。
 
-# 参考資料③ Oracle 公式の MySQL 関連ドキュメント
+## 参考資料③ Oracle 公式の MySQL 関連ドキュメント
 
 こちらにまとまっています。
 
@@ -85,7 +85,7 @@ https://dev.mysql.com/blog-archive/
 
 こちらも補助的に使えそうです。
 
-# 参考資料④ その他個人ブログなど
+## 参考資料④ その他個人ブログなど
 
 Oracle の中の人や Oracle ACE（MySQL）のみなさまの個人ブログにも参考になる記事がありそうです。
 

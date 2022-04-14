@@ -26,7 +26,7 @@ https://endoflife.software/applications/databases/mysql
 2022/2/23 現在、Aurora MySQL v3 の MySQL ベースバージョンは 8.0.23 です。
 :::
 
-# そもそも Aurora MySQL v3 に移行するメリットは？
+## そもそも Aurora MySQL v3 に移行するメリットは？
 
 Aurora MySQL v2 の EoL 予想時期が微妙だとして、それだけの理由でいきなり v3 への移行を進めようとすると、
 
@@ -43,7 +43,7 @@ Aurora MySQL v2 の EoL 予想時期が微妙だとして、それだけの理�
 https://speakerdeck.com/hmatsu47/mysql-8-dot-0hefalseyi-xing-wokao-eru
 https://github.com/hmatsu47/mysql80_no_usui_hon
 
-## 新機能が追加されている
+### 新機能が追加されている
 
 代表的なものを挙げます。
 
@@ -56,7 +56,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 - ロールによる権限管理
   - https://qiita.com/hmatsu47/items/e4a49d32685220d492a9
 
-## 既存の機能が強化されている
+### 既存の機能が強化されている
 
 同様に、いくつか挙げます。
 
@@ -77,7 +77,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
   - SRID 対応
     - https://qiita.com/hmatsu47/items/97839fd9c3db1d2e9557
 
-## （ワークロードによっては）高速化が期待できる
+### （ワークロードによっては）高速化が期待できる
 
 実行計画のバリエーションが増えたため、ワークロードによっては高速化する可能性があります。
 
@@ -89,7 +89,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 
 また、後日続きの記事で触れる予定ですが、Aurora 独自実装のパラレルクエリの適用範囲が広がっています。
 
-# v3 移行で気を付けなければならないポイントは？
+## v3 移行で気を付けなければならないポイントは？
 
 v1（MySQL 5.6）→ v2（MySQL 5.7）と比べても**要配慮な変更点が多い**です。
 

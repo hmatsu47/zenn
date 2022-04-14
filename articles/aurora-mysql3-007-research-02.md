@@ -19,7 +19,7 @@ published: true
 ただし、一部実際とは異なる部分もあります。
 :::
 
-# パラメータグループの検討
+## パラメータグループの検討
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param.md
 
@@ -27,7 +27,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/aurora-mysql1_3_param
 
 私が関わっているサービスでは、以下の点が出てきました。
 
-## `innodb_strict_mode`のデフォルトが **厳密モード** に
+### `innodb_strict_mode`のデフォルトが **厳密モード** に
 
 https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_strict_mode
 
@@ -40,7 +40,7 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_str
 こちらは本家 MySQL のデフォルトとは違い、Aurora MySQL のデフォルトパラメータグループでは v1 から v3 まで`0`（本家 MySQL では **無指定** に相当）です。
 :::
 
-## `innodb_autoinc_lock_mode`のデフォルトが`1`から`2`に
+### `innodb_autoinc_lock_mode`のデフォルトが`1`から`2`に
 
 **`AUTO_INCREMENT`値** 生成時のロックモードです。
 
@@ -50,27 +50,27 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 
 一方、以下の点については特に問題にならないことがわかりました。
 
-## `tx_isolation`が`transaction-isolation`に変わった
+### `tx_isolation`が`transaction-isolation`に変わった
 
 これはパラメータグループというよりも、アプリケーションから DB に接続する部分の実装やライブラリのオプション設定に関わる問題ですが、以前触れた **[サイボウズのブログ記事](https://blog.cybozu.io/entry/2021/05/24/175000#%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E5%88%86%E9%9B%A2%E3%83%AC%E3%83%99%E3%83%AB%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B%E5%A4%89%E6%95%B0%E5%90%8D%E3%81%AE%E5%A4%89%E6%9B%B4)** ではこの変更の影響を受けていました。
 
 私が関わっているサービスではこのパラメータをアプリケーションから変更していないので、対応は不要です。
 
-# アプリケーション・コードとテーブル定義の検討
+## アプリケーション・コードとテーブル定義の検討
 
-## ライブラリ
+### ライブラリ
 
 DB 接続用のライブラリ（MySQL Connector/J）を MySQL 8.0 対応バージョンに変更します。
 
 その際、TLS 接続（TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
 
-### TLS 接続の場合
+#### TLS 接続の場合
 
 TLS バージョンの問題が生じる可能性があります（Aurora MySQL 移行より前に新しいバージョンのライブラリに更新する場合）。
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Security.html#AuroraMySQL.Security.SSL.TLS_Version
 
-### 非 TLS 接続の場合
+#### 非 TLS 接続の場合
 
 ライブラリのバージョンによっては、接続パラメータに`sslMode=DISABLED`が必要になる場合があります。
 
@@ -80,11 +80,11 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 移行作業中に互換性の問題が生じる恐れがある場合は、代わりに非推奨の`useSSL=false`を指定し、問題が生じる恐れがなくなった時点で`sslMode=DISABLED`に書き換えます。
 :::
 
-## SQL 文とテーブル定義
+### SQL 文とテーブル定義
 
 こちらもいくつか検討事項が出てきましたが、結局、事前改修の対象は予約語とのバッティング箇所だけになりそうです。
 
-### 予約語
+#### 予約語
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md
 
@@ -94,7 +94,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.m
 - 新規コードについてはバッティングの有無に関わらずデータベース（スキーマ）名・テーブル名・カラム名・インデックス名やエイリアスを「\`」で括る
   - `.`で連結する形式で書かれている箇所は必ずしも「\`」で括る必要がないが、ミス防止のため全て「\`」で括る
 
-### ビルトイン関数
+#### ビルトイン関数
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.md#%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E9%96%A2%E6%95%B0
 
@@ -107,19 +107,19 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.
 
 などから、移行前の改修は見送ることにします。
 
-### 文字セット・照合順序
+#### 文字セット・照合順序
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md#%E6%96%87%E5%AD%97%E3%82%BB%E3%83%83%E3%83%88%E7%85%A7%E5%90%88%E9%A0%86%E5%BA%8F
 
 一部`utf8`（`utf8mb3`のエイリアス）が残っていますが、現時点ではまだ「非推奨」なので、都合上今回の移行とは別のタイミングで対応します。
 
-### データ型
+#### データ型
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md#%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B
 
 `DOUBLE(M,D)`がありました。こちらも現時点では「非推奨」であり、一旦別タイミングでの対応とします。
 
-### その他 SQL ステートメントなど
+#### その他 SQL ステートメントなど
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md#sql-%E3%82%B9%E3%83%86%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%E3%81%AA%E3%81%A9
 
@@ -127,11 +127,11 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all
 
 これは見逃しやすいので注意が必要です。
 
-# 実際に動かしてみないとわからないものもある
+## 実際に動かしてみないとわからないものもある
 
 ここまでは調査資料から判別できましたが、一部、それが難しい項目もあります。
 
-## `RIGHT JOIN`の修正（MySQL 8.0.22）
+### `RIGHT JOIN`の修正（MySQL 8.0.22）
 
 MySQL 8.0.22 のリリースノートの **[Optimizer Notes](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-22.html#mysqld-8-0-22-optimizer)** に、
 
@@ -141,7 +141,7 @@ MySQL 8.0.22 のリリースノートの **[Optimizer Notes](https://dev.mysql.c
 
 という項目があります。`RIGHT JOIN`実行時、内部的に`LEFT JOIN`に書き換える処理に不適切な部分があったのを改修したという趣旨ですが、これらのバグトラッキング番号の情報がクローズされてしまい内容が読めないので、こちらは実際に動作を確認してみる必要がありそうです。
 
-## `UNION`の構文解析と動作の変更（MySQL 8.0.19 など）
+### `UNION`の構文解析と動作の変更（MySQL 8.0.19 など）
 
 マニュアルの UNION 句のページ中、
 

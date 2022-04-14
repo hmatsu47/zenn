@@ -24,7 +24,7 @@ published: true
 [前回の記事](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01)と重複する点は省略します。また、v1 → v3 の移行に直接関係しない点も省略します。
 :::
 
-# 「Aurora MySQL バージョン 3 は MYSQL 8.0 との互換性があります。」を読む
+## 「Aurora MySQL バージョン 3 は MYSQL 8.0 との互換性があります。」を読む
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html
 
@@ -34,7 +34,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 2022/2/26 時点で公開されている情報をもとに書いています。
 :::
 
-## ベースとなる MySQL のバージョンアップ（5.6 → 8.0）による差異
+### ベースとなる MySQL のバージョンアップ（5.6 → 8.0）による差異
 
 - **[インスタント DDL をサポート](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88-ddl-%E3%82%92%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88)**
 - **[`Administrator`権限の分割](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#administrator%E6%A8%A9%E9%99%90%E3%81%AE%E5%88%86%E5%89%B2)**
@@ -44,7 +44,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 - **[参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%8F%82%E7%85%A7%E5%B0%82%E7%94%A8%EF%BC%88reader%EF%BC%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%81%A7%E3%81%AEcreate-temporary-table-(as-select)%E6%8C%99%E5%8B%95%E5%A4%89%E5%8C%96)**
 - **[内部テンポラリテーブル変更](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%86%85%E9%83%A8%E3%83%86%E3%83%B3%E3%83%9D%E3%83%A9%E3%83%AA%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E5%A4%89%E6%9B%B4)**
 
-### インスタント DDL をサポート
+#### インスタント DDL をサポート
 
 MySQL 8.0 では新たにインスタント DDL がサポートされました。
 
@@ -54,7 +54,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 
 カラムやインデックスの追加・変更・削除など、DDL の実行時の所要時間とロックの有無などが変わる可能性があります。
 
-### `Administrator`権限の分割
+#### `Administrator`権限の分割
 
 MySQL 8.0 では以前のバージョンと比べて管理者権限が細分化されています。
 
@@ -68,7 +68,7 @@ https://dev.mysql.com/doc/refman/8.0/ja/roles.html
 
 これにあわせて`rds_superuser_role`という管理者権限（特権）を持つロールが追加されています。
 
-### クエリキャッシュの削除
+#### クエリキャッシュの削除
 
 クエリキャッシュは I/O の低減に寄与する一方で並列スレッドのロック競合を引き起こすなどの問題があり、MySQL 5.6 の時点ですでに非推奨になっていましたが、MySQL 8.0 で廃止されました。
 
@@ -76,7 +76,7 @@ https://dev.mysql.com/doc/refman/8.0/ja/roles.html
 
 Aurora MySQL v1 でクエリキャッシュを使用していた場合は、パフォーマンスの変化に気を付ける必要があります。
 
-### ハッシュ結合（Hash join）を実装
+#### ハッシュ結合（Hash join）を実装
 
 MySQL 8.0 に ハッシュ結合（Hash join）が実装され、Aurora 独自仕様のハッシュ結合が廃止されました。
 
@@ -84,7 +84,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-mysql-
 
 あわせて、ハッシュ結合の有効化・無効化の指定方法が変わりました。
 
-### デフォルト文字セットが`latin1`から`utf8mb4`に変更
+#### デフォルト文字セットが`latin1`から`utf8mb4`に変更
 
 https://dev.mysql.com/doc/refman/8.0/ja/charset-unicode-utf8mb4.html
 
@@ -117,7 +117,7 @@ https://yoku0825.blogspot.com/2018/12/utf8mb40900aici.html
 https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 :::
 
-### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
+#### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
 
 `innodb_read_only`が`1`のときに InnoDB ストレージエンジンでテンポラリテーブルが作成できなくなったのに伴い、Reader インスタンスで`CREATE TEMPORARY TABLE … ENGINE=InnoDB`を実行する場合は SQL モード`NO_ENGINE_SUBSTITUTION`を無効にする必要があります。
 
@@ -127,7 +127,7 @@ https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 
 - **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
 
-### 内部テンポラリテーブル変更
+#### 内部テンポラリテーブル変更
 
 :::message
 `CREATE TEMPORARY TABLE`ではなく、SQL 文の実行時に内部的に使用されるテンポラリテーブルの話です。
@@ -145,7 +145,7 @@ Reader インスタンスでは共有ストレージへの書き込みができ�
 https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/
 :::
 
-## 本家 MySQL 8.0 と Aurora MySQL v3 の相違点
+### 本家 MySQL 8.0 と Aurora MySQL v3 の相違点
 
 - **[初期リリースは MySQL 8.0.26 ベースだが、一部 8.0.26 からバックポートしているキーワードが存在](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%88%9D%E6%9C%9F%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%AF-mysql-8.0.26-%E3%83%99%E3%83%BC%E3%82%B9%E3%81%A0%E3%81%8C%E3%80%81%E4%B8%80%E9%83%A8-8.0.26-%E3%81%8B%E3%82%89%E3%83%90%E3%83%83%E3%82%AF%E3%83%9D%E3%83%BC%E3%83%88%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89%E3%81%8C%E5%AD%98%E5%9C%A8)**
 - **[Percona XtraBackup ツールからの物理バックアップ復元は未対応](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#percona-xtrabackup-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%8B%E3%82%89%E3%81%AE%E7%89%A9%E7%90%86%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E5%BE%A9%E5%85%83%E3%81%AF%E6%9C%AA%E5%AF%BE%E5%BF%9C)**
@@ -157,21 +157,21 @@ https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-ama
 - TLS 1.3 非対応
 - **[プラグインの設定変更不可](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E8%A8%AD%E5%AE%9A%E5%A4%89%E6%9B%B4%E4%B8%8D%E5%8F%AF)**
 
-### 初期リリースは MySQL 8.0.26 ベースだが、一部 8.0.26 からバックポートしているキーワードが存在
+#### 初期リリースは MySQL 8.0.26 ベースだが、一部 8.0.26 からバックポートしているキーワードが存在
 
 「Master」「Slave」などの用語の読み替えがバックポートされています。
 
 - **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
 
-### Percona XtraBackup ツールからの物理バックアップ復元は未対応
+#### Percona XtraBackup ツールからの物理バックアップ復元は未対応
 
 今後のマイナーバージョンでサポート予定です。
 
-### パラメータ`innodb_flush_log_at_trx_commit`変更不可に
+#### パラメータ`innodb_flush_log_at_trx_commit`変更不可に
 
 `1`で固定になりました。
 
-### 一部ステータス変数が非適応
+#### 一部ステータス変数が非適応
 
 - **[Aurora MySQL に適応されない MySQL ステータス変数](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Reference.html#AuroraMySQL.Reference.StatusVars.Inapplicable)**
 
@@ -179,7 +179,7 @@ https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-ama
 Aurora 独自のステータス変数を含みます。
 :::
 
-### UNDO テーブルスペースの処理方法相違
+#### UNDO テーブルスペースの処理方法相違
 
 そもそも本家 MySQL と Aurora ではストレージ層のアーキテクチャが異なりますので、本家 MySQL 8.0 の UNDO テーブルスペース関連機能は使えません。
 
@@ -188,11 +188,11 @@ Aurora 独自のステータス変数を含みます。
 > - Aurora MySQL には`CREATE UNDO TABLESPACE`、`ALTER UNDO TABLESPACE ... SET INACTIVE`、および`DROP UNDO TABLESPACE`ステートメントがありません。
 > - Aurora は、UNDO テーブルスペースの数を自動的に設定し、それらのテーブルスペースを自動的に管理します。
 
-### プラグインの設定変更不可
+#### プラグインの設定変更不可
 
 ドキュメントストア向けの X プラグイン、クエリリライトプラグインなどが使えません。
 
-## Aurora 独自機能の変更点
+### Aurora 独自機能の変更点
 
 重複する点は省略します。
 
@@ -202,27 +202,27 @@ Aurora 独自のステータス変数を含みます。
 - **[`mysql.lambda_async`ストアドプロシージャ削除](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#mysql.lambda_async%E3%82%B9%E3%83%88%E3%82%A2%E3%83%89%E3%83%97%E3%83%AD%E3%82%B7%E3%83%BC%E3%82%B8%E3%83%A3%E5%89%8A%E9%99%A4)**
 - **[パラメータグループ内のパラメータ変更](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E5%86%85%E3%81%AE%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E5%A4%89%E6%9B%B4)**
 
-### Aurora 並列クエリの最適化対象が拡大
+#### Aurora 並列クエリの最適化対象が拡大
 
 - **[新しい並列クエリの最適化](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-features-pq)**
 
 LOB 系カラムやパーティショニングされたテーブル、`HAVING`句の中での集計関数に対応しました。
 
-### バックトラック未サポート
+#### バックトラック未サポート
 
 現時点ではバックトラックを使用中のクラスタで作成したスナップショットからの復元ができません。
 
 今後のマイナーバージョンでサポート予定です。
 
-### Aurora Serverless v1 クラスタ非サポート
+#### Aurora Serverless v1 クラスタ非サポート
 
 現在プレビュー中の Aurora Serverless v2 クラスタでサポート予定です。
 
-### `mysql.lambda_async`ストアドプロシージャ削除
+#### `mysql.lambda_async`ストアドプロシージャ削除
 
 非同期関数`lambda_async`で代替します。
 
-### パラメータグループ内のパラメータ変更
+#### パラメータグループ内のパラメータ変更
 
 `lower_case_table_names`パラメータの値はクラスタ作成時の指定で固定されるので、デフォルト値以外に変更する場合はアップグレード前にカスタムパラメータグループを作成・設定します。
 
@@ -230,11 +230,11 @@ LOB 系カラムやパーティショニングされたテーブル、`HAVING`�
 
 - **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
 
-## その他
+### その他
 
 対応インスタンスクラスの変更があり、db.r3・db.r4・t3.small・t2 が使用できなくなりました。
 
-# まとめ
+## まとめ
 
 - **Aurora MySQL v3 は v1・v2 と比べると独自仕様の実装が減る一方、本家 MySQL からの実装をそのまま利用する機能が増えた**
   - インスタント DDL・ハッシュ結合など
