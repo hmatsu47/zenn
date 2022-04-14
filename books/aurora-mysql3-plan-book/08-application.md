@@ -1,11 +1,11 @@
 ---
 title: "アプリケーションコードの修正"
 ---
-# この章について
+## この章について
 
 v1 → v3 変更点の調査結果をもとに、アプリケーションコードの修正対象になりやすい点を示します。
 
-# アプリケーションコードの修正対象になりやすい変更点
+## アプリケーションコードの修正対象になりやすい変更点
 
 すべてをカバーするものではありませんが、いくつかピックアップしていきます。
 
@@ -13,19 +13,19 @@ v1 → v3 変更点の調査結果をもとに、アプリケーションコー�
 Chapter 05 で挙げた`tx_isolation`→`transaction-isolation`の変更もあります。
 :::
 
-## ライブラリ
+### ライブラリ
 
 DB 接続用のライブラリ（MySQL Connector の各言語対応版）を MySQL 8.0 対応バージョンに変更します。
 
 その際、TLS 接続（TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
 
-### TLS 接続の場合
+#### TLS 接続の場合
 
 TLS バージョンの問題が生じる可能性があります（Aurora MySQL 移行より前に新しいバージョンのライブラリに更新する場合）。
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Security.html#AuroraMySQL.Security.SSL.TLS_Version
 
-### 非 TLS 接続の場合
+#### 非 TLS 接続の場合
 
 ライブラリのバージョンによっては、接続パラメータで SSL/TLS の無効化が必要になる場合があります。
 
@@ -39,7 +39,7 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 移行作業中に互換性の問題が生じる恐れがある場合は、代わりに非推奨の`useSSL=false`を指定し、問題が生じる恐れがなくなった時点で`sslMode=DISABLED`に書き換えます。
 :::
 
-## 予約語のバッティング
+### 予約語のバッティング
 
 すでに使用しているテーブル名・カラム名などに新しく予約語となったキーワード（`RANK`など）が含まれる場合は、前後を「`」で囲みます。
 
@@ -49,15 +49,15 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 - 新規コードについてはバッティングの有無に関わらずデータベース（スキーマ）名・テーブル名・カラム名・インデックス名やエイリアスを「\`」で囲む
   - `.`で連結する形式で書かれている箇所は必ずしも「\`」で囲む必要がないが、ミス防止のため全て「\`」で囲む
 
-## `FOUND_ROWS()`（および`SQL_CALC_FOUND_ROWS`）
+### `FOUND_ROWS()`（および`SQL_CALC_FOUND_ROWS`）
 
 ページャ機能の実装で使っていたケースが多いと思います。
 
 先に改修してリリースすると v1 運用中に性能低下の恐れがあることなどから、v3 移行後に改修するのが妥当でしょう。
 
-## 文字セット・照合順序の問題
+### 文字セット・照合順序の問題
 
-### `utf8`・`utf8mb3`
+#### `utf8`・`utf8mb3`
 
 `utf8`（`utf8mb3`のエイリアス）が残っている場合は、移行前または移行後に`utf8mb4`に変更します。
 
@@ -65,19 +65,19 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 
 https://mita2db.hateblo.jp/entry/2020/12/07/000000
 
-### `utf8mb4`のデフォルト照合順序
+#### `utf8mb4`のデフォルト照合順序
 
 v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルトになります。
 
 無意識にデフォルトの指定を使っていると不具合が生じる可能性があるので、可能な限り明示的に指定します。
 
-## データ型
+### データ型
 
 `YEAR(2)`・`YEAR(4)`、`FLOAT(M,D)`・`DOUBLE(M,D)`、数値データ型の`ZEROFILL`属性などがありそうです。
 
 中でも`YEAR(2)`はすでに廃止されているので移行前の修正が必要です。
 
-## `GROUP BY 【列名】 ASC/DESC`
+### `GROUP BY 【列名】 ASC/DESC`
 
 `GROUP BY 【列名】 ASC/DESC`の形式で書かれているもの以上に、 **暗黙の昇順ソート** （`ASC`が省略されているもの）が多そうです。
 
@@ -85,13 +85,13 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 
 **`ORDER BY`を伴わない`GROUP BY`を含む SQL 文が、暗黙ソートを期待して書かれたものかどうかを必ず確認しましょう。**
 
-## `UNION`の構文解析と動作の変更
+### `UNION`の構文解析と動作の変更
 
 `FOR UPDATE`との組み合わせがありそうです。
 
-## Aurora MySQL 独自の問題
+### Aurora MySQL 独自の問題
 
-### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
+#### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
 
 `innodb_read_only`が`1`のときに InnoDB ストレージエンジンで一時（テンポラリ）テーブルが作成できなくなったのに伴い、Reader インスタンスで`CREATE TEMPORARY TABLE … ENGINE=InnoDB`を実行する場合は SQL モード`NO_ENGINE_SUBSTITUTION`を無効にする必要があります。
 

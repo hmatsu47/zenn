@@ -1,23 +1,23 @@
 ---
 title: "Aurora MySQL v3 の新機能"
 ---
-# この章について
+## この章について
 
 移行計画の前に、Aurora MySQL v3 の新機能について簡単に触れておきます。
 
-# 本家（コミュニティ版）MySQL 8.0 由来の新機能
+## 本家（コミュニティ版）MySQL 8.0 由来の新機能
 
 Aurora MySQL v3 はコミュニティ版 MySQL 8.0 をベースに開発されているため、コミュニティ版 MySQL 8.0 の新機能の多くが利用可能です。
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-features-community
 https://dev.mysql.com/doc/refman/8.0/ja/mysql-nutshell.html
 
-## 補足資料
+### 補足資料
 
 https://speakerdeck.com/hmatsu47/mysql-8-dot-0hefalseyi-xing-wokao-eru
 https://github.com/hmatsu47/mysql80_no_usui_hon
 
-## 主な新機能
+### 主な新機能
 
 - **ウィンドウ関数**
   - **[MySQL 8.0.2 DMRでウィンドウ関数がサポートされたので、RANK関数を試してみる](https://qiita.com/hmatsu47/items/6cc0e69f3895f3e4a486)**
@@ -30,7 +30,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 - **インスタント DDL**
   - 後述
 
-## 強化された機能
+### 強化された機能
 
 - **インデックス関連**
   - 降順インデックス
@@ -52,7 +52,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
   - ハッシュ結合（Hash join）
     - **[MySQL 8.0.20 で強化されたハッシュジョイン（Hash Join）を試してみる](https://qiita.com/hmatsu47/items/e9d3d4396fea42c8960e)**
 
-## サポートされない機能など
+### サポートされない機能など
 
 MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされません。
 
@@ -66,17 +66,17 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 - **MySQL プラグインの設定**
 - **X プラグイン（ドキュメントストア機能）**
 
-## その他
+### その他
 
 一部のキーワードが MySQL 8.0.26 からバックポートされています。
 
 - **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
 
-# Aurora MySQL v3 独自機能の変更点
+## Aurora MySQL v3 独自機能の変更点
 
 全体的に Aurora 独自機能が減り本家 MySQL 8.0 のオリジナル実装に寄せた印象です。
 
-## パラレルクエリ
+### パラレルクエリ
 
 独自機能として残り、適用範囲が拡大されました。
 
@@ -86,13 +86,13 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
     - パーティショニングテーブル
     - `SELECT`のリスト（射影）内および`HAVING`句内の集計関数
 
-## インスタント DDL
+### インスタント DDL
 
 独自機能が廃止され、本家のインスタント DDL が採用されました。
 
 - **[インスタント DDL (Aurora MySQL バージョン 3)](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.FastDDL.html#AuroraMySQL.mysql80-instant-ddl)**
 
-## クエリキャッシュ（廃止）
+### クエリキャッシュ（廃止）
 
 クエリキャッシュは I/O の低減に寄与する一方で並列スレッドのロック競合を引き起こすなどの問題があり、MySQL 5.6 の時点ですでに非推奨になっていましたが、MySQL 8.0 で廃止されました。
 

@@ -1,15 +1,15 @@
 ---
 title: "調査（2）SQL 関連の変更点"
 ---
-# この章について
+## この章について
 
 著者が調査した v1 → v3 の変更点のうち、主に SQL 文の記述や実行処理に関するものを記します。
 
 なお SQL 文の修正を行う場合、可能な限り移行前（v1）・移行後（v3）の両方で同じ動作になるようにします。そうすれば、実際の移行前に修正済みのアプリケーションをリリースしておくことができ、結果として移行作業のリスクが低減されます。
 
-# SQL 関連の変更点
+## SQL 関連の変更点
 
-## 予約語
+### 予約語
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md
 
@@ -44,7 +44,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.m
 - `VIRTUAL`
 - `WINDOW`
 
-## オペレータ・ビルトイン関数
+### オペレータ・ビルトイン関数
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.md#%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%BF
 
@@ -76,7 +76,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.
 - `INSERT ... ON DUPLICATE KEY UPDATE`で`UPDATE`句の`VALUES()`が非推奨に
 - `WAIT_UNTIL_SQL_THREAD_AFTER_GTID`が非推奨に
 
-## その他マニュアル全体の差分
+### その他マニュアル全体の差分
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md
 
@@ -138,7 +138,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all
 - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
 - 文字列データ型の`BINARY`属性が非推奨に
 
-# 調査対象外にしたもの
+## 調査対象外にしたもの
 
 `INFORMATION_SCHEMA`・パフォーマンススキーマ・`sys`スキーマの各テーブル・ビューについては、大幅に変更されており利用対象のテーブル等をピンポイントで調べたほうが効率が良いため、ここでは調査対象外としました。
 

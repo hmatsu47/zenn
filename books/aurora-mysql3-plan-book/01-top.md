@@ -1,7 +1,7 @@
 ---
 title: "はじめに"
 ---
-# 本書の目的
+## 本書の目的
 
 Amazon Aurora MySQL 互換エディション（以降「Aurora MySQL」と表記）のバージョン 1（MySQL 5.6 互換・以降「v1」）の EoL が発表されました。
 
@@ -17,7 +17,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Versio
 
 このような状況のもと、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。
 
-# 注意事項など
+## 注意事項など
 
 - 本書は以下の Zenn 記事を再構成したものです。
   - **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（1）はじめに](https://zenn.dev/hmatsu47/articles/aurora-mysql3-001-top)**
