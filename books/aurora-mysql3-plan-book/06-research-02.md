@@ -145,7 +145,3 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all
 - **[第 26 章 INFORMATION_SCHEMA テーブル](https://dev.mysql.com/doc/refman/8.0/ja/information-schema.html)**
 - **[第 27 章 MySQL パフォーマンススキーマ](https://dev.mysql.com/doc/refman/8.0/ja/performance-schema.html)**
 - **[第 28 章 MySQL sys スキーマ](https://dev.mysql.com/doc/refman/8.0/ja/sys-schema.html)**
-
-なお、Aurora MySQL 3.01.0 時点では、パフォーマンスインサイト（パフォーマンススキーマの情報を利用）で取得可能なデータに異常がある可能性があります。
-
-- **[パフォーマンスインサイトが…](https://qiita.com/hmatsu47/items/9db2ad8e8f41e44a54b7#%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%A4%E3%83%B3%E3%82%B5%E3%82%A4%E3%83%88%E3%81%8C)**

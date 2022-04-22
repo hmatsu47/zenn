@@ -55,7 +55,7 @@ DMS レプリケーションには`ROW`形式の binlog を使います。
 
 ### Aurora Serverless v1 クラスタ非サポート
 
-現在プレビュー中の Aurora Serverless v2 クラスタでサポート予定です。
+2022/04/21 GA の Aurora Serverless v2 クラスタでサポートされています（バージョン 3.02.0 以降）。
 
 ### `mysql.lambda_async`ストアドプロシージャ削除
 

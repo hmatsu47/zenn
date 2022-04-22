@@ -76,6 +76,8 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 
 全体的に Aurora 独自機能が減り本家 MySQL 8.0 のオリジナル実装に寄せた印象です。
 
+なお、2022/04/21 に Aurora Serverless v2 が GA になり、Aurora MySQL v3 対応になりました。
+
 ### パラレルクエリ
 
 独自機能として残り、適用範囲が拡大されました。
@@ -99,3 +101,11 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 これに合わせて、Aurora MySQL v3 でも Aurora 独自仕様のクエリキャッシュが廃止されました。
 
 Aurora MySQL v1 でクエリキャッシュを使用していた場合は、パフォーマンスの変化に気を付ける必要があります。
+
+### Aurora Serverless v2（2020/04/22 追記）
+
+Aurora MySQL v3 のバージョン 3.02.0 より、Aurora Serverless v2 がサポートされました。
+
+Aurora Serverless v1 とは異なり、プロビジョンドインスタンスと同じクラスタにサーバレスインスタンスを配置できます。
+
+- **[Amazon Aurora Serverless v2 is Generally Available: Instant Scaling for Demanding Workloads](https://aws.amazon.com/jp/blogs/aws/amazon-aurora-serverless-v2-is-generally-available-instant-scaling-for-demanding-workloads/)**
