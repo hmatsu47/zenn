@@ -26,6 +26,11 @@ https://endoflife.software/applications/databases/mysql
 2022/2/23 現在、Aurora MySQL v3 の MySQL ベースバージョンは 8.0.23 です。
 :::
 
+:::message
+**こちらの記事群を本にまとめました。**
+**[Aurora MySQL v1 → v3（3.02.0 移行計画編）](https://zenn.dev/hmatsu47/books/aurora-mysql3-plan-book)**
+:::
+
 ## そもそも Aurora MySQL v3 に移行するメリットは？
 
 Aurora MySQL v2 の EoL 予想時期が微妙だとして、それだけの理由でいきなり v3 への移行を進めようとすると、
