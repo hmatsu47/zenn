@@ -39,6 +39,23 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 移行作業中に互換性の問題が生じる恐れがある場合は、代わりに非推奨の`useSSL=false`を指定し、問題が生じる恐れがなくなった時点で`sslMode=DISABLED`に書き換えます。
 :::
 
+#### その他
+
+パラメータグループでデフォルトどおり`explicit_defaults_for_timestamp`に`1`（有効）を指定した状態で、
+
+- MySQL Connector/J のプリペアドステートメントを使って
+- `NOT NULL`かつ`DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`の`TIMESTAMP`・`DATETIME`列に対して
+- `null`で`UPDATE`したとき
+
+の挙動が、
+
+- Aurora MySQL v1・MySQL Connector/J 5.1 の組み合わせ:`UPDATE`時のタイムスタンプで更新
+- Aurora MySQL v3・MySQL Connector/J 8.0 の組み合わせ:「`NOTNULL`列に`null`で`UPDATE`することはできない」旨のエラーが発生
+
+のように変化するケースがあります。
+
+もともと Aurora MySQL v1（MySQL 5.6）の時点でこのような SQL 文を実行するのは非推奨でしたが、同様の事象が発生した場合は`null`ではなく`NOW()`などで`UPDATE`する形に SQL 文（プリペアドステートメント）を書き換えます。
+
 ### 予約語のバッティング
 
 すでに使用しているテーブル名・カラム名などに新しく予約語となったキーワード（`RANK`など）が含まれる場合は、前後を「`」で囲みます。
