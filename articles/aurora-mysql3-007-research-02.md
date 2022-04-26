@@ -95,7 +95,7 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 
 のように変化するケースがあります。
 
-もともと Aurora MySQL v1（MySQL 5.6）の時点でこのような SQL 文を実行するのは非推奨でしたが、同様の事象が発生した場合は`null`ではなく`NOW()`などで`UPDATE`する形に SQL 文（プリペアドステートメント）を書き換えます。
+同様の事象が発生した場合は`null`ではなく`NOW()`などで`UPDATE`する形に SQL 文（プリペアドステートメント）を書き換えます。
 
 ### SQL 文とテーブル定義
 
