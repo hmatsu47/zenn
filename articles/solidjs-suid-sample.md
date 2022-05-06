@@ -15,6 +15,8 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 バージョン 0.1.0 では 36 のコンポーネントが移植されています。
 
+なお、[SUID](https://suid.io/) のサイト自体が SUID を使って作成・構築されています。
+
 - **[SUID Docs](https://suid.io/getting-started/installation)**
 - **[React MUI Getting started](https://mui.com/material-ui/getting-started/installation/)**
 
@@ -95,9 +97,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [Item.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0f9a19d8d7e90aa6929310dbee42ee7e26afa50e/src/Item.tsx#L164)（164 行目〜）
+- [Item.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/41b349d765153f27d2982bcae9d63de00a6e45a0/src/Item.tsx#L155)（155 行目〜）
 
-```tsx:Item.tsx（164行目〜）
+```tsx:Item.tsx（155行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -226,7 +228,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 
 ## 使ってみた感想
 
-バージョン 0.1.0 ということもあり、サンプルではなくまともなプロダクトを作るには足りないコンポーネント・API がまだ多い印象です。
+バージョン 0.1.0 ということもあり、まともなプロダクトを作るには足りないコンポーネント・API がまだ少なくない印象です。
 
 今後のバージョンアップに期待、ですね。
 
