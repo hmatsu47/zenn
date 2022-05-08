@@ -191,7 +191,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 #### `Collapse`API に対応していない
 
-React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています。
+React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違いアニメーション動作はしません）。
 
 ```tsx:ViewItem.tsx（48行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
