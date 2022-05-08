@@ -96,9 +96,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/cb9ef3c9e16bea19278c15a573712938c23d52dd/src/EditItem.tsx#L156)（156 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/a5564014f98b3181132b6f707cad7627a073debd/src/EditItem.tsx#L157)（157 行目〜）
 
-```tsx:EditItem.tsx（156行目〜）
+```tsx:EditItem.tsx（157行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -116,9 +116,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/cb9ef3c9e16bea19278c15a573712938c23d52dd/src/ViewItem.tsx#L34)（34 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/a5564014f98b3181132b6f707cad7627a073debd/src/ViewItem.tsx#L35)（35 行目〜）
 
-```tsx:ViewItem.tsx（34行目〜）
+```tsx:ViewItem.tsx（35行目〜）
   <Card
     id="itemCard"
     variant="outlined"
@@ -174,7 +174,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
           aria-label="edit"
           onClick={() => props.setArticle(props.article)}
           disabled={
-            props.article.userId !== props.session.user!.id && props.article.noteType !== 3
+            props.article.userId !== props.session.user!.id && props.article.noteType !== NoteType.Writable
           }
         >
           <EditIcon />
@@ -193,7 +193,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違いアニメーション動作はしません）。
 
-```tsx:ViewItem.tsx（48行目〜：展開ボタン部分）
+```tsx:ViewItem.tsx（49行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
     <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
@@ -204,7 +204,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
   </Switch>
 ```
 
-```tsx:ViewItem.tsx（81行目〜：実際に展開する部分）
+```tsx:ViewItem.tsx（82行目〜：実際に展開する部分）
   <Show
     when={expand()}
     fallback={<></>}
