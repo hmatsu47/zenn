@@ -96,9 +96,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [Item.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/41b349d765153f27d2982bcae9d63de00a6e45a0/src/Item.tsx#L155)（155 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/cb9ef3c9e16bea19278c15a573712938c23d52dd/src/EditItem.tsx#L156)（156 行目〜）
 
-```tsx:Item.tsx（155行目〜）
+```tsx:EditItem.tsx（156行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -116,47 +116,47 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 #### 使用例
 
-- [List.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0f9a19d8d7e90aa6929310dbee42ee7e26afa50e/src/List.tsx#L182)（182 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/cb9ef3c9e16bea19278c15a573712938c23d52dd/src/ViewItem.tsx#L34)（34 行目〜）
 
-```tsx:List.tsx（182行目〜）
+```tsx:ViewItem.tsx（34行目〜）
   <Card
+    id="itemCard"
     variant="outlined"
-    sx={{ minWidth: 300 }}
   >
-  <CardContent>
-    <Stack
-      spacing={1}
-      direction="row"
-    >
-      <CardActions sx={{ padding: 0 }}>
-        <IconButton
-          onClick={() => toggleExpand(index(), !article.isExpand)}
-          sx={{ padding: 0 }}
-        >
-          <Switch fallback={<></>}>
-            <Match when={!article.isExpand}>
-              <ExpandMoreIcon aria-label="expand more"/>
-            </Match>
-            <Match when={article.isExpand}>
-              <ExpandLessIcon aria-label="expand less"/>
-            </Match>
-          </Switch>
-        </IconButton>
-      </CardActions>
-      <Typography
-        variant="h6"
-        gutterBottom
+    <CardContent>
+      <Stack
+        spacing={1}
+        direction="row"
       >
-        {article.title}
-      </Typography>
+        <CardActions sx={{ padding: 0 }}>
+          <IconButton
+            onClick={() => toggleExpand()}
+            sx={{ padding: 0 }}
+          >
+            <Switch fallback={<></>}>
+              <Match when={!expand()}>
+                <ExpandMoreIcon aria-label="expand more"/>
+              </Match>
+              <Match when={expand()}>
+                <ExpandLessIcon aria-label="expand less"/>
+              </Match>
+            </Switch>
+          </IconButton>
+        </CardActions>
+        <Typography
+          variant="h6"
+          gutterBottom
+        >
+          {props.article.title}
+        </Typography>
 （中略）
-    </Stack>
+      </Stack>
       <Show
-        when={article.isExpand}
+        when={expand()}
         fallback={<></>}
       >
         <For
-          each={article.note?.split('\n')}
+          each={props.article.note?.split('\n')}
           fallback={<></>}
         >
           {(line) =>
@@ -172,9 +172,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
       <CardActions sx={{ padding: 0 }}>
         <IconButton
           aria-label="edit"
-          onClick={() => setArticle(article)}
+          onClick={() => props.setArticle(props.article)}
           disabled={
-          article.userId !== props.session.user!.id && article.noteType !== 3
+            props.article.userId !== props.session.user!.id && props.article.noteType !== 3
           }
         >
           <EditIcon />
@@ -193,24 +193,24 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています。
 
-```tsx:List.tsx（196行目〜：展開ボタン部分）
+```tsx:ViewItem.tsx（48行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
-    <Match when={!article.isExpand}>
+    <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
     </Match>
-    <Match when={article.isExpand}>
+    <Match when={expand()}>
       <ExpandLessIcon aria-label="expand less"/>
     </Match>
   </Switch>
 ```
 
-```tsx:List.tsx（229行目〜：実際に展開する部分）
+```tsx:ViewItem.tsx（81行目〜：実際に展開する部分）
   <Show
-    when={article.isExpand}
+    when={expand()}
     fallback={<></>}
   >
     <For
-      each={article.note?.split('\n')}
+      each={props.article.note?.split('\n')}
       fallback={<></>}
     >
       {(line) =>
@@ -227,7 +227,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 
 ## 使ってみた感想
 
-バージョン 0.1.0 ということもあり、まともなプロダクトを作るには足りないコンポーネント・API がまだ少なくない印象です。
+バージョン 0.2.0 ということもあり、まともなプロダクトを作るには足りないコンポーネント・API がまだ少なくない印象です。
 
 今後のバージョンアップに期待、ですね。
 
