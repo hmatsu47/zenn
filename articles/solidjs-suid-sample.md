@@ -50,9 +50,9 @@ https://github.com/hmatsu47/pgunconf-sample-app
 
 #### 使用例
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0f9a19d8d7e90aa6929310dbee42ee7e26afa50e/src/Auth.tsx#L77)（77 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/d5b17a842aca67e6b210f618f3572fe3584b5d13/src/Auth.tsx#L96)（96 行目〜）
 
-```tsx:Auth.tsx（77行目〜）
+```tsx:Auth.tsx（96行目〜）
   <TextField
     required
     id="email"
@@ -82,9 +82,9 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
   element?.focus();
 ```
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0f9a19d8d7e90aa6929310dbee42ee7e26afa50e/src/Auth.tsx#L18)（18 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/d5b17a842aca67e6b210f618f3572fe3584b5d13/src/Auth.tsx#L19)（19 行目〜）
 
-```tsx:Auth.tsx（18行目〜）
+```tsx:Auth.tsx（19行目〜）
   onMount(() => {
     setFocus('email');
   })
