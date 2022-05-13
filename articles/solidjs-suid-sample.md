@@ -26,7 +26,7 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 ## 試したバージョン
 
-- SolidJS : 1.3.17
+- SolidJS : 1.4.0
 - SUID : 0.2.1
 - supabase-js : 1.35.3
 
@@ -96,7 +96,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/a5564014f98b3181132b6f707cad7627a073debd/src/EditItem.tsx#L157)（157 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/61790199d10000ffa818a047a4549d88287e873b/src/EditItem.tsx#L157)（157 行目〜）
 
 ```tsx:EditItem.tsx（157行目〜）
   <textarea
