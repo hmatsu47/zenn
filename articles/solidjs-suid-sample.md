@@ -111,6 +111,16 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
   </textarea>
 ```
 
+:::message
+リンク先のコードを見ると、すぐ上に`loading()`が`true`のときの`textarea`（空欄かつ`disabled`）が書かれていますが、これは`textarea`の再描画失敗対策です。
+SolidJS のバージョンによってはこの「出し分け」がなくても正常動作しますが、
+- `List.tsx`から`props`としてステート（`Signal`）`article`を渡す
+  - `EditItem.tsx`側で新規投稿・投稿修正の各フィールド用の`Signal`にセットする
+- `EditItem.tsx`内の各フィールド用の`Signal`を直接上書きする
+の 2 通りの方法でカードおよびその内容を再描画しているのが原因で`textarea`などの状態がおかしくなることがあったのでこうしています。
+（本来ならロード中画面に`Skelton`を使いつつカード全体を対象に再描画させるべきかもしれないが省略）
+:::
+
 ### `Card`（カード表示）
 
 #### 使用例
