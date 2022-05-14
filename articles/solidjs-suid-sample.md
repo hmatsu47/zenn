@@ -96,7 +96,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/c226a433d48b1e5c1bb7f337d0a339e235ba5239/src/EditItem.tsx#L170)（170 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/f2a18c07374b216cc280a972b0873701be480dbe/src/EditItem.tsx#L170)（170 行目〜）
 
 ```tsx:EditItem.tsx（170行目〜）
   <textarea
@@ -106,7 +106,6 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
     onchange={(event) => {
       setNote(event.currentTarget.value);
     }}
-    style="width: 100%; height: 9.0em; font-size: 1rem; line-height: 1.8em"
   >
     {note()}
   </textarea>
