@@ -26,7 +26,7 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 ## 試したバージョン
 
-- SolidJS : 1.4.0
+- SolidJS : 1.4.1
 - SUID : 0.2.1
 - supabase-js : 1.35.3
 
@@ -50,9 +50,9 @@ https://github.com/hmatsu47/pgunconf-sample-app
 
 #### 使用例
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/d5b17a842aca67e6b210f618f3572fe3584b5d13/src/Auth.tsx#L96)（96 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/Auth.tsx#L104)（104 行目〜）
 
-```tsx:Auth.tsx（96行目〜）
+```tsx:Auth.tsx（104行目〜）
   <TextField
     required
     id="email"
@@ -75,14 +75,14 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
 
 今回は画面表示直後のフォーカスの指定に使いたかったのですが、諦めて`document.getElementById()`を使ってフォーカスを移動しました。
 
-- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/0f9a19d8d7e90aa6929310dbee42ee7e26afa50e/src/commons/setFocus.ts#L3)（3 行目〜）
+- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/commons/setFocus.ts#L3)（3 行目〜）
 
 ```typescript:setFocus.ts（3行目〜）
   const element = document.getElementById(elementId);
   element?.focus();
 ```
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/d5b17a842aca67e6b210f618f3572fe3584b5d13/src/Auth.tsx#L19)（19 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/Auth.tsx#L19)（19 行目〜）
 
 ```tsx:Auth.tsx（19行目〜）
   onMount(() => {
@@ -96,9 +96,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/f2a18c07374b216cc280a972b0873701be480dbe/src/EditItem.tsx#L170)（170 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/EditItem.tsx#L174)（174 行目〜）
 
-```tsx:EditItem.tsx（170行目〜）
+```tsx:EditItem.tsx（174行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -125,7 +125,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/a5564014f98b3181132b6f707cad7627a073debd/src/ViewItem.tsx#L35)（35 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/ViewItem.tsx#L35)（35 行目〜）
 
 ```tsx:ViewItem.tsx（35行目〜）
   <Card
