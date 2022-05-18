@@ -13,7 +13,7 @@ https://suid.io/
 
 React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）するライブラリです。
 
-バージョン 0.2.x では 39 のコンポーネントが移植されています。
+バージョン 0.3.x では 41 のコンポーネントが移植されています。
 
 なお、[SUID](https://suid.io/) のサイト自体が SUID を使って作成・構築されています。
 
@@ -22,12 +22,13 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 :::message
 日本時間の 5/6 朝にリリースされたバージョン 0.2.0 では対応コンポーネントが 3 つ（[`Radio`](https://suid.io/components/radio-button)・[`Table`](https://suid.io/components/table)・[`Grow`](https://suid.io/components/grow)）増えました。
+また、5/18 にリリースされたバージョン 0.3.0 では対応コンポーネントが 2 つ（[`Avatar`](https://suid.io/components/avatar)・[`Popover`](https://suid.io/components/popover)）増えました。
 :::
 
 ## 試したバージョン
 
 - SolidJS : 1.4.1
-- SUID : 0.2.1
+- SUID : 0.3.1
 - supabase-js : 1.35.3
 
 ## 試した内容
