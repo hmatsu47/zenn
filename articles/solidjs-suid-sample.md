@@ -27,7 +27,7 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 ## 試したバージョン
 
-- SolidJS : 1.4.1
+- SolidJS : 1.4.2
 - SUID : 0.3.1
 - supabase-js : 1.35.3
 
@@ -51,7 +51,7 @@ https://github.com/hmatsu47/pgunconf-sample-app
 
 #### 使用例
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/5ac6c667c981a3c14036e686b9160c522a364224/src/Auth.tsx#L105)（105 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/Auth.tsx#L105)（105 行目〜）
 
 ```tsx:Auth.tsx（105行目〜）
   <TextField
@@ -76,14 +76,14 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
 
 今回は画面表示直後のフォーカスの指定に使いたかったのですが、諦めて`document.getElementById()`を使ってフォーカスを移動しました。
 
-- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/commons/setFocus.ts#L3)（3 行目〜）
+- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/commons/setFocus.ts#L3)（3 行目〜）
 
 ```typescript:setFocus.ts（3行目〜）
   const element = document.getElementById(elementId);
   element?.focus();
 ```
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/5ac6c667c981a3c14036e686b9160c522a364224/src/Auth.tsx#L20)（20 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/Auth.tsx#L20)（20 行目〜）
 
 ```tsx:Auth.tsx（20行目〜）
   onMount(() => {
@@ -97,7 +97,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/EditItem.tsx#L174)（174 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/EditItem.tsx#L174)（174 行目〜）
 
 ```tsx:EditItem.tsx（174行目〜）
   <textarea
@@ -126,9 +126,9 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/9e5e529d68bb3372a033f1d4c6292d970c7c4bca/src/ViewItem.tsx#L35)（35 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/ViewItem.tsx#L38)（38 行目〜）
 
-```tsx:ViewItem.tsx（35行目〜）
+```tsx:ViewItem.tsx（38行目〜）
   <Card
     id="itemCard"
     variant="outlined"
@@ -203,7 +203,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違いアニメーション動作はしません）。
 
-```tsx:ViewItem.tsx（49行目〜：展開ボタン部分）
+```tsx:ViewItem.tsx（52行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
     <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
@@ -214,7 +214,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
   </Switch>
 ```
 
-```tsx:ViewItem.tsx（82行目〜：実際に展開する部分）
+```tsx:ViewItem.tsx（108行目〜：実際に展開する部分）
   <Show
     when={expand()}
     fallback={<></>}
@@ -246,3 +246,41 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 ### プロフィール編集画面
 
 ![](/images/solidjs-suid-sample/account.png)
+
+## おまけ：アバター（`Avatar`）表示
+
+SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したので、一覧表示で使ってみました。
+
+#### 使用例
+
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/ViewItem.tsx#L68)（68 行目〜）
+
+```tsx:ViewItem.tsx（68行目〜）
+<Show
+  when={props.avatar && props.avatar !== ''}
+  fallback={
+    <Avatar
+      alt={props.article.userName}
+      sx={{
+        width: 28,
+        height: 28
+      }}
+    >
+      <PersonIcon />
+    </Avatar>
+  }
+>
+  <Avatar
+    alt={props.article.userName}
+    src={props.avatar}
+    sx={{
+      width: 28,
+      height: 28
+    }}
+  />
+</Show>
+```
+
+`fallback`で指定しているのが Material Icon（`Person`）での表示、下の部分が`src`での画像表示です。
+
+![](/images/solidjs-suid-sample/avatar.png)
