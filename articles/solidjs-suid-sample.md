@@ -36,7 +36,8 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 [Supabase](https://supabase.io/) の [Quickstart: SolidJS](https://supabase.com/docs/guides/with-solidjs) を TypeScript（TSX）と Material-UI で置き換えつつ、[Card](https://suid.io/components/card) 表示も追加で試してみました。
 
 :::message
-今回は Supabase 関連部分の実装についての説明は省略します（別記事で説明予定）。
+今回は Supabase 関連部分の実装についての説明は省略します（↓の記事で説明）。
+- **[SolidJS で Supabase の Row Level Security を試してみた](https://qiita.com/hmatsu47/items/b6ba2d2994e1632c13ea)**
 :::
 
 ## サンプルコード（全体）
