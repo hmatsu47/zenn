@@ -127,9 +127,9 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/ViewItem.tsx#L38)（38 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0330fda87b50cff25db49ab2b5fc0ead42a5a835/src/ViewItem.tsx#L37)（37 行目〜）
 
-```tsx:ViewItem.tsx（38行目〜）
+```tsx:ViewItem.tsx（37行目〜）
   <Card
     id="itemCard"
     variant="outlined"
@@ -204,7 +204,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違いアニメーション動作はしません）。
 
-```tsx:ViewItem.tsx（52行目〜：展開ボタン部分）
+```tsx:ViewItem.tsx（51行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
     <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
@@ -215,7 +215,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
   </Switch>
 ```
 
-```tsx:ViewItem.tsx（108行目〜：実際に展開する部分）
+```tsx:ViewItem.tsx（92行目〜：実際に展開する部分）
   <Show
     when={expand()}
     fallback={<></>}
@@ -250,38 +250,27 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 
 ## おまけ：アバター（`Avatar`）表示
 
-SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したので、一覧表示で使ってみました。
+SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したので、一覧表示とタイトルバーで使ってみました。
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/ViewItem.tsx#L68)（68 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0330fda87b50cff25db49ab2b5fc0ead42a5a835/src/ViewItem.tsx#L67)（67 行目〜）
 
-```tsx:ViewItem.tsx（68行目〜）
-<Show
-  when={props.avatar && props.avatar !== ''}
-  fallback={
-    <Avatar
-      alt={props.article.userName}
-      sx={{
-        width: 28,
-        height: 28
-      }}
-    >
-      <PersonIcon />
-    </Avatar>
-  }
->
-  <Avatar
-    alt={props.article.userName}
-    src={props.avatar}
-    sx={{
-      width: 28,
-      height: 28
-    }}
-  />
-</Show>
+```tsx:ViewItem.tsx（67行目〜）
+<Avatar
+  alt={props.article.userName}
+  src={props.avatar}
+  sx={{
+    width: 28,
+    height: 28
+  }}
+/>
 ```
 
-`fallback`で指定しているのが Material Icon（`Person`）での表示、下の部分が`src`での画像表示です。
+`src`で指定した画像のロードに失敗した場合は自動的にフォールバックしてデフォルトのアバターアイコン（Person）が表示されます。
+
+:::message
+本家 MUI では`alt`が指定されているとその頭文字が表示されるようですが、SUID では`alt`に関係なく Person のアイコンが表示されるようです。
+:::
 
 ![](/images/solidjs-suid-sample/avatar.png)
