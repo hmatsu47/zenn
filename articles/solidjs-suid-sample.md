@@ -54,7 +54,7 @@ https://github.com/hmatsu47/pgunconf-sample-app
 
 #### 使用例
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0ec75b5030e6646091e3af1c829ffc6e640bb939/src/Auth.tsx#L105)（105 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L105)（105 行目〜）
 
 ```tsx:Auth.tsx（105行目〜）
   <TextField
@@ -79,14 +79,14 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
 
 今回は画面表示直後のフォーカスの指定に使いたかったのですが、諦めて`document.getElementById()`を使ってフォーカスを移動しました。
 
-- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/commons/setFocus.ts#L3)（3 行目〜）
+- [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/commons/setFocus.ts#L3)（3 行目〜）
 
 ```typescript:setFocus.ts（3行目〜）
   const element = document.getElementById(elementId);
   element?.focus();
 ```
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0ec75b5030e6646091e3af1c829ffc6e640bb939/src/Auth.tsx#L20)（20 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L20)（20 行目〜）
 
 ```tsx:Auth.tsx（20行目〜）
   onMount(() => {
@@ -100,7 +100,7 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/db444f9a243baae3a7780eb9a4012200d29f8137/src/EditItem.tsx#L174)（174 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L174)（174 行目〜）
 
 ```tsx:EditItem.tsx（174行目〜）
   <textarea
@@ -129,7 +129,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0330fda87b50cff25db49ab2b5fc0ead42a5a835/src/ViewItem.tsx#L37)（37 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L37)（37 行目〜）
 
 ```tsx:ViewItem.tsx（37行目〜）
   <Card
@@ -256,7 +256,7 @@ SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したの�
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/0330fda87b50cff25db49ab2b5fc0ead42a5a835/src/ViewItem.tsx#L67)（67 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L67)（67 行目〜）
 
 ```tsx:ViewItem.tsx（67行目〜）
 <Avatar
