@@ -91,7 +91,7 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 の挙動が、
 
 - Aurora MySQL v1・MySQL Connector/J 5.1 の組み合わせ:`UPDATE`時のタイムスタンプで更新
-- Aurora MySQL v3・MySQL Connector/J 8.0 の組み合わせ:「`NOTNULL`列に`null`で`UPDATE`することはできない」旨のエラーが発生
+- Aurora MySQL v3・MySQL Connector/J 8.0 の組み合わせ:「`NOT NULL`列に`null`で`UPDATE`することはできない」旨のエラーが発生
 
 のように変化するケースがあります。
 
