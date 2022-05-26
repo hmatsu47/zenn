@@ -243,9 +243,12 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 
 バージョン 0.1.0 → 0.2.x → 0.3.x で徐々に対応コンポーネントが増えていますが、まともなプロダクトを作るには足りないコンポーネント・API がまだ少なくない印象です。
 
-また、バージョン 0.4.0 ではリファクタリングが中心だった模様で対応コンポーネント自体は増えませんでした。
-
 今後のバージョンアップに期待、ですね。
+
+:::message
+バージョン 0.4.0 ではリファクタリングが中心だった模様で、対応コンポーネント自体は増えませんでしたが、[`Grid`](https://suid.io/components/grid)・[`Stack`](https://suid.io/components/stack)・[`Typography`](https://suid.io/components/typography)に system properties が実装されました。
+- [バージョン 0.4.0 リリース情報](https://github.com/swordev/suid/releases/tag/%40suid%2Fmaterial%400.4.0)
+:::
 
 ## 参考：その他のサンプル画面
 
