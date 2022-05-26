@@ -13,7 +13,7 @@ https://suid.io/
 
 React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）するライブラリです。
 
-バージョン 0.3.x では 41 のコンポーネントが移植されています。
+バージョン 0.4.0 時点では 41 のコンポーネントが移植されています。
 
 なお、[SUID](https://suid.io/) のサイト自体が SUID を使って作成・構築されています。
 
@@ -23,12 +23,13 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 :::message
 日本時間の 5/6 朝にリリースされたバージョン 0.2.0 では対応コンポーネントが 3 つ（[`Radio`](https://suid.io/components/radio-button)・[`Table`](https://suid.io/components/table)・[`Grow`](https://suid.io/components/grow)）増えました。
 また、5/18 にリリースされたバージョン 0.3.0 では対応コンポーネントが 2 つ（[`Avatar`](https://suid.io/components/avatar)・[`Popover`](https://suid.io/components/popover)）増えました。
+なお、5/26 にリリースされたバージョン 0.4.0 では対応コンポーネントは増えませんでした。
 :::
 
 ## 試したバージョン
 
-- SolidJS : 1.4.2
-- SUID : 0.3.1
+- SolidJS : 1.4.3
+- SUID : 0.4.0
 - supabase-js : 1.35.3
 
 ## 試した内容
@@ -241,6 +242,8 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 ## 使ってみた感想
 
 バージョン 0.1.0 → 0.2.x → 0.3.x で徐々に対応コンポーネントが増えていますが、まともなプロダクトを作るには足りないコンポーネント・API がまだ少なくない印象です。
+
+また、バージョン 0.4.0 ではリファクタリングが中心だった模様で対応コンポーネント自体は増えませんでした。
 
 今後のバージョンアップに期待、ですね。
 
