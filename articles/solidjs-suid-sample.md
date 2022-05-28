@@ -296,7 +296,8 @@ SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したの�
 `src`で指定した画像のロードに失敗した場合は自動的にフォールバックしてデフォルトのアバターアイコン（Person）が表示されます。
 
 :::message
-本家 MUI では`alt`が指定されているとその頭文字が表示されるようですが、SUID では`alt`に関係なく Person のアイコンが表示されるようです。
+~~本家 MUI では`alt`が指定されているとその頭文字が表示されるようですが、SUID では`alt`に関係なく Person のアイコンが表示されるようです。~~
+勘違いだったようです。
 :::
 
 ![](/images/solidjs-suid-sample/avatar.png)
