@@ -274,9 +274,9 @@ SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したの�
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L67)（67 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L68)（68 行目〜）
 
-```tsx:ViewItem.tsx（67行目〜）
+```tsx:ViewItem.tsx（68行目〜）
 <Avatar
   alt={props.article.userName}
   src={props.avatar}
