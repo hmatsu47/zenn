@@ -101,9 +101,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L195)（195 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L212)（212 行目〜）
 
-```tsx:EditItem.tsx（195行目〜）
+```tsx:EditItem.tsx（212行目〜）
   <textarea
     id="note"
     aria-label="Note"
