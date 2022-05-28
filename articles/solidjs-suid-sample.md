@@ -169,7 +169,10 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
         when={expand()}
         fallback={<></>}
       >
-        <Fade in={expand()}>
+        <Fade
+          in={expand()}
+          timeout={500}
+        >
           <Box>
             <For
               each={props.article.note?.split('\n')}
@@ -209,7 +212,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### `Collapse`API に対応していない
 
-React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違い開閉そのもののアニメーション動作はしませんが、`Fade`を使って文字の表示だけ少し遅らせています）。
+React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違い開閉そのもののアニメーション動作はしませんが、`Fade`を使って文字の表示をフェードインさせています）。
 
 :::message
 `For`のブロックを直接`Fade`の対象にはできないため、`For`を`Box`の中に入れています。
@@ -231,7 +234,10 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
     when={expand()}
     fallback={<></>}
   >
-    <Fade in={expand()}>
+    <Fade
+      in={expand()}
+      timeout={500}
+    >
       <Box>
         <For
           each={props.article.note?.split('\n')}
