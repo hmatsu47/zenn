@@ -101,9 +101,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L174)（174 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L195)（195 行目〜）
 
-```tsx:EditItem.tsx（174行目〜）
+```tsx:EditItem.tsx（195行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -130,9 +130,9 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L37)（37 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L38)（38 行目〜）
 
-```tsx:ViewItem.tsx（37行目〜）
+```tsx:ViewItem.tsx（38行目〜）
   <Card
     id="itemCard"
     variant="outlined"
@@ -169,19 +169,23 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
         when={expand()}
         fallback={<></>}
       >
-        <For
-          each={props.article.note?.split('\n')}
-          fallback={<></>}
-        >
-          {(line) =>
-            <Typography
-              variant="body1"
-              gutterBottom
+        <Fade in={expand()}>
+          <Box>
+            <For
+              each={props.article.note?.split('\n')}
+              fallback={<></>}
             >
-              {line}
-            </Typography>
-          }
-        </For>
+              {(line) =>
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                >
+                  {line}
+                </Typography>
+              }
+            </For>
+          </Box>
+        </Fade>
       </Show>
       <CardActions sx={{ padding: 0 }}>
         <IconButton
@@ -205,9 +209,13 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
 
 #### `Collapse`API に対応していない
 
-React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違いアニメーション動作はしません）。
+React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/) に対応していないため、上に記したコードでも SolidJS 自体が持つ [Show API](https://www.solidjs.com/docs/latest/api#%3Cshow%3E) を使って類似の処理をしています（Collapse API とは違い開閉そのもののアニメーション動作はしませんが、`Fade`を使って文字の表示だけ少し遅らせています）。
 
-```tsx:ViewItem.tsx（51行目〜：展開ボタン部分）
+:::message
+`For`のブロックを直接`Fade`の対象にはできないため、`For`を`Box`の中に入れています。
+:::
+
+```tsx:ViewItem.tsx（52行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
     <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
@@ -218,24 +226,28 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
   </Switch>
 ```
 
-```tsx:ViewItem.tsx（92行目〜：実際に展開する部分）
+```tsx:ViewItem.tsx（93行目〜：実際に展開する部分）
   <Show
     when={expand()}
     fallback={<></>}
   >
-    <For
-      each={props.article.note?.split('\n')}
-      fallback={<></>}
-    >
-      {(line) =>
-        <Typography
-          variant="body1"
-          gutterBottom
+    <Fade in={expand()}>
+      <Box>
+        <For
+          each={props.article.note?.split('\n')}
+          fallback={<></>}
         >
-          {line}
-        </Typography>
-      }
-    </For>
+          {(line) =>
+            <Typography
+              variant="body1"
+              gutterBottom
+            >
+              {line}
+            </Typography>
+          }
+        </For>
+      </Box>
+    </Fade>
   </Show>
 ```
 
