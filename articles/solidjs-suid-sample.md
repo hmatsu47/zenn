@@ -101,9 +101,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L212)（212 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L224)（224 行目〜）
 
-```tsx:EditItem.tsx（212行目〜）
+```tsx:EditItem.tsx（224行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -193,7 +193,7 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
       <CardActions sx={{ padding: 0 }}>
         <IconButton
           aria-label="edit"
-          onClick={() => props.setArticle(props.article)}
+          onClick={() => props.changeArticle(props.article)}
           disabled={
             props.article.userId !== props.session.user!.id && props.article.noteType !== NoteType.Writable
           }
@@ -297,7 +297,7 @@ SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したの�
 
 :::message
 ~~本家 MUI では`alt`が指定されているとその頭文字が表示されるようですが、SUID では`alt`に関係なく Person のアイコンが表示されるようです。~~
-勘違いだったようです。
+勘違いでした。頭文字が表示されます。
 :::
 
 ![](/images/solidjs-suid-sample/avatar.png)
