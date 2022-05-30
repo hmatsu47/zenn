@@ -29,7 +29,7 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 ## 試したバージョン
 
 - SolidJS : 1.4.3
-- SUID : 0.4.0
+- SUID : 0.4.1
 - supabase-js : 1.35.3
 
 ## 試した内容
