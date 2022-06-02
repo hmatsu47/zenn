@@ -41,6 +41,7 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 :::message
 今回は Supabase 関連部分の実装についての説明は省略します（↓の記事で説明）。
 - **[SolidJS で Supabase の Row Level Security を試してみた](https://qiita.com/hmatsu47/items/b6ba2d2994e1632c13ea)**
+- **[SolidJS で Supabase の Row Level Security を試してみた…の続き（補足）](https://qiita.com/hmatsu47/items/774a3ab9441fe8eb96c7)**
 :::
 
 ## サンプルコード（全体）
