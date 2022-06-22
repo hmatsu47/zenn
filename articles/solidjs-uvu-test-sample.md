@@ -3,7 +3,7 @@ title: "SolidJS のテストを uvu で書いてみた"
 emoji: "👶"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["solidjs", "typescript", "test"]
-published: false
+published: true
 ---
 
 [SolidJS](https://www.solidjs.com/) で [uvu](https://github.com/lukeed/uvu) を使ってテストコードを実装してみましたので備忘として残しておきます。
@@ -310,4 +310,4 @@ test.run();
 - 同時に表示されているボタンが切り替わるか？
   - `screen.findByRole()` でボタンを探して `assert.ok()`
 
-を実行しています。
+を確認・実行しています。
