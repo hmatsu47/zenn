@@ -215,7 +215,7 @@ export const saveSnapshot = (testName: string, snapshot: string) => {
 - **インラインスタイルを使うと、その部分が `css-xxxxxx` 形式（後ろ 6 文字がランダムかつ毎回変わる）に変換されるので、そのままスナップショット比較をすることができない**
 
 があります。
-これを吸収する（ついでに改行コードも半角スペースに変換する）ために用意したのが `formatSnapshot()` です（正規表現による置換）。
+これを吸収するために用意したのが `formatSnapshot()` です（正規表現による置換）。
 
 ### 3. ボタンと `Signal`
 
