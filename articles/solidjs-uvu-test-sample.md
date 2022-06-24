@@ -2,7 +2,7 @@
 title: "SolidJS のテストを uvu で書いてみた"
 emoji: "👶"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["solidjs", "typescript", "test"]
+topics: ["solidjs", "typescript", "test", "uvu"]
 published: true
 ---
 
