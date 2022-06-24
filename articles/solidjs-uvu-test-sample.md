@@ -304,10 +304,17 @@ test.run();
 前半は先ほどの例とほぼ同じスナップショットテストですが、後半で
 
 - `Signal` （`route`） が特定の文字列のときに、画面に特定のラベル文字列を持つボタンが表示されているか？
-  - `screen.findByRole()` でボタンを探して `assert.ok()`
+  - `screen.findByRole()` でボタンを特定して `assert.ok()`
 - そのボタンをクリックしたときに `Signal` （`route`）の文字列が想定どおりに切り替わるか？
   - `fireEvent.click()` 後に `assert.equal()`
 - 同時に表示されているボタンが切り替わるか？
-  - `screen.findByRole()` でボタンを探して `assert.ok()`
+  - `screen.findByRole()` でボタンを特定して `assert.ok()`
 
 を確認・実行しています。
+
+:::message
+SolidJS のテストで利用する [Solid Testing Library](https://github.com/solidjs/solid-testing-library) は [DOM Testing Library](https://github.com/testing-library/dom-testing-library) をラップしているので、画面上の要素の確認方法などはこちらの情報が参考になります。
+
+https://testing-library.com/docs/dom-testing-library/intro
+
+:::
