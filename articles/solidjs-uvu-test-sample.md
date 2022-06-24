@@ -314,6 +314,7 @@ test.run();
 
 :::message
 SolidJS のテストで利用する [Solid Testing Library](https://github.com/solidjs/solid-testing-library) は [DOM Testing Library](https://github.com/testing-library/dom-testing-library) をラップしているので、画面上の要素の確認方法などはこちらの情報が参考になります。
+ただし `expect()` など随所に Jest 向けの記法が出てくるので、適宜 uvu に合わせて書き換える必要があります。
 
 https://testing-library.com/docs/dom-testing-library/intro
 
