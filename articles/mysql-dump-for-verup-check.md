@@ -21,10 +21,11 @@ MySQL（または RDS/Aurora などの互換サービス）でバージョンア
 ## どう使う？
 
 - サイズが小さいテーブル、重要度が高いテーブルを `mysqldump` で出力
+  - `mysqldump -u ユーザ名 -h エンドポイント -p --default-character-set=デフォルト文字セット -t --skip-comments --max_allowed_packet=1G --hex-blob データベース名 テーブル名 > 出力ファイル`
 - サイズが大きく、重要度がそれほど高くないテーブルは `SELECT * ... ORDER BY nn DESC LIMIT xxx` と `SELECT COUNT(*)`
 - 最終的にこれらの結果のハッシュ値を MD5 や SHA2 で計算して新旧データの整合性確認
 
 ## 注意点
 
 - MySQL 5.6 ⇔ MySQL 8.0 の場合、8.0 の `mysqldump` で 5.6 サーバのデータをダンプできない
-  - 一部不一致行が含まれるので 8.0 側を `mysqldump | sed -e '/^SET @/d' -e '5s/50303/40101/ > 出力ファイル` とする
+  - 一部不一致行が含まれるので 8.0 側を `mysqldump -u ユーザ名 -h エンドポイント -p --default-character-set=デフォルト文字セット -t --skip-comments --max_allowed_packet=1G --hex-blob データベース名 テーブル名 | sed -e '/^SET @/d' -e '5s/50503/40101/' > 出力ファイル` とする
