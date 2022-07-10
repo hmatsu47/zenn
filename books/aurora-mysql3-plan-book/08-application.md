@@ -1,6 +1,7 @@
 ---
 title: "アプリケーションコードの修正"
 ---
+
 ## この章について
 
 v1 → v3 変更点の調査結果をもとに、アプリケーションコードの修正対象になりやすい点を示します。
@@ -117,3 +118,7 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良いでしょう。
 
 - **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
+
+#### `SELECT(*)`が遅い
+
+`WHERE`句や`GROUP BY`句のないテーブル全件の`SELECT(*)`は MySQL 8.0.14 からパラレル処理で高速化されたのですが、Aurora MySQL 3.02.0 時点ではある程度行数が多いテーブルでは CPU 使用率が 100% に到達するとともに、Aurora MySQL v2 以前と比べても時間が掛かるケースがあるようです。
