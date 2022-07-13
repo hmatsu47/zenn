@@ -119,5 +119,14 @@ DMS レプリケーション（CDC）を使う場合、次の図のようなイ�
 を確認し、問題があれば修正します。
 
 :::message
-DMS ではソース・ターゲットともエンドポイントの追加の接続属性で`serverTimezone`を適切な値（例：`Asia/Tokyo`）に合わせておきます。
+DMS では、エンドポイントの設定でタイムゾーンを合わせておきます（下の例は日本時間）。
+
+- ソースエンドポイントの設定：`serverTimezone` : `Asia/Tokyo`
+
+![](/images/aurora-mysql3-plan-book/dms_source_endpoint_setting.png)
+
+- ターゲットエンドポイントのエンドポイント接続設定（チェックを入れて）：`initstmt=SET time_zone=Asia/Tokyo`
+
+![](/images/aurora-mysql3-plan-book/dms_target_endpoint_setting.png)
+
 :::
