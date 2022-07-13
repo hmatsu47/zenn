@@ -134,16 +134,8 @@ DMS（CDC）によるレプリケーションにもいくつかの制約事項�
 を確認し、問題があれば修正します。
 
 :::message
-DMS では、エンドポイントの設定でタイムゾーンを合わせておきます（下の例は日本時間）。
-
-- ソースエンドポイントの設定：`serverTimezone` : `Asia/Tokyo`
-
-![](/images/aurora-mysql3-plan-book/dms_source_endpoint_setting.png)
-
-- ターゲットエンドポイントのエンドポイント接続設定（チェックを入れて）：`initstmt=SET time_zone='Asia/Tokyo'`
-
-![](/images/aurora-mysql3-plan-book/dms_target_endpoint_setting.png)
-（画像はクォートが漏れているので後ほど修正予定。また、`timestamp`型が 9 時間ずれてしまう問題が生じるのでこれも別途補足予定）
+DMS で Aurora MySQL v1 → v3 の移行をする場合は、 **エンドポイントの設定でタイムゾーンを指定してはいけません。**
+この点については、別途小ネタとして記す予定です。
 :::
 
 ---
