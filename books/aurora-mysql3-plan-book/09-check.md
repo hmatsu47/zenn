@@ -125,7 +125,7 @@ DMS では、エンドポイントの設定でタイムゾーンを合わせて�
 
 ![](/images/aurora-mysql3-plan-book/dms_source_endpoint_setting.png)
 
-- ターゲットエンドポイントのエンドポイント接続設定（チェックを入れて）：`initstmt=SET time_zone=Asia/Tokyo`
+- ターゲットエンドポイントのエンドポイント接続設定（チェックを入れて）：`initstmt=SET time_zone='Asia/Tokyo'`
 
 ![](/images/aurora-mysql3-plan-book/dms_target_endpoint_setting.png)
 
