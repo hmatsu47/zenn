@@ -1,12 +1,12 @@
 ---
-title: "AWS"
+title: "AWS DMS で MySQL to MySQL 移行時のタイムゾーン指定"
 emoji: "⌚"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mysql", "移行", "aws", "dms"]
 published: false
 ---
 
-AWS の DMS でソース・ターゲットの両方に MySQL（RDS / Aurora MySQL）を指定する場合、タイムゾーンの設定に注意が必要です。
+AWS の DMS でソース・ターゲットの両方が MySQL（RDS / Aurora MySQL）の場合、タイムゾーンの指定に注意が必要です。
 
 ## 端的にいうと
 
