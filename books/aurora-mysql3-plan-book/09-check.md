@@ -119,6 +119,8 @@ DMS レプリケーション（CDC）を使う場合、次の図のようなイ�
 を確認し、問題があれば修正します。
 
 :::message
-DMS で Aurora MySQL v1 → v3 の移行をする場合は、 **エンドポイントの設定でタイムゾーンを指定してはいけません。**
-この点については、別途記事化する予定です。
+DMS で Aurora MySQL v1 → v3 の移行をする場合は、 **エンドポイントの設定でタイムゾーンを指定しないようにします。**
+
+- https://zenn.dev/hmatsu47/articles/mysql-dms-timezone
+
 :::
