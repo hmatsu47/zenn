@@ -200,11 +200,11 @@ Aurora MySQL v3 では`innodb_parallel_read_threads`が設定できないので 
 
 パラレルスキャンの`SELECT COUNT(*)`については以前からいくつかのバグが見つかって修正されています。
 
-### MySQL 8.0.24 リリースノートより
+### [MySQL 8.0.24 リリースノート](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-24.html#mysqld-8-0-24-bug)より
 
 > - **_InnoDB:_** On Windows, stalls were caused by concurrent SELECT COUNT(\*) queries where the number of parallel read threads exceeded the number of machine cores. **(Bug #32224707, Bug #101789)**
 
-### MySQL 8.0.26 リリースノートより
+### [MySQL 8.0.26 リリースノート](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-bug)より
 
 > - **_InnoDB:_** Stalls were caused by concurrent SELECT COUNT(\*) queries where the number of parallel read threads exceeded the number of machine cores. A patch for this issue was provided for Windows builds in MySQL 8.0.24. The MySQL 8.0.26 patch addresses the same issue on other affected platforms. **(Bug #32678019)**
 
