@@ -192,6 +192,22 @@ Aurora MySQL v3 では`innodb_parallel_read_threads`が設定できないので 
 
 ## 現時点での結論
 
-「全データのサイズ＜バッファプールのサイズ」で運用するのは現実的ではないので、回避策が見つからず困っています。
+「全データのサイズ＜バッファプールのサイズ」で運用するのは現実的ではないので、有効な回避策が見つからず困っています。
 
 「10 GiB を超えるようなテーブルの全件`COUNT(*)`は取るな」と言われればそのとおりなのですが。
+
+## 余談
+
+パラレルスキャンの`COUNT(*)`については以前からいくつかのバグが見つかって修正されています。
+
+### MySQL 8.0.24 リリースノートより
+
+> - **_InnoDB:_** On Windows, stalls were caused by concurrent SELECT COUNT(\*) queries where the number of parallel read threads exceeded the number of machine cores. **(Bug #32224707, Bug #101789)**
+
+### MySQL 8.0.26 リリースノートより
+
+> - **_InnoDB:_** Stalls were caused by concurrent SELECT COUNT(\*) queries where the number of parallel read threads exceeded the number of machine cores. A patch for this issue was provided for Windows builds in MySQL 8.0.24. The MySQL 8.0.26 patch addresses the same issue on other affected platforms. **(Bug #32678019)**
+
+ただし、まだ Fix されていないバグも残っているようです（2022/07/22 現在）。
+
+https://bugs.mysql.com/bug.php?id=99717
