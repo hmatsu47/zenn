@@ -82,9 +82,9 @@ Aurora MySQL v3 では本家 MySQL 8.0 由来のハッシュ結合が導入さ�
 :::
 
 :::message
-**動作確認でわかったこと：`SELECT(*)`が遅くなるケースがある**
+**動作確認でわかったこと：`SELECT COUNT(*)`が遅くなるケースがある**
 
-`WHERE`句や`GROUP BY`句のないテーブル全件の`SELECT(*)`は MySQL 8.0.14 からパラレル処理で高速化されたのですが、Aurora MySQL 3.02.0 時点ではある程度行数が多いテーブルでは CPU 使用率が 100% に到達するとともに、Aurora MySQL v2 以前と比べても時間が掛かるケースがあるようです。
+`WHERE`句や`GROUP BY`句のないテーブル全件の`SELECT COUNT(*)`は MySQL 8.0.14 からパラレル処理で高速化されたのですが、Aurora MySQL 3.02.0 時点ではある程度行数が多いテーブルでは CPU 使用率が 100% に到達するとともに、Aurora MySQL v2 以前と比べても時間が掛かるケースがあるようです。
 
 - **[MySQL 8.0 で SELECT COUNT(\*) が失速する](https://zenn.dev/hmatsu47/articles/mysql80-count-slowdown#fnref-52c5-1)**
 

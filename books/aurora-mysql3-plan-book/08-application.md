@@ -107,6 +107,12 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 
 `FOR UPDATE`との組み合わせがありそうです。
 
+### `SELECT COUNT(*)`が遅くなるケースがある
+
+`WHERE`句や`GROUP BY`句のないテーブル全件の`SELECT COUNT(*)`は MySQL 8.0.14 からパラレル処理で高速化されたのですが、Aurora MySQL 3.02.0 時点ではある程度行数が多いテーブルでは CPU 使用率が 100% に到達するとともに、Aurora MySQL v2 以前と比べても時間が掛かるケースがあるようです。
+
+https://zenn.dev/hmatsu47/articles/mysql80-count-slowdown#fnref-52c5-1
+
 ### Aurora MySQL 独自の問題
 
 #### 参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化
@@ -118,9 +124,3 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良いでしょう。
 
 - **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
-
-#### `SELECT(*)`が遅くなるケースがある
-
-`WHERE`句や`GROUP BY`句のないテーブル全件の`SELECT(*)`は MySQL 8.0.14 からパラレル処理で高速化されたのですが、Aurora MySQL 3.02.0 時点ではある程度行数が多いテーブルでは CPU 使用率が 100% に到達するとともに、Aurora MySQL v2 以前と比べても時間が掛かるケースがあるようです。
-
-https://zenn.dev/hmatsu47/articles/mysql80-count-slowdown#fnref-52c5-1
