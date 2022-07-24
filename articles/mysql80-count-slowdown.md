@@ -48,6 +48,7 @@ https://atsuizo.hatenadiary.jp/entry/2019/01/23/112608
 - インスタンスタイプはテスト ①〜④ が db.r6g.large（2vCPU・Mem 16GiB）、テスト ⑤ が db.r6g.2xlarge（8vCPU・Mem 64GiB）
 - ストレージは gp2 の 700GB
 - Single-AZ
+- ③ 以外のパラメータグループ（設定）は RDS のデフォルトを使用
 
 ## テストデータ
 
