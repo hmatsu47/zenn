@@ -57,6 +57,8 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 
 同様の事象が発生した場合は`null`ではなく`NOW()`などで`UPDATE`する形に SQL 文（プリペアドステートメント）を書き換えます。
 
+また、Connector/J 8.0.29 で`rewriteBatchedStatements=true`のときに`ROW_COUNT()`の結果が不正な事象も見つかっています（8.0.28 に戻して回避）。
+
 ### 予約語のバッティング
 
 すでに使用しているテーブル名・カラム名などに新しく予約語となったキーワード（`RANK`など）が含まれる場合は、前後を「`」で囲みます。
