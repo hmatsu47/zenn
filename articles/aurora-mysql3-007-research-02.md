@@ -126,6 +126,13 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_func_oper.
 
 などから、移行前の改修は見送ることにします。
 
+:::message
+`SELECT COUNT(*)`に書き換えたときに速くならずに遅くなるケースもあります。
+
+- **[MySQL 8.0 で SELECT COUNT(\*) が失速する](https://zenn.dev/hmatsu47/articles/mysql80-count-slowdown)**
+
+:::
+
 #### 文字セット・照合順序
 
 https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all.md#%E6%96%87%E5%AD%97%E3%82%BB%E3%83%83%E3%83%88%E7%85%A7%E5%90%88%E9%A0%86%E5%BA%8F

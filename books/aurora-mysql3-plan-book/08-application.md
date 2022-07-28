@@ -75,6 +75,10 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 
 先に改修してリリースすると v1 運用中に性能低下の恐れがあることなどから、v3 移行後に改修するのが妥当でしょう。
 
+:::message
+[後述](<https://zenn.dev/hmatsu47/books/aurora-mysql3-plan-book/viewer/08-application#select-count(*)%E3%81%8C%E9%81%85%E3%81%8F%E3%81%AA%E3%82%8B%E3%82%B1%E3%83%BC%E3%82%B9%E3%81%8C%E3%81%82%E3%82%8B>)しますが、`SELECT COUNT(*)`に書き換えたときに速くならずに遅くなるケースもあります。
+:::
+
 ### 文字セット・照合順序の問題
 
 #### `utf8`・`utf8mb3`
