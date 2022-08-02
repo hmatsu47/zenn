@@ -5,6 +5,7 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["solidjs", "typescript", "materialui", "supabase"]
 published: true
 ---
+
 最近話題になりつつある（？）[SolidJS](https://www.solidjs.com/) 向けの Material-UI ライブラリ **[SUID](https://suid.io/)** を少しだけ試してみました。
 
 ## SUID
@@ -24,6 +25,19 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 日本時間の 5/6 朝にリリースされたバージョン 0.2.0 では対応コンポーネントが 3 つ（[`Radio`](https://suid.io/components/radio-button)・[`Table`](https://suid.io/components/table)・[`Grow`](https://suid.io/components/grow)）増えました。
 また、5/18 にリリースされたバージョン 0.3.0 では対応コンポーネントが 2 つ（[`Avatar`](https://suid.io/components/avatar)・[`Popover`](https://suid.io/components/popover)）増えました。
 なお、5/26 にリリースされたバージョン 0.4.0 では対応コンポーネントは増えませんでした。
+
+---
+
+**2022/8/2 追記：**
+その後、以下の機能が追加されています。
+
+- バージョン 0.4.3
+  - [`TextField`](https://suid.io/components/text-field)の`HelperText`
+- バージョン 0.5.0
+  - [`Table`](https://suid.io/components/table)の`TableFooter`（Docs 未反映）
+  - `NativeSelect`（Docs 未反映）
+    - **[参考リンク（Material-UI）](https://mui.com/material-ui/react-select/#native-select)**
+
 :::
 
 ## 試したバージョン
@@ -39,10 +53,11 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 また、0.3.0 で追加された [`Avatar`](https://suid.io/components/avatar) も試してきました。
 
 :::message
-今回は Supabase 関連部分の実装についての説明は省略します（↓の記事で説明）。
+今回は Supabase 関連部分の実装についての説明は省略します（↓ の記事で説明）。
+
 - **[SolidJS で Supabase の Row Level Security を試してみた](https://qiita.com/hmatsu47/items/b6ba2d2994e1632c13ea)**
 - **[SolidJS で Supabase の Row Level Security を試してみた…の続き（補足）](https://qiita.com/hmatsu47/items/774a3ab9441fe8eb96c7)**
-:::
+  :::
 
 ## サンプルコード（全体）
 
@@ -71,7 +86,7 @@ https://github.com/hmatsu47/pgunconf-sample-app
   />
 ```
 
-`required`指定の場合、未入力で Form を Submit しようとするとアラートが表示されブロックされます。ただし Submit を使わない場合は「*」印の表示のみでブロック動作などは生じません（自前で Validation を実装する必要あり）。
+`required`指定の場合、未入力で Form を Submit しようとするとアラートが表示されブロックされます。ただし Submit を使わない場合は「\*」印の表示のみでブロック動作などは生じません（自前で Validation を実装する必要あり）。
 
 ![](/images/solidjs-suid-sample/auth.png)
 
@@ -120,12 +135,13 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 :::message
 リンク先のコードを見ると、すぐ上に`loading()`が`true`のときの`textarea`（空欄かつ`disabled`）が書かれていますが、これは`textarea`の再描画失敗対策です。
 SolidJS のバージョンによってはこの「出し分け」がなくても正常動作しますが、
+
 - `List.tsx`から`props`としてステート（`Signal`）`article`を渡す
   - `EditItem.tsx`側で新規投稿・投稿修正の各フィールド用の`Signal`にセットする
 - `EditItem.tsx`内の各フィールド用の`Signal`を直接上書きする
-の 2 通りの方法でカードおよびその内容を再描画しているのが原因で`textarea`などの状態がおかしくなることがあったのでこうしています。
-（本来ならロード中画面に`Skelton`を使いつつカード全体を対象に再描画させるべきかもしれないが省略）
-:::
+  の 2 通りの方法でカードおよびその内容を再描画しているのが原因で`textarea`などの状態がおかしくなることがあったのでこうしています。
+  （本来ならロード中画面に`Skelton`を使いつつカード全体を対象に再描画させるべきかもしれないが省略）
+  :::
 
 ### `Card`（カード表示）
 
@@ -266,8 +282,9 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 
 :::message
 バージョン 0.4.0 ではリファクタリングが中心だった模様で、対応コンポーネント自体は増えませんでしたが、[`Grid`](https://suid.io/components/grid)・[`Stack`](https://suid.io/components/stack)・[`Typography`](https://suid.io/components/typography)に system properties が実装されました。
+
 - [バージョン 0.4.0 リリース情報](https://github.com/swordev/suid/releases/tag/%40suid%2Fmaterial%400.4.0)
-:::
+  :::
 
 ## 参考：その他のサンプル画面
 
