@@ -57,7 +57,8 @@ React 用の [MUI](https://mui.com/) を SolidJS 向けに port（移植）す�
 
 - **[SolidJS で Supabase の Row Level Security を試してみた](https://qiita.com/hmatsu47/items/b6ba2d2994e1632c13ea)**
 - **[SolidJS で Supabase の Row Level Security を試してみた…の続き（補足）](https://qiita.com/hmatsu47/items/774a3ab9441fe8eb96c7)**
-  :::
+
+:::
 
 ## サンプルコード（全体）
 
@@ -68,6 +69,11 @@ https://github.com/hmatsu47/pgunconf-sample-app
 ここからはサンプルコードでの使用例と気になった点を挙げていきます（当然ですが今後のバージョンで変わる可能性があります）。
 
 ### `TextField`（テキスト入力フィールド）
+
+:::message
+**2022/8/2 追記：**
+前述のとおりバージョン 0.5.0 で`HelperText`に対応しました。
+:::
 
 #### 使用例
 
@@ -96,6 +102,8 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
 
 今回は画面表示直後のフォーカスの指定に使いたかったのですが、諦めて`document.getElementById()`を使ってフォーカスを移動しました。
 
+これについては元から`ref`・`inputRef`には対応しない方針なのかもしれません。
+
 - [setFocus.ts](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/commons/setFocus.ts#L3)（3 行目〜）
 
 ```typescript:setFocus.ts（3行目〜）
@@ -113,7 +121,7 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
 
 #### `multiline`に対応していない
 
-SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea-autosize/)に対応していないので代わりに`TextField`で [Multiline](https://mui.com/material-ui/react-text-field/#multiline) を使おうと思ったのですが、`multiline`・`row`などには対応していませんでした。
+SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea-autosize/)に対応していないので代わりに`TextField`で [`Multiline`](https://mui.com/material-ui/react-text-field/#multiline) を使おうと思ったのですが、`multiline`・`row`などには対応していませんでした。
 
 仕方なく通常の`textarea`タグを使いました。
 
