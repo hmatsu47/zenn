@@ -77,9 +77,9 @@ https://github.com/hmatsu47/pgunconf-sample-app
 
 #### 使用例
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L105)（105 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L91)（91 行目〜）
 
-```tsx:Auth.tsx（105行目〜）
+```tsx:Auth.tsx（91行目〜）
   <TextField
     required
     id="email"
@@ -111,11 +111,11 @@ React の MUI では`TextField`で`ref`の代わりに`inputRef`が使えます�
   element?.focus();
 ```
 
-- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L20)（20 行目〜）
+- [Auth.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/Auth.tsx#L23)（23 行目〜）
 
-```tsx:Auth.tsx（20行目〜）
+```tsx:Auth.tsx（23行目〜）
   onMount(() => {
-    setFocus('email');
+    setFocus("email");
   })
 ```
 
@@ -125,9 +125,9 @@ SUID では現状[`TextareaAutosize`](https://mui.com/material-ui/react-textarea
 
 仕方なく通常の`textarea`タグを使いました。
 
-- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L224)（224 行目〜）
+- [EditItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/EditItem.tsx#L210)（210 行目〜）
 
-```tsx:EditItem.tsx（224行目〜）
+```tsx:EditItem.tsx（210行目〜）
   <textarea
     id="note"
     aria-label="Note"
@@ -163,15 +163,9 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
     variant="outlined"
   >
     <CardContent>
-      <Stack
-        spacing={1}
-        direction="row"
-      >
+      <Stack spacing={1} direction="row">
         <CardActions sx={{ padding: 0 }}>
-          <IconButton
-            onClick={() => toggleExpand()}
-            sx={{ padding: 0 }}
-          >
+          <IconButton onClick={() => toggleExpand()} sx={{ padding: 0 }}>
             <Switch fallback={<></>}>
               <Match when={!expand()}>
                 <ExpandMoreIcon aria-label="expand more"/>
@@ -182,32 +176,17 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
             </Switch>
           </IconButton>
         </CardActions>
-        <Typography
-          variant="h6"
-          gutterBottom
-        >
+        <Typography variant="h6" gutterBottom>
           {props.article.title}
         </Typography>
 （中略）
       </Stack>
-      <Show
-        when={expand()}
-        fallback={<></>}
-      >
-        <Fade
-          in={expand()}
-          timeout={500}
-        >
+      <Show when={expand()} fallback={<></>}>
+        <Fade in={expand()} timeout={500}>
           <Box>
-            <For
-              each={props.article.note?.split('\n')}
-              fallback={<></>}
-            >
+            <For each={props.article.note?.split("\n")} fallback={<></>}>
               {(line) =>
-                <Typography
-                  variant="body1"
-                  gutterBottom
-                >
+                <Typography variant="body1" gutterBottom>
                   {line}
                 </Typography>
               }
@@ -220,7 +199,8 @@ SolidJS のバージョンによってはこの「出し分け」がなくても
           aria-label="edit"
           onClick={() => props.changeArticle(props.article)}
           disabled={
-            props.article.userId !== props.session.user!.id && props.article.noteType !== NoteType.Writable
+            props.article.userId !== props.session.user!.id &&
+            props.article.noteType !== NoteType.Writable
           }
         >
           <EditIcon />
@@ -243,7 +223,7 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
 `For`のブロックを直接`Fade`の対象にはできないため、`For`を`Box`の中に入れています。
 :::
 
-```tsx:ViewItem.tsx（52行目〜：展開ボタン部分）
+```tsx:ViewItem.tsx（43行目〜：展開ボタン部分）
   <Switch fallback={<></>}>
     <Match when={!expand()}>
       <ExpandMoreIcon aria-label="expand more"/>
@@ -254,25 +234,13 @@ React 用 MUI にある [Collapse API](https://mui.com/material-ui/api/collapse/
   </Switch>
 ```
 
-```tsx:ViewItem.tsx（93行目〜：実際に展開する部分）
-  <Show
-    when={expand()}
-    fallback={<></>}
-  >
-    <Fade
-      in={expand()}
-      timeout={500}
-    >
+```tsx:ViewItem.tsx（81行目〜：実際に展開する部分）
+  <Show when={expand()} fallback={<></>}>
+    <Fade in={expand()} timeout={500}>
       <Box>
-        <For
-          each={props.article.note?.split('\n')}
-          fallback={<></>}
-        >
+        <For each={props.article.note?.split("\n")} fallback={<></>}>
           {(line) =>
-            <Typography
-              variant="body1"
-              gutterBottom
-            >
+            <Typography variant="body1" gutterBottom>
               {line}
             </Typography>
           }
@@ -306,9 +274,9 @@ SUID 0.3.0 で [`Avatar`](https://suid.io/components/avatar) に対応したの�
 
 #### 使用例
 
-- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L68)（68 行目〜）
+- [ViewItem.tsx](https://github.com/hmatsu47/pgunconf-sample-app/blob/main/src/ViewItem.tsx#L56)（56 行目〜）
 
-```tsx:ViewItem.tsx（68行目〜）
+```tsx:ViewItem.tsx（56行目〜）
 <Avatar
   alt={props.article.userName}
   src={props.avatar}
