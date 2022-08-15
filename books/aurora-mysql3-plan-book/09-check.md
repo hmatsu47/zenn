@@ -127,7 +127,8 @@ DMS で Aurora MySQL v1 → v3 の移行をする場合は、 **エンドポイ�
 
 - https://zenn.dev/hmatsu47/articles/mysql-dms-timezone
 
-また、`mediumblob`・`longblob`型の列と`ON UPDATE CURRENT_TIMESTAMP`付きの`timestamp`・`datetime`型の列を含むテーブルがある場合も、注意が必要です。
+**2022/08/16 追記：**
+`mediumblob`・`longblob`型の列と`ON UPDATE CURRENT_TIMESTAMP`付きの`timestamp`・`datetime`型の列を含むテーブルがある場合も、注意が必要です。
 
 - https://zenn.dev/hmatsu47/articles/mysql-dms-cdc-timestamp-mismatch
 
