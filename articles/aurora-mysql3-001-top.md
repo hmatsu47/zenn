@@ -5,6 +5,7 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["aws", "aurora", "mysql", "移行", "バージョンアップ"]
 published: true
 ---
+
 Amazon Aurora MySQL 互換エディション（以降「Aurora MySQL」と表記）のバージョン 1（MySQL 5.6 互換・以降「v1」）の EoL が発表されました。
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.MySQL56.EOL.html
@@ -17,8 +18,9 @@ https://endoflife.software/applications/databases/mysql
 
 :::message
 こちらを見ると、2024/2/29 より前に EoL になることはなさそうですが、v1 の日付から類推すると 2024/7/31 あたりに EoL になりそう、とも…？
- - https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
-:::
+
+- https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
+  :::
 
 というわけで、**これから数週間の予定で Aurora MySQL v3（MySQL 8.0 互換）移行に必要そうな情報をかき集めてみます。**
 
@@ -28,7 +30,7 @@ https://endoflife.software/applications/databases/mysql
 
 :::message
 **こちらの記事群を本にまとめました。**
-**[Aurora MySQL v1 → v3（3.02.0 移行計画編）](https://zenn.dev/hmatsu47/books/aurora-mysql3-plan-book)**
+**[Aurora MySQL v1 → v3（3.02.1 移行計画編）](https://zenn.dev/hmatsu47/books/aurora-mysql3-plan-book)**
 :::
 
 ## そもそも Aurora MySQL v3 に移行するメリットは？
@@ -106,7 +108,7 @@ v1（MySQL 5.6）→ v2（MySQL 5.7）と比べても**要配慮な変更点が�
   - デフォルト動作の変更
     - 例：暗黙のソート順・`GROUP BY`でのソート
   - 機能追加の影響
-    - 例：予約語の追加→既存アプリケーションで使用しているデータベース（スキーマ）名・テーブル名・列名などとのバッティング
+    - 例：予約語の追加 → 既存アプリケーションで使用しているデータベース（スキーマ）名・テーブル名・列名などとのバッティング
       - https://qiita.com/hmatsu47/items/a1da0e06f0597acd6502
   - 機能削除（または非推奨）の影響
     - 例：クエリキャッシュ廃止
@@ -128,9 +130,10 @@ v1（MySQL 5.6）→ v2（MySQL 5.7）と比べても**要配慮な変更点が�
 今後の記事で順次触れていく予定です。
 
 :::message
-必ずしも↑に記した順番に触れるわけではありません。
+必ずしも ↑ に記した順番に触れるわけではありません。
 また、ここに挙げていない項目についても取り上げます。
 :::
+
 ---
 
 - **[Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）移行を計画する（2）調査の進め方と参考資料](/hmatsu47/articles/aurora-mysql3-002-ref-material)**
