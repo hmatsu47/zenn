@@ -30,6 +30,12 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 - **[クローン・スナップショットからの復元や、binlog レプリケーションを組み合わせた Blue/Green デプロイも使える](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%E3%81%8B%E3%82%89%E3%81%AE%E5%BE%A9%E5%85%83%E3%82%84%E3%80%81%E3%83%AC%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%9F-blue%2Fgreen-%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%82%82%E4%BD%BF%E3%81%88%E3%82%8B)**
 - **[Aurora MySQL v2 → v3 はクローン・インプレースアップグレードできない](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#aurora-mysql-v2-%E2%86%92-v3-%E3%81%AF%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%A4%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%82%B9%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84)**
   - スナップショットからの復元でアップグレードする
+
+:::message
+**2022/9/29 追記：**
+Aurora MySQL v2 → v3 の **[インプレースアップグレードがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/09/amazon-aurora-supports-in-place-upgrades-mysql-5-7-8-0/)**。
+:::
+
 - **[v1 → v2 の際に`engine`属性が`aurora`から`aurora-mysql`に変わる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#v1-%E2%86%92-v2-%E3%81%AE%E9%9A%9B%E3%81%ABengine%E5%B1%9E%E6%80%A7%E3%81%8Caurora%E3%81%8B%E3%82%89aurora-mysql%E3%81%AB%E5%A4%89%E3%82%8F%E3%82%8B)**
   - CLI や API で処理を自動化している場合に注意
 - **[パラメータグループに注意](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AB%E6%B3%A8%E6%84%8F)**
@@ -41,7 +47,7 @@ CLI を使った具体的なアップグレード操作については取り上�
 
 - **[Aurora MySQL インプレースアップグレードのチュートリアル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.MajorVersionUpgrade.html#AuroraMySQL.Upgrading.Tutorial)**
 - **[Aurora MySQL バージョン 1 からバージョン 3 へのアップグレードの例](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-upgrade-example-v1-v3)**
-:::
+  :::
 
 ### Aurora MySQL v1 から直接 v3 へはアップグレードできない
 
@@ -99,6 +105,11 @@ v3 が GA になる前の記事なので v3 アップグレードへの言及は
 
 今後クローン・インプレースアップグレード対応になる可能性はありますが、現時点ではスナップショットからの復元でアップグレードすることになります。
 
+:::message
+**2022/9/29 追記：**
+前述のとおり、Aurora MySQL v2 → v3 の **[インプレースアップグレードがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/09/amazon-aurora-supports-in-place-upgrades-mysql-5-7-8-0/)**。
+:::
+
 この関係で、グローバルデータベース構成にしている場合は v3 に移行する難易度が高いと思います（できなくはないと思いますが）。
 
 クラスタ数やインスタンス数が多い場合も厳しそうですね（並行して新旧バージョンのクラスタを用意する場合はクォータに引っ掛かりそうなので上限緩和申請が必要かもしれません）。
@@ -127,9 +138,16 @@ CLI や SDK などを使って API を呼び出すコードを書いている場
 
 :::message
 レプリケーションを使って移行する場合、DMS の使用を検討したほうが良いかもしれません。その場合、binlog は`ROW`形式を使います。
+
 - https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/Welcome.html
 - https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/CHAP_Source.MySQL.html
 - https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/CHAP_Target.MySQL.html
+
+**2022/9/29 追記：**
+ただし、↓ こちらの記事のような問題が発生するケースでは、DMS（CDC）を使ったレプリケーションが使えないので注意が必要です。
+
+- https://zenn.dev/hmatsu47/articles/mysql-dms-cdc-timestamp-mismatch
+
 :::
 
 ---
