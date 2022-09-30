@@ -20,7 +20,13 @@ https://endoflife.software/applications/databases/mysql
 こちらを見ると、2024/2/29 より前に EoL になることはなさそうですが、v1 の日付から類推すると 2024/7/31 あたりに EoL になりそう、とも…？
 
 - https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
-  :::
+
+**2022/9/30 追記：**
+英語版に切り替えると、v2 の日付が 2024/10/31 に延長されています。
+
+- https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
+
+:::
 
 というわけで、**これから数週間の予定で Aurora MySQL v3（MySQL 8.0 互換）移行に必要そうな情報をかき集めてみます。**
 

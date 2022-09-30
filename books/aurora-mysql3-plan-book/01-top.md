@@ -16,6 +16,14 @@ https://endoflife.software/applications/databases/mysql
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
 
+:::message
+**2022/9/30 追記：**
+英語版に切り替えると、v2 の日付が 2024/10/31 に延長されています。
+
+- https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
+
+:::
+
 このような状況のもと、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。
 
 ## 注意事項など
