@@ -60,7 +60,7 @@ https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_aut
 
 ### ライブラリ
 
-DB 接続用のライブラリ（MySQL Connector/J）を MySQL 8.0 対応バージョンに変更します。
+DB 接続用のライブラリ（MySQL Connector/J など）を MySQL 8.0 対応バージョンに変更します。
 
 その際、TLS 接続（TLS バージョンが合わない、非 SSL では接続できない等）の問題が生じる可能性がある点を留意しておきます。
 
@@ -98,6 +98,15 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 同様の事象が発生した場合は`null`ではなく`NOW()`などで`UPDATE`する形に SQL 文（プリペアドステートメント）を書き換えます。
 
 また、Connector/J 8.0.29 で`rewriteBatchedStatements=true`のときに`ROW_COUNT()`の結果が不正な事象も見つかっています（8.0.28 に戻して回避）。
+
+:::message
+**2022/10/19 追記：**
+MySQL Connector/J で`FLOAT(M,D)`・`DOUBLE(M,D)`型の列を`java.math.BigDecimal`値として取り込む際に、5.1 時代は`D`（小数点以下の桁数）を自動的にスケールとして設定する実装になっていましたが、8.0 では明示的な`setScale()`が必要になりました。
+
+このように、対応する言語の Connector によっては **サーバで非推奨化した機能向けの実装を先行して廃止する** ポリシーで開発されているケースがあるようです。
+
+これはかなり厄介な問題です。
+:::
 
 ### SQL 文とテーブル定義
 
