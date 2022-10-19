@@ -12,16 +12,13 @@ v2（MySQL 5.7 互換）への移行も考えられますが、本家 MySQL 5.7 
 
 https://endoflife.software/applications/databases/mysql
 
-そして AWS の Aurora バージョン情報によると、最短で 2024 年前半に EoL になる可能性があります。
+そして AWS の Aurora バージョン情報によると、最短で 2024 年後半に EoL になる可能性があります。
 
 https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
 
 :::message
-**2022/9/30 追記：**
-英語版に切り替えると、v2 の日付が 2024/10/31 に延長されています。
-
-- https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.VersionPolicy.html#Aurora.VersionPolicy.MajorVersionLifetime
-
+**2022/10/19 追記：**
+2022 年 9 月下旬に半年ほど延長されました。
 :::
 
 このような状況のもと、Aurora MySQL v1 から v3 への移行計画に必要な情報を提供します。

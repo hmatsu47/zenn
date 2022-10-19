@@ -59,6 +59,15 @@ https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.ht
 
 また、Connector/J 8.0.29 で`rewriteBatchedStatements=true`のときに`ROW_COUNT()`の結果が不正な事象も見つかっています（8.0.28 に戻して回避）。
 
+:::message
+**2022/10/19 追記：**
+MySQL Connector/J で`FLOAT(M,D)`・`DOUBLE(M,D)`型の列を`java.math.BigDecimal`値として取り込む際に、5.1 時代は`D`（小数点以下の桁数）を自動的にスケールとして設定する実装になっていましたが、8.0 では明示的な`setScale()`が必要になりました。
+
+このように、対応する言語の Connector によっては **サーバで非推奨化した機能向けの実装を先行して廃止する** ポリシーで開発されているケースがあるようです。
+
+これはかなり厄介な問題です。
+:::
+
 ### 予約語のバッティング
 
 すでに使用しているテーブル名・カラム名などに新しく予約語となったキーワード（`RANK`など）が含まれる場合は、前後を「`」で囲みます。
