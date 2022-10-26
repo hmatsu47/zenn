@@ -17,9 +17,7 @@ https://qiita.com/hmatsu47/items/ef48b8673f4775bef4a6#%E3%81%AA%E3%81%9C-aurora-
 で触れていますが、主に
 
 - 本家 MySQL 5.7 の EoL が迫る中、**一旦 v2 を挟むと最悪の場合 2 年で 2 回バージョンアップが必要になる**
-  - Web フレームワークやミドルウェアなどの EoL 対応も予想される中それは厳しい
 - 私個人が **[MySQL 8.0 の薄い本](https://github.com/hmatsu47/mysql80_no_usui_hon)** の製作・頒布を MySQL 8.0.24 の頃まで続けていたので**バージョン間差分の情報をそこそこ把握していた**
-  - Aurora MySQL v3 のバージョン 3.01.x・3.02.x は MySQL 8.0.23 + α ベースでリリースされたのでほぼカバーできる
 
 です。
 
