@@ -65,6 +65,20 @@ https://github.com/hmatsu47/aurora_mysql1to3diff
 - 動作確認で見つけた不具合を修正
 - DMS（CDC）を軽く試用
 
+開発環境の構築にあたって、設定値（パラメーターグループ）について 2 点の調整が必要になりました。
+
+### `innodb_strict_mode`のデフォルトが **厳密モード** に
+
+https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_strict_mode
+
+一部の SQL 文の実行で、従来は警告（Warning）で済ませていたのをエラーで止める動作に変わりました。ほぼ問題にならない見込みでしたが、念のため従来の設定に合わせて厳密モードを OFF にしました。
+
+### `innodb_autoinc_lock_mode`のデフォルトが`1`から`2`に
+
+https://dev.mysql.com/doc/refman/8.0/ja/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode
+
+`2`のほうが性能上有利なのですが、MySQL Connector/J の **[`rewriteBatchedStatements`オプション](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-performance-extensions.html#cj-conn-prop_rewriteBatchedStatements)** を使ったバッチ`INSERT`と **[LAST_INSERT_ID()](https://dev.mysql.com/doc/refman/8.0/ja/information-functions.html#function_last-insert-id)** を組み合わせた処理を行っている部分があったので、従来と同じ`1`に戻しました。
+
 これらをもとに Zenn の記事として
 
 https://zenn.dev/hmatsu47/articles/aurora-mysql3-007-research-02
