@@ -160,4 +160,9 @@ DMS で Aurora MySQL v1 → v3 の移行をする場合は、 **エンドポイ�
 
 ---
 
-（続きの記事の公開時期は未定です）
+**2022/10/28 追記：**
+
+実際の移行作業が終了したのでまとめました。
+
+https://qiita.com/hmatsu47/items/ef48b8673f4775bef4a6
+https://zenn.dev/hmatsu47/books/aurora-mysql-do-book
