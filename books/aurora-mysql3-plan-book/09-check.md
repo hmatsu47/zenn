@@ -47,7 +47,7 @@ a.（不具合の有無の検証）では必ずしも実容量を意識してテ
 
 a. では必ずしも実環境と同じサイズと個数のインスタンスを用意する必要はありませんが（アプリケーションコードがインスタンスサイズや個数に依存している場合を除いて）、Reader インスタンスを使用する構成であれば必ず Reader インスタンスを用意します。
 
-これは、Chapter 05・08 に示したとおり、 **[内部テンポラリテーブルの仕様変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-internal-temp-tables-engine)** や **[テンポラリテーブルの仕様変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)** などの影響が生じないか確認するのが目的です。
+これは、Chapter 05・08 に示したとおり、 **[内部テンポラリテーブルの仕様変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/ams3-temptable-behavior.html#ams3-temptable-behavior-engine)** や **[テンポラリテーブルの仕様変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/ams3-temptable-behavior.html#ams3-temptable-behavior.user)** などの影響が生じないか確認するのが目的です。
 
 またその際、実際の AZ 構成を意識してインスタンスを配置します。
 

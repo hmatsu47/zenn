@@ -41,7 +41,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 - **[クエリキャッシュの削除](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%82%AF%E3%82%A8%E3%83%AA%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E5%89%8A%E9%99%A4)**
 - **[ハッシュ結合（Hash join）を実装](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E7%B5%90%E5%90%88%EF%BC%88hash-join%EF%BC%89%E3%82%92%E5%AE%9F%E8%A3%85)**
 - **[デフォルト文字セットが`latin1`から`utf8mb4`に変更](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E6%96%87%E5%AD%97%E3%82%BB%E3%83%83%E3%83%88%E3%81%8Clatin1%E3%81%8B%E3%82%89utf8mb4%E3%81%AB%E5%A4%89%E6%9B%B4)**
-- **[参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%8F%82%E7%85%A7%E5%B0%82%E7%94%A8%EF%BC%88reader%EF%BC%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%81%A7%E3%81%AEcreate-temporary-table-(as-select)%E6%8C%99%E5%8B%95%E5%A4%89%E5%8C%96)**
+- **[参照専用（Reader）インスタンスでの`CREATE TEMPORARY TABLE (AS SELECT)`挙動変化](</hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%8F%82%E7%85%A7%E5%B0%82%E7%94%A8%EF%BC%88reader%EF%BC%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%81%A7%E3%81%AEcreate-temporary-table-(as-select)%E6%8C%99%E5%8B%95%E5%A4%89%E5%8C%96>)**
 - **[内部テンポラリテーブル変更](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E5%86%85%E9%83%A8%E3%83%86%E3%83%B3%E3%83%9D%E3%83%A9%E3%83%AA%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E5%A4%89%E6%9B%B4)**
 
 #### インスタント DDL をサポート
@@ -58,7 +58,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.M
 
 MySQL 8.0 では以前のバージョンと比べて管理者権限が細分化されています。
 
-- **[ロールベースの特権モデル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.privilege-model)**
+- **[ロールベースの特権モデル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMySQL.Compare-80-v3.html#AuroraMySQL.privilege-model)**
 
 Aurora MySQL v1 で実行していた SQL 文などが権限エラーになる場合は、実行に必要な権限を確認してください。
 
@@ -125,7 +125,7 @@ https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 
 そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良さそうです。
 
-- **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
+- **[リーダー DB インスタンスでユーザーが作成した (明示的な) 一時テーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/ams3-temptable-behavior.html#ams3-temptable-behavior.user)**
 
 #### 内部テンポラリテーブル変更
 
@@ -135,7 +135,7 @@ https://qiita.com/hmatsu47/items/d66830c8a00c21f5edad
 
 MyISAM ストレージエンジンが廃止され、アーキテクチャが変わりました。
 
-- **[内部テンポラリテーブルのストレージエンジン](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-internal-temp-tables-engine)**
+- **[内部 (黙示的) 一時テーブルのストレージエンジン](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/ams3-temptable-behavior.html#ams3-temptable-behavior-engine)**
 
 動作調整のために`internal_tmp_mem_storage_engine`パラメータが追加されました。
 
@@ -161,7 +161,7 @@ https://aws.amazon.com/jp/blogs/database/use-the-temptable-storage-engine-on-ama
 
 「Master」「Slave」などの用語の読み替えがバックポートされています。
 
-- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
+- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMySQL.Compare-v2-v3.html#AuroraMySQL.8.0-inclusive-language)**
 
 #### Percona XtraBackup ツールからの物理バックアップ復元は未対応
 
@@ -204,7 +204,7 @@ Aurora 独自のステータス変数を含みます。
 
 #### Aurora 並列クエリの最適化対象が拡大
 
-- **[新しい並列クエリの最適化](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-features-pq)**
+- **[新しいパラレルクエリの最適化](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-features-pq)**
 
 LOB 系カラムやパーティショニングされたテーブル、`HAVING`句の中での集計関数に対応しました。
 
@@ -226,9 +226,9 @@ LOB 系カラムやパーティショニングされたテーブル、`HAVING`�
 
 `lower_case_table_names`パラメータの値はクラスタ作成時の指定で固定されるので、デフォルト値以外に変更する場合はアップグレード前にカスタムパラメータグループを作成・設定します。
 
-その他の項目の変更については、前掲のこちら↓を確認してください。
+その他の項目の変更については、前掲のこちら ↓ を確認してください。
 
-- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
+- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMySQL.Compare-v2-v3.html#AuroraMySQL.8.0-inclusive-language)**
 
 ### その他
 

@@ -1,6 +1,7 @@
 ---
 title: "Aurora MySQL v3 の新機能"
 ---
+
 ## この章について
 
 移行計画の前に、Aurora MySQL v3 の新機能について簡単に触れておきます。
@@ -20,13 +21,13 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 ### 主な新機能
 
 - **ウィンドウ関数**
-  - **[MySQL 8.0.2 DMRでウィンドウ関数がサポートされたので、RANK関数を試してみる](https://qiita.com/hmatsu47/items/6cc0e69f3895f3e4a486)**
+  - **[MySQL 8.0.2 DMR でウィンドウ関数がサポートされたので、RANK 関数を試してみる](https://qiita.com/hmatsu47/items/6cc0e69f3895f3e4a486)**
 - **共通テーブル式（CTE・`WITH`句）**
-  - **[いまさらMySQL 8.0で共通テーブル式（CTE : Common Table Expressions）](https://qiita.com/hmatsu47/items/01211556089b19913d05)**
+  - **[いまさら MySQL 8.0 で共通テーブル式（CTE : Common Table Expressions）](https://qiita.com/hmatsu47/items/01211556089b19913d05)**
 - **`CHECK`制約**
   - **[MySQL 8.0.16 で実装された CHECK 制約を（いまさら）試してみる](https://qiita.com/hmatsu47/items/7526b5a4bfdc346b158c)**
 - **ロールによる権限管理**
-  - **[MySQL 8.0（8.0.2）DMRでロールを使う (1) 基本編](https://qiita.com/hmatsu47/items/e4a49d32685220d492a9)**
+  - **[MySQL 8.0（8.0.2）DMR でロールを使う (1) 基本編](https://qiita.com/hmatsu47/items/e4a49d32685220d492a9)**
 - **インスタント DDL**
   - 後述
 
@@ -34,7 +35,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
 
 - **インデックス関連**
   - 降順インデックス
-    - **[いまさらMySQL 8.0で降順INDEX](https://qiita.com/hmatsu47/items/8c5e7abe204f7ecc5084)**
+    - **[いまさら MySQL 8.0 で降順 INDEX](https://qiita.com/hmatsu47/items/8c5e7abe204f7ecc5084)**
   - 関数＆式インデックス
   - 不可視インデックス
 - **JSON 機能**
@@ -44,7 +45,7 @@ https://github.com/hmatsu47/mysql80_no_usui_hon
   - 行更新の内部処理効率化
 - **GIS 機能**
   - SRID 対応
-    - **[「地球が丸いということを知った」MySQL 8.0で距離を計算してみる](https://qiita.com/hmatsu47/items/97839fd9c3db1d2e9557)**
+    - **[「地球が丸いということを知った」MySQL 8.0 で距離を計算してみる](https://qiita.com/hmatsu47/items/97839fd9c3db1d2e9557)**
 - **ロックの改良**
   - `NO WAIT`・`SKIP LOCKED`
     - **[MySQL 8.0 で NOWAIT / SKIP LOCKED（いまさら）](https://qiita.com/hmatsu47/items/7675b026e65762d2445f)**
@@ -58,7 +59,7 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 
 - **`AUTO_INCREMENT`値の保持**
   - 再起動後は保持されるが、スナップショットからの復元時などには保持されない
-    - **[AUTO_INCREMENT 値](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-autoincrement)**
+    - **[AUTO_INCREMENT 値](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMySQL.Compare-v2-v3.html#AuroraMySQL.mysql80-autoincrement)**
 - **リソースグループ**
 - **`UNDO`テーブル領域の新機能**
   - Aurora ではストレージレイヤのアーキテクチャが異なるため
@@ -70,7 +71,7 @@ MySQL 8.0 の一部（新）機能は Aurora MySQL v3 ではサポートされ�
 
 一部のキーワードが MySQL 8.0.26 からバックポートされています。
 
-- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.8.0-inclusive-language)**
+- **[Aurora MySQL バージョン 3 に対する包括的な言語変更](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMySQL.Compare-v2-v3.html#AuroraMySQL.8.0-inclusive-language)**
 
 ## Aurora MySQL v3 独自機能の変更点
 

@@ -138,4 +138,4 @@ https://zenn.dev/hmatsu47/articles/mysql80-count-slowdown#fnref-52c5-1
 
 そのため、Reader インスタンスで`CREATE TEMPORARY TABLE`を実行する場合は`ENGINE=InnoDB`を削除しておくのが良いでしょう。
 
-- **[リーダー DB インスタンスのテンポラリテーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.MySQL80.html#AuroraMySQL.mysql80-temp-tables-readers)**
+- **[リーダー DB インスタンスでユーザーが作成した (明示的な) 一時テーブル](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/ams3-temptable-behavior.html#ams3-temptable-behavior.user)**
