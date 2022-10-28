@@ -1,7 +1,7 @@
 title: "Aurora MySQL v1 → v3（3.02.1 移行事例編）"
 summary: "Amazon Aurora MySQL v1（5.6 互換）→ v3（8.0 互換）の移行記録です。Java で MySQL Connector/J を使用している Web システムの移行時に実施したこと、発生した問題やその解決策などについてまとめました。"
 topics: ["aws", "aurora", "mysql", "移行", "バージョンアップ"] # トピック（5つまで）
-published: false # falseだと下書き
+published: true # falseだと下書き
 price: 0 # 有料の場合200〜5000
 chapters:
   - 01-top
