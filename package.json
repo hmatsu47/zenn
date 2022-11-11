@@ -1,7 +1,7 @@
 {
   "name": "zenn",
   "version": "1.0.0",
-  "description": "",
+  "description": "途中から記事原稿の GitHub リポジトリ管理を始めました。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hmatsu47/zenn#readme",
   "dependencies": {
-    "zenn-cli": "^0.1.131"
-  }
+    "zenn-cli": "^0.1.132"
+  },
+  "keywords": []
 }
