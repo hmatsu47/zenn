@@ -8,6 +8,11 @@ published: true
 
 最近話題になりつつある（？）[SolidJS](https://www.solidjs.com/) 向けの Material-UI ライブラリ **[SUID](https://suid.io/)** を少しだけ試してみました。
 
+:::message alert
+**2022/12/6 追記：**
+GitHub リポジトリ側のソースコードを新しいバージョンの SolidJS・SUID・supabase-js で置き換えたため、リンク先のソースコードとは行番号および記述内容が噛み合わなくなっています。
+:::
+
 ## SUID
 
 https://suid.io/
