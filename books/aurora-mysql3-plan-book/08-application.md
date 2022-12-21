@@ -106,7 +106,7 @@ v2（MySQL 5.7）までとは異なり、`utf8mb4_0900_as_ci`がデフォルト�
 
 ### データ型
 
-`YEAR(2)`・`YEAR(4)`、`FLOAT(M,D)`・`DOUBLE(M,D)`、数値データ型の`ZEROFILL`属性などがありそうです。
+`YEAR(2)`・`YEAR(4)`、`FLOAT(M,D)`・`DOUBLE(M,D)`、数値データ型の桁数指定と`ZEROFILL`属性などがありそうです。
 
 中でも`YEAR(2)`はすでに廃止されているので移行前の修正が必要です。
 
