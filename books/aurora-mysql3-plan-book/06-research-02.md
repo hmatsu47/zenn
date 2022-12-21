@@ -133,7 +133,7 @@ https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_manual_all
 - 一時テーブルの`ROW`・`MIXED`形式バイナリログ記録の変更（5.7.25・8.0.4）
 - 管理者権限の分割（Aurora MySQL v1 → v3 変更点でもピックアップ）
 - 個々の ENUM または SET カラム要素の長さが 255 文字または 1020 バイトを超えるテーブルまたはストアドプロシージャは NG に
-- 数値データ型の`ZEROFILL`属性が非推奨に
+- 数値データ型の桁数指定・`ZEROFILL`属性が非推奨に
 - 内部一時テーブルの変更（Aurora MySQL v1 → v3 変更点でもピックアップ）
 - 明示的に定義されたカラム名が 64 文字を超えるビューは NG に
 - 文字列データ型の`BINARY`属性が非推奨に
