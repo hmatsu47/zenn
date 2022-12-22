@@ -55,6 +55,15 @@ v2 → v3 のインプレースアップグレードが未サポートのため�
 Aurora MySQL v2 → v3 の **[インプレースアップグレードがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/09/amazon-aurora-supports-in-place-upgrades-mysql-5-7-8-0/)**。
 :::
 
+:::message
+**2022/12/22 追記：**
+**[フルマネージドの Blue/Green デプロイがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/11/amazon-rds-blue-green-deployments-safer-simpler-faster-updates/)**。
+こちらは 1 バージョンずつ上げていく場合に使えるものです（一度のスイッチオーバーで v1 → v3 に上げることはできません）。
+https://qiita.com/hmatsu47/items/cb69c0a4f0042b7666e7
+https://qiita.com/hmatsu47/items/922c4f23a1e66f948947
+https://qiita.com/hmatsu47/items/9a5afb73d2774600fdd9
+:::
+
 ## 注意点
 
 主なものを挙げます。

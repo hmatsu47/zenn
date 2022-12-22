@@ -101,6 +101,16 @@ v3 が GA になる前の記事なので v3 アップグレードへの言及は
 また、データ移行やレプリケーションに DMS（Database Migration Service）を使いたい場合は`ROW`形式を使います。
 :::
 
+:::message
+**2022/12/22 追記：**
+**[フルマネージドの Blue/Green デプロイがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/11/amazon-rds-blue-green-deployments-safer-simpler-faster-updates/)**。
+こちらは 1 バージョンずつ上げていく場合に使えるものです（一度のスイッチオーバーで v1 → v3 に上げることはできません）。
+https://qiita.com/hmatsu47/items/cb69c0a4f0042b7666e7
+https://qiita.com/hmatsu47/items/922c4f23a1e66f948947
+https://qiita.com/hmatsu47/items/9a5afb73d2774600fdd9
+なお binlog は`MIXED`形式のみサポートしているようです。
+:::
+
 ### Aurora MySQL v2 → v3 はクローン・インプレースアップグレードできない
 
 今後クローン・インプレースアップグレード対応になる可能性はありますが、現時点ではスナップショットからの復元でアップグレードすることになります。
