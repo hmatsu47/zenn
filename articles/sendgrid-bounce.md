@@ -33,6 +33,10 @@ AWS のマネジメントコンソール操作だけでテスト実行できる�
 
 という流れで Bounce Event を記録します。
 
+[こちらの GitHub リポジトリ](https://github.com/hmatsu47/sendgrid-test) に実際のコードを置いてあります。
+
+https://github.com/hmatsu47/sendgrid-test
+
 ## SendGrid 側の設定 (1)
 
 ### Settings - Sender Authentication（Link Branding を含む）
