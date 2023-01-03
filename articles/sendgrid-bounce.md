@@ -39,7 +39,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 ## SendGrid 側の設定 (1)
 
-### Domain Authentication / Link Branding
+### 1. Domain Authentication / Link Branding の設定
 
 ![](/images/sendgrid-bounce/sender_authentication_01.png)
 
@@ -80,7 +80,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 以上で Domain Authentication および Link Branding の作業（設定）は完了です。
 
-### API Keys
+### 2. API Keys の作成
 
 メール送信用の API キーを作成します。
 
@@ -112,30 +112,32 @@ Event Webhook は Bounce Event 取得用の API Gateway 作成後に登録しま
 
 ## AWS 側の設定
 
-### Dynamo DB テーブル作成
+### 1. Dynamo DB テーブルの作成
 
-#### メール送信用テーブル
+#### 1-1. メール送信用テーブルの作成
 
-#### メール送信履歴用テーブル
+#### 1-2. メール送信履歴用テーブルの作成
 
-#### Bounce Event 用テーブル
+#### 1-3. Bounce Event 用テーブルの作成
 
-### Lambda / API Gateway / IAM Role / KMS Key 作成
+### 2. Lambda / API Gateway / IAM Role / KMS Key の作成・設定
 
-#### SendGrid PythonSDK を Lambda レイヤーとして登録
+#### 2-1. SendGrid Python SDK を Lambda レイヤーとして登録
 
-#### メール送信用 Lambda 関数作成
+#### 2-2. メール送信用 Lambda 関数の作成
 
-#### メール送信用 API Gateway 作成
+#### 2-3. メール送信用 API Gateway の作成
 
-#### Bounce Event 取得用 Lambda 関数作成
+#### 2-4. Bounce Event 取得用 Lambda 関数の作成
 
-#### Bounce Event 取得用 API Gateway 作成
+#### 2-5. Bounce Event 取得用 API Gateway の作成
 
-#### Lambda 関数用 KMS Key 作成
+#### 2-6. Lambda 関数用 KMS Key の作成
 
 ## SendGrid 側の設定 (2)
 
-### Settings - Mail Settings
+### 1. Event Webhook の設定
 
-#### Event Settings - Event Webhook
+- Settings - Mail Settings
+
+- Event Settings - Event Webhook
