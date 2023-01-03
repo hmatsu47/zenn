@@ -39,9 +39,46 @@ https://github.com/hmatsu47/sendgrid-test
 
 ## SendGrid 側の設定 (1)
 
-### Settings - Sender Authentication（Link Branding を含む）
+### Domain Authentication / Link Branding
 
-#### Domain Authentication / Link Branding
+![](/images/sendgrid-bounce/sender_authentication_01.png)
+
+左側メニューから **Settings** - **Sender Authentication** を選択します。
+
+![](/images/sendgrid-bounce/sender_authentication_02.png)
+
+**Authenticate Your Domain** をクリックします。
+
+![](/images/sendgrid-bounce/sender_authentication_03.png)
+
+① レコードを登録する DNS host（どれにも当てはまらない場合は「Other Host (Not Listed)」）を選択します。
+② メール送信時に送信元ドメインを「sendgrid.net」ではなくカスタムドメインに書き換える場合は「Yes」を選択します。
+
+その後「Next」をクリックします。
+
+![](/images/sendgrid-bounce/sender_authentication_04.png)
+
+送信元ドメインを入力し、必要に応じて「Advanced Settings」の各項目を選択・入力します。
+
+その後「Next」をクリックします。
+
+![](/images/sendgrid-bounce/sender_authentication_05.png)
+
+① 表示された CNAME レコードを DNS に登録します。
+
+（↓ は AWS の Route 53 の例）
+
+![](/images/sendgrid-bounce/sender_authentication_06.png)
+
+登録したら SendGrid の画面に戻り、
+
+![](/images/sendgrid-bounce/sender_authentication_07.png)
+
+② 「I've added these records.」にチェックを入れて「Verify」をクリックします。
+
+![](/images/sendgrid-bounce/sender_authentication_08.png)
+
+以上で Domain Authentication および Link Branding の作業（設定）は完了です。
 
 ### Settings - API Keys
 
