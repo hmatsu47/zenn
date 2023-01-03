@@ -43,7 +43,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 ![](/images/sendgrid-bounce/sender_authentication_01.png)
 
-左側メニューから **Settings** - **Sender Authentication** を選択します。
+左側メニューから **「Settings - Sender Authentication」** を選択します。
 
 ![](/images/sendgrid-bounce/sender_authentication_02.png)
 
@@ -51,16 +51,16 @@ https://github.com/hmatsu47/sendgrid-test
 
 ![](/images/sendgrid-bounce/sender_authentication_03.png)
 
-① レコードを登録する DNS host（どれにも当てはまらない場合は「Other Host (Not Listed)」）を選択します。
-② メール送信時に送信元ドメインを「sendgrid.net」ではなくカスタムドメインに書き換える場合は「Yes」を選択します。
+① レコードを登録する DNS host（どれにも当てはまらない場合は **「Other Host (Not Listed)」**）を選択します。
+② メール送信時に送信元ドメインを「sendgrid.net」ではなくカスタムドメインに書き換える場合は **「Yes」** を選択します。
 
-その後「Next」をクリックします。
+その後 **「Next」** をクリックします。
 
 ![](/images/sendgrid-bounce/sender_authentication_04.png)
 
-送信元ドメインを入力し、必要に応じて「Advanced Settings」の各項目を選択・入力します。
+送信元ドメインを入力し、必要に応じて **「Advanced Settings」** の各項目を選択・入力します。
 
-その後「Next」をクリックします。
+その後 **「Next」** をクリックします。
 
 ![](/images/sendgrid-bounce/sender_authentication_05.png)
 
@@ -74,15 +74,37 @@ https://github.com/hmatsu47/sendgrid-test
 
 ![](/images/sendgrid-bounce/sender_authentication_07.png)
 
-② 「I've added these records.」にチェックを入れて「Verify」をクリックします。
+② **「I've added these records.」** にチェックを入れて **「Verify」** をクリックします。
 
 ![](/images/sendgrid-bounce/sender_authentication_08.png)
 
 以上で Domain Authentication および Link Branding の作業（設定）は完了です。
 
-### Settings - API Keys
+### API Keys
 
-#### Create API Key
+メール送信用の API キーを作成します。
+
+![](/images/sendgrid-bounce/api_keys_01.png)
+
+左側メニューから **「Settings - API Keys」** を選択します。
+
+![](/images/sendgrid-bounce/api_keys_02.png)
+
+**「Create API Key」** をクリックします。
+
+![](/images/sendgrid-bounce/api_keys_03.png)
+
+キーの名前（任意の名前）を入力し、**「Restricted Access」** を選択して **「Mail Send」** の詳細項目のほうの **「Mail Send」** のみ有効にします。
+
+![](/images/sendgrid-bounce/api_keys_04.png)
+
+その後 **「Create & View」** をクリックします。
+
+![](/images/sendgrid-bounce/api_keys_05.png)
+
+表示された API キー（「SG.」で始まる文字列）をクリックするとクリップボードにコピーされます。
+
+どこかに API キーを控え、**「Done」** をクリックして完了です。
 
 ::: message
 Event Webhook は Bounce Event 取得用の API Gateway 作成後に登録します。
