@@ -107,20 +107,54 @@ https://github.com/hmatsu47/sendgrid-test
 どこかに API キーを控え、**「Done」** をクリックして完了です。
 
 ::: message
-Event Webhook は Bounce Event 取得用の API Gateway 作成後に登録します。
+Event Webhook は Bounce Event 取得用 API Gateway 作成後に登録します。
 :::
 
 ## AWS 側の設定
 
-### 1. Dynamo DB テーブルの作成
+### 1. Dynamo DB テーブルおよび KMS キーの作成
 
-#### 1-1. メール送信用テーブルの作成
+DynamoDB テーブルをいくつか作成していきます。
 
-#### 1-2. メール送信履歴用テーブルの作成
+#### 1-1. KMS キーの作成
 
-#### 1-3. Bounce Event 用テーブルの作成
+最初に DynamoDB テーブル暗号化用 KMS キーを作成します。
 
-### 2. Lambda / API Gateway / IAM Role / KMS Key の作成・設定
+![](/images/sendgrid-bounce/kms_key_01.png)
+
+**「KMS - カスタマー管理型のキー」** 画面で **「キーの作成」** をクリックします。
+
+![](/images/sendgrid-bounce/kms_key_02.png)
+
+**「次へ」** をクリックします。
+
+![](/images/sendgrid-bounce/kms_key_03.png)
+
+エイリアス（キーの名前）を入力して **「次へ」** をクリックします。
+
+![](/images/sendgrid-bounce/kms_key_04.png)
+
+キーの管理者を選択して **「次へ」** をクリックします。
+
+![](/images/sendgrid-bounce/kms_key_05.png)
+
+**「次へ」** をクリックします。
+
+::: message
+キーの使用者（ユーザー）はメール送信用 Lambda 関数作成後に追加します。
+:::
+
+![](/images/sendgrid-bounce/kms_key_06.png)
+
+最後に **「完了」** をクリックして作成完了です。
+
+#### 1-2. メール送信用テーブルの作成
+
+#### 1-3. メール送信履歴用テーブルの作成
+
+#### 1-4. Bounce Event 用テーブルの作成
+
+### 2. Lambda / API Gateway / IAM Role および KMS キーの作成・設定
 
 #### 2-1. SendGrid Python SDK を Lambda レイヤーとして登録
 
@@ -132,7 +166,9 @@ Event Webhook は Bounce Event 取得用の API Gateway 作成後に登録しま
 
 #### 2-5. Bounce Event 取得用 API Gateway の作成
 
-#### 2-6. Lambda 関数用 KMS Key の作成
+#### 2-6. Lambda 関数用 KMS キーの作成
+
+#### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
 ## SendGrid 側の設定 (2)
 
