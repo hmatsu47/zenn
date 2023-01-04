@@ -150,11 +150,45 @@ DynamoDB テーブルをいくつか作成していきます。
 
 #### 1-2. メール送信用テーブルの作成
 
+![](/images/sendgrid-bounce/dynamodb_mail_sender_01.png)
+
+**「DynamoDB」**（「ダッシュボード」または「テーブル」）画面で **「テーブルの作成」** をクリックします。
+
+![](/images/sendgrid-bounce/dynamodb_mail_sender_02.png)
+
+テーブル名 : 任意（`testMailSender`など）、パーティションキー : `id`（文字列）を入力し、**「設定をカスタマイズ」** を選択します。
+
+![](/images/sendgrid-bounce/dynamodb_mail_sender_03.png)
+
+**「キャパシティーモード」** は **「オンデマンド」** を、**「暗号化キーの管理」** は **「アカウントからのキー」** で先ほど作成した KMS キーを選択します。
+
+![](/images/sendgrid-bounce/dynamodb_mail_sender_04.png)
+
+最後に **「テーブルの作成」** をクリックして作成完了を待ちます。
+
+::: message
+DynamoDB Streams のトリガーは後で作成します。
+:::
+
 #### 1-3. メール送信履歴用テーブルの作成
+
+引き続きメール送信履歴用テーブルを作成します。
+
+- テーブル名 : 任意（`testMailSentLog`など）
+- パーティションキー : `messageId`（文字列）
+
+ほかの項目はメール送信用テーブルと同じです。
 
 #### 1-4. Bounce Event 用テーブルの作成
 
-### 2. Lambda / API Gateway / IAM Role および KMS キーの作成・設定
+最後に Bounce Event 用テーブルを作成します。
+
+- テーブル名 : 任意（`testMailBounce`など）
+- パーティションキー : `fullMessageId`（文字列）
+
+ほかの項目はメール送信用テーブルと同じです。
+
+### 2. Lambda 関数 / API Gateway / IAM Role および KMS キーの作成・設定
 
 #### 2-1. SendGrid Python SDK を Lambda レイヤーとして登録
 
