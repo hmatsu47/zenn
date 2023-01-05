@@ -200,6 +200,24 @@ DynamoDB Streams のトリガーは後で作成します。
 
 #### 2-1. SendGrid Python SDK を Lambda レイヤーとして登録
 
+Amazon Linux 2 の EC2（Cloud9）を用意し、 **[SendGrid Python SDK](https://github.com/sendgrid/sendgrid-python)** を（依存パッケージを含めて）`.zip`化します。
+
+```sh:
+mkdir python
+pip3 install sendgrid -t python
+zip sendgrid-sdk.zip -r python
+```
+
+**「Lambda - レイヤー」** 画面で **「レイヤーの作成」** をクリックします。
+
+![](/images/sendgrid-bounce/sendgrid_layers_01.png)
+
+- 名前 : 任意（`sendgrid`など）
+- 互換性のあるアーキテクチャ : x86_64・arm64 ともチェック
+- ランタイム : Python 3.9
+
+先ほど作った`.zip`ファイルをアップロードし、 **「作成」** ボタンをクリックします。
+
 #### 2-2. メール送信用 Lambda 関数の作成
 
 #### 2-3. メール送信用 API Gateway の作成
