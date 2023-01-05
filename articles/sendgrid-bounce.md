@@ -120,6 +120,10 @@ DynamoDB テーブルをいくつか作成していきます。
 
 最初に DynamoDB テーブル暗号化用 KMS キーを作成します。
 
+::: message
+Amazon 所有キーを使う場合はキーの作成は不要です。
+:::
+
 ![](/images/sendgrid-bounce/kms_key_01.png)
 
 **「KMS - カスタマー管理型のキー」** 画面で **「キーの作成」** をクリックします。
@@ -141,7 +145,7 @@ DynamoDB テーブルをいくつか作成していきます。
 **「次へ」** をクリックします。
 
 ::: message
-キーの使用者（ユーザー）はメール送信用 Lambda 関数作成後に追加します。
+キーの使用者（ユーザー）は各 Lambda 関数作成後に追加します。
 :::
 
 ![](/images/sendgrid-bounce/kms_key_06.png)
@@ -161,6 +165,10 @@ DynamoDB テーブルをいくつか作成していきます。
 ![](/images/sendgrid-bounce/dynamodb_mail_sender_03.png)
 
 **「キャパシティーモード」** は **「オンデマンド」** を、**「暗号化キーの管理」** は **「アカウントからのキー」** で先ほど作成した KMS キーを選択します。
+
+::: message
+Amazon 所有キーを使う場合は **「Amazon DynamoDB が所有」** を選択します。
+:::
 
 ![](/images/sendgrid-bounce/dynamodb_mail_sender_04.png)
 
