@@ -126,7 +126,7 @@ Amazon 所有キーを使う場合はキーの作成は不要です。
 
 ![](/images/sendgrid-bounce/kms_key_01.png)
 
-**「KMS - カスタマー管理型のキー」** 画面で **「キーの作成」** をクリックします。
+**「KMS」 - 「カスタマー管理型のキー」** 画面で **「キーの作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/kms_key_02.png)
 
@@ -156,7 +156,7 @@ Amazon 所有キーを使う場合はキーの作成は不要です。
 
 ![](/images/sendgrid-bounce/dynamodb_mail_sender_01.png)
 
-**「DynamoDB」**（「ダッシュボード」または「テーブル」）画面で **「テーブルの作成」** をクリックします。
+**「DynamoDB」**（**「ダッシュボード」** または **「テーブル」**）画面で **「テーブルの作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/dynamodb_mail_sender_02.png)
 
@@ -208,7 +208,7 @@ pip3 install sendgrid -t python
 zip sendgrid-sdk.zip -r python
 ```
 
-**「Lambda - レイヤー」** 画面で **「レイヤーの作成」** をクリックします。
+**「Lambda」 - 「レイヤー」** 画面で **「レイヤーの作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/sendgrid_layers_01.png)
 
@@ -219,6 +219,42 @@ zip sendgrid-sdk.zip -r python
 先ほど作った`.zip`ファイルをアップロードし、 **「作成」** ボタンをクリックします。
 
 #### 2-2. メール送信用 Lambda 関数の作成
+
+**「Lambda」 - 「関数」** 画面で **「関数の作成」** をクリックします。
+
+![](/images/sendgrid-bounce/lambda_sender_01.png)
+
+- 関数名 : 任意（`testMailSender`など）
+- ランタイム : Python 3.9
+- アーキテクチャ : どちらでも可（ここでは arm64 を選択）
+- 実行ロール : 基本的な Lambda アクセス権限で新しいロールを作成
+
+**「関数の作成」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/lambda_sender_02.png)
+
+- **「コード」 - 「コードソース」** : `lambda_function.py`
+
+https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3f379acc/lambda/testMailSender/lambda_function.py
+
+![](/images/sendgrid-bounce/lambda_sender_03.png)
+
+- **「コード」 - 「レイヤー」** : 2-1. で作成したものを **「レイヤーの追加」** で追加
+
+![](/images/sendgrid-bounce/lambda_sender_04.png)
+
+- **「設定」 - 「一般設定」 - 「編集」ボタン** :
+
+![](/images/sendgrid-bounce/lambda_sender_05.png)
+
+- タイムアウト : 3 分 0 秒
+- 既存のロール : **「View the 【ロール名】」** のリンクをクリック
+
+![](/images/sendgrid-bounce/lambda_sender_06.png)
+
+- ポリシーの **「編集」** ボタンをクリック
+
+![](/images/sendgrid-bounce/lambda_sender_07.png)
 
 #### 2-3. メール送信用 API Gateway の作成
 
