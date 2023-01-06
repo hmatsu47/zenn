@@ -233,38 +233,77 @@ zip sendgrid-sdk.zip -r python
 
 ![](/images/sendgrid-bounce/lambda_sender_02.png)
 
-- **「コード」 - 「コードソース」** : `lambda_function.py`
+##### 「コード」 - 「レイヤー」 - 「レイヤーの追加」ボタン :
+
+![](/images/sendgrid-bounce/lambda_sender_04.png)
+
+- レイヤーソース : **「カスタムレイヤー」** を選択
+- カスタムレイヤー : 2-1. で作成したものを選択
+
+**「追加」** ボタンをクリックします。
+
+##### 「コード」 - 「コードソース」 : `lambda_function.py`
 
 https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3f379acc/lambda/testMailSender/lambda_function.py
 
 ![](/images/sendgrid-bounce/lambda_sender_03.png)
 
-- **「コード」 - 「レイヤー」** : 2-1. で作成したものを **「レイヤーの追加」** で追加
+**「Deploy」** ボタンをクリックします。
 
-![](/images/sendgrid-bounce/lambda_sender_04.png)
-
-- **「設定」 - 「一般設定」 - 「編集」ボタン** :
+##### 「設定」 - 「トリガー」 - 「トリガーを追加」ボタン :
 
 ![](/images/sendgrid-bounce/lambda_sender_05.png)
+
+- トリガーの設定 : **「DynamoDB」** を選択
+- DynamoDB テーブル : メール送信用テーブルを選択
+- バッチサイズ : 100
+
+**「追加」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/lambda_sender_06.png)
+
+##### 「設定」 - 「一般設定」 - 「編集」ボタン :
+
+![](/images/sendgrid-bounce/lambda_sender_07.png)
 
 - タイムアウト : 3 分 0 秒
 - 既存のロール : **「View the 【ロール名】」** のリンクをクリック
 
-![](/images/sendgrid-bounce/lambda_sender_06.png)
+![](/images/sendgrid-bounce/lambda_sender_08.png)
 
-- ポリシーの **「編集」** ボタンをクリック
+ポリシーの **「編集」** ボタンをクリックします。
 
-![](/images/sendgrid-bounce/lambda_sender_07.png)
+![](/images/sendgrid-bounce/lambda_sender_09.png)
 
-#### 2-3. メール送信用 API Gateway の作成
+DynamoDB に対する権限を追加（または追加されていることを確認）します。
 
-#### 2-4. Bounce Event 取得用 Lambda 関数の作成
+- アクション : ListStreams / リソース : \*
+- アクション : GetItem, Query, PutItem / リソース : メール送信履歴用テーブルの ARN
+- アクション : DescribeStream, GetRecords, GetShardIterator / リソース : メール送信用テーブルの Stream の ARN
 
-#### 2-5. Bounce Event 取得用 API Gateway の作成
+**「ポリシーの確認」** ボタンをクリックします。
 
-#### 2-6. Lambda 関数用 KMS キーの作成
+![](/images/sendgrid-bounce/lambda_sender_10.png)
 
-#### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
+**「変更の保存」** ボタンをクリックします。
+
+Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存」** ボタンをクリックします。
+
+:::message
+環境変数は暗号化用の KMS キーを作成してから設定します。
+:::
+
+#### 2-3. Lambda 関数（メール送信）用 KMS キーの作成
+
+#### 2-4. メール送信用 Lambda 関数の環境変数を設定
+
+#### 2-5. メール送信用 API Gateway の作成
+
+#### 2-6. Bounce Event 取得用 Lambda 関数の作成
+
+#### 2-7. Bounce Event 取得用 API Gateway の作成
+
+#### 2-8. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
 ## SendGrid 側の設定 (2)
 
