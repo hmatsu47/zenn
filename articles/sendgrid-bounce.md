@@ -326,13 +326,11 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 
 前の画面に戻ったら **「保存」** ボタンをクリックして完了です。
 
-#### 2-5. メール送信用 API Gateway の作成
+#### 2-5. Bounce Event 取得用 Lambda 関数の作成
 
-#### 2-6. Bounce Event 取得用 Lambda 関数の作成
+#### 2-6. Bounce Event 取得用 API Gateway の作成
 
-#### 2-7. Bounce Event 取得用 API Gateway の作成
-
-#### 2-8. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
+#### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
 ## SendGrid 側の設定 (2)
 
