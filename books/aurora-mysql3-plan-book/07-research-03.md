@@ -62,11 +62,18 @@ DMS レプリケーションには`ROW`形式の binlog を使います。
 
 移行手順そのものではありませんが、移行手順に関係がありそうな点を記します。
 
-### バックトラック未サポート
+### ~~バックトラック未サポート~~
 
-現時点ではバックトラックを使用中のクラスタで作成したスナップショットからの復元ができません。
+~~現時点ではバックトラックを使用中のクラスタで作成したスナップショットからの復元ができません。~~
 
-今後のマイナーバージョンでサポート予定です。
+~~今後のマイナーバージョンでサポート予定です。~~
+
+:::message
+**2023/1/7 追記：**
+Aurora MySQL v3 でバックトラックがサポートされ、v2 のスナップショットからの v3 での復元などがサポートされました。
+https://aws.amazon.com/jp/about-aws/whats-new/2023/01/backtrack-support-aurora-mysql-3-0-compatible-mysql-8-0-available/
+https://dev.classmethod.jp/articles/backtrack-support-aurora-mysql-3-0-compatible-mysql-8-0/#toc-2
+:::
 
 ### Aurora Serverless v1 クラスタ非サポート
 

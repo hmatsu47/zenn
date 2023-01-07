@@ -197,7 +197,7 @@ Aurora 独自のステータス変数を含みます。
 重複する点は省略します。
 
 - **[Aurora 並列クエリの最適化対象が拡大](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#aurora-%E4%B8%A6%E5%88%97%E3%82%AF%E3%82%A8%E3%83%AA%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96%E5%AF%BE%E8%B1%A1%E3%81%8C%E6%8B%A1%E5%A4%A7)**
-- **[バックトラック未サポート](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%90%E3%83%83%E3%82%AF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E6%9C%AA%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88)**
+- **~~[バックトラック未サポート](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%90%E3%83%83%E3%82%AF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E6%9C%AA%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88)~~**
 - **[Aurora Serverless v1 クラスタ非サポート](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#aurora-serverless-v1-%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%BF%E9%9D%9E%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88)**
 - **[`mysql.lambda_async`ストアドプロシージャ削除](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#mysql.lambda_async%E3%82%B9%E3%83%88%E3%82%A2%E3%83%89%E3%83%97%E3%83%AD%E3%82%B7%E3%83%BC%E3%82%B8%E3%83%A3%E5%89%8A%E9%99%A4)**
 - **[パラメータグループ内のパラメータ変更](/hmatsu47/articles/aurora-mysql3-004-ref-aws-02#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E5%86%85%E3%81%AE%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E5%A4%89%E6%9B%B4)**
@@ -208,11 +208,18 @@ Aurora 独自のステータス変数を含みます。
 
 LOB 系カラムやパーティショニングされたテーブル、`HAVING`句の中での集計関数に対応しました。
 
-#### バックトラック未サポート
+#### ~~バックトラック未サポート~~
 
-現時点ではバックトラックを使用中のクラスタで作成したスナップショットからの復元ができません。
+~~現時点ではバックトラックを使用中のクラスタで作成したスナップショットからの復元ができません。~~
 
-今後のマイナーバージョンでサポート予定です。
+~~今後のマイナーバージョンでサポート予定です。~~
+
+:::message
+**2023/1/7 追記：**
+Aurora MySQL v3 でバックトラックがサポートされ、v2 のスナップショットからの v3 での復元などがサポートされました。
+https://aws.amazon.com/jp/about-aws/whats-new/2023/01/backtrack-support-aurora-mysql-3-0-compatible-mysql-8-0-available/
+https://dev.classmethod.jp/articles/backtrack-support-aurora-mysql-3-0-compatible-mysql-8-0/#toc-2
+:::
 
 #### Aurora Serverless v1 クラスタ非サポート
 
