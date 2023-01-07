@@ -278,9 +278,9 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 DynamoDB に対する権限を追加（または追加されていることを確認）します。
 
-- アクション : ListStreams / リソース : \*
-- アクション : GetItem, Query, PutItem / リソース : メール送信履歴用テーブルの ARN
-- アクション : DescribeStream, GetRecords, GetShardIterator / リソース : メール送信用テーブルの Stream の ARN
+- アクション : ListStreams／リソース : \*
+- アクション : GetItem・Query・PutItem／リソース : メール送信履歴用テーブルの ARN
+- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用テーブルの Stream の ARN
 
 **「ポリシーの確認」** ボタンをクリックします。
 
