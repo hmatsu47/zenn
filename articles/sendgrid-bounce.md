@@ -353,6 +353,76 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 #### 2-6. Bounce Event 取得用 API Gateway の作成
 
+![](/images/sendgrid-bounce/api_hook_receiver_01.png)
+
+**「API Gateway」 - 「API」** 画面で **「API を作成」** をクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_02.png)
+
+**「REST API」** の **「構築」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_03.png)
+
+任意の API 名（例 : 「testEventHookReceiver」を入力して **「API の作成」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_04.png)
+
+**「リソース」 - 「アクション」** ボタンのメニューで **「リソースの作成」** を選択します。
+
+![](/images/sendgrid-bounce/api_hook_receiver_05.png)
+
+任意のリソース名（悪用されにくいようランダムで長いもの）を入力して **「リソースの作成」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_06.png)
+
+同じリソースの **「アクション」** ボタンのメニューで **「メソッドの作成」** を選択します。
+
+![](/images/sendgrid-bounce/api_hook_receiver_07.png)
+
+**POST** メソッドを選択します。
+
+- 統合タイプ : Lambda 関数
+- Lambda プロキシ統合の使用 : チェック
+- Lambda 関数 : Bounce Event 取得用 Lambda 関数の名前
+
+**「保存」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_08.png)
+
+**「OK」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_09.png)
+
+**「メソッドレスポンス」** のリンクをクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_10.png)
+
+**「レスポンスの追加」** をクリックします。
+
+![](/images/sendgrid-bounce/api_hook_receiver_11.png)
+
+ステータス **500** のレスポンスを追加（作成）します（**チェックアイコン** をクリック）。
+
+![](/images/sendgrid-bounce/api_hook_receiver_12.png)
+
+**「500 のレスポンス本文」** を登録します。
+
+- コンテンツタイプ : application/json
+- モデル : Empty
+
+**チェックアイコン** をクリックして登録（保存）します。
+
+![](/images/sendgrid-bounce/api_hook_receiver_13.png)
+
+同じリソースの **「アクション」** ボタンのメニューで **「API のデプロイ」** を選択します。
+
+![](/images/sendgrid-bounce/api_hook_receiver_14.png)
+
+- デプロイされるステージ : \[新しいステージ\]
+- ステージ名 : v1
+
+**「デプロイ」** ボタンをクリックして API をデプロイします。
+
 #### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
 ## SendGrid 側の設定 (2)
