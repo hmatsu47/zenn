@@ -328,6 +328,29 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 
 #### 2-5. Bounce Event 取得用 Lambda 関数の作成
 
+関数を作成します。
+
+- 関数名 : 任意（`testBounceReceiver`など）
+- ランタイム : Python 3.9
+- アーキテクチャ : どちらでも可（ここでは arm64 を選択）
+- 実行ロール : 基本的な Lambda アクセス権限で新しいロールを作成
+- レイヤーの追加 : カスタムレイヤー（2-1. で作成したものを選択）
+- コード : `lambda_function.py`
+
+https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3f379acc/lambda/testBounceReceiver/lambda_function.py
+
+- 一般設定 - タイムアウト : 30 秒
+- アクセス権限 : 選択されているポリシーに DynamoDB に関する権限を追加
+  - アクション : GetItem／リソース : メール送信履歴用テーブルの ARN
+  - アクション : PutItem／リソース : Bounce Event 用テーブルの ARN
+- 環境変数 :
+  - `TABLE_BOUNCE` : Bounce Event 用テーブルの名前
+  - `TABLE_SENT_LOG` : メール送信履歴用テーブルの名前
+
+::: message
+トリガーは API Gateway 作成時に設定します（Lambda 統合）。
+:::
+
 #### 2-6. Bounce Event 取得用 API Gateway の作成
 
 #### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
