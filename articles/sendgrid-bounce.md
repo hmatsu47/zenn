@@ -43,7 +43,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 ![](/images/sendgrid-bounce/sender_authentication_01.png)
 
-左側メニューから **「Settings - Sender Authentication」** を選択します。
+左側メニューから **「Settings」 - 「Sender Authentication」** を選択します。
 
 ![](/images/sendgrid-bounce/sender_authentication_02.png)
 
@@ -86,7 +86,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 ![](/images/sendgrid-bounce/api_keys_01.png)
 
-左側メニューから **「Settings - API Keys」** を選択します。
+左側メニューから **「Settings」 - 「API Keys」** を選択します。
 
 ![](/images/sendgrid-bounce/api_keys_02.png)
 
@@ -425,10 +425,46 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 #### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
+::: message
+Amazon 所有キーを使う場合は不要です。
+:::
+
+![](/images/sendgrid-bounce/kms_user_01.png)
+
+**「KMS」 - 「カスタマー管理型のキー」** 画面で DynamoDB テーブル用 KMS キーのエイリアスのリンクをクリックします。
+
+![](/images/sendgrid-bounce/kms_user_02.png)
+
+**「キーユーザー」** の **「追加」** ボタンをクリックします。
+
+![](/images/sendgrid-bounce/kms_user_03.png)
+
+- メール送信用 Lambda 関数
+- Bounce Event 取得用 Lambda 関数
+
+実行用の IAM Role を追加します。
+
+![](/images/sendgrid-bounce/kms_user_04.png)
+
 ## SendGrid 側の設定 (2)
 
 ### 1. Event Webhook の設定
 
-- Settings - Mail Settings
+左側メニューから **「Settings」 - 「Mail Settings」** を選択します。
 
-- Event Settings - Event Webhook
+![](/images/sendgrid-bounce/eventwebhook_01.png)
+
+**「Event Settings」 - 「Event Webhook」**（リンクまたは右端の鉛筆アイコン）をクリックします。
+
+![](/images/sendgrid-bounce/eventwebhook_02.png)
+
+- HTTP Post URL : Bounce Event 取得用 API Gateway の API エンドポイント URL
+- Events to be POSTed to your URL :
+  - DELIVERABILITY DATA : Dropped・Bounced にチェック
+- Event Webhook Status : ENABLED
+
+**「Save」** ボタンをクリックします。
+
+以上ですべての設定が完了です。
+
+## テスト実行
