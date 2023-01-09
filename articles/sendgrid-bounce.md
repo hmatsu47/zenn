@@ -175,7 +175,7 @@ Amazon 所有キーを使う場合は **「Amazon DynamoDB が所有」** を選
 最後に **「テーブルの作成」** をクリックして作成完了を待ちます。
 
 ::: message
-DynamoDB Streams のトリガーは後で作成します。
+DynamoDB Streams のトリガーは後で作成（追加）します。
 :::
 
 #### 1-3. メール送信履歴用テーブルの作成
@@ -348,7 +348,7 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
   - `TABLE_SENT_LOG` : メール送信履歴用テーブルの名前
 
 ::: message
-トリガーは API Gateway 作成時に設定します（Lambda 統合）。
+トリガーは API Gateway 作成時に設定（追加）します（Lambda 統合の設定を行うことで追加される）。
 :::
 
 #### 2-6. Bounce Event 取得用 API Gateway の作成
