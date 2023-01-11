@@ -31,6 +31,8 @@ AWS のマネジメントコンソール操作だけでテスト実行できる�
 
 という流れで Bounce Event を記録します。
 
+具体的な操作のイメージは、記事の最後にある **[テスト実行](/hmatsu47/articles/sendgrid-bounce#%E3%83%86%E3%82%B9%E3%83%88%E5%AE%9F%E8%A1%8C)** のセクションで確認してください。
+
 [こちらの GitHub リポジトリ](https://github.com/hmatsu47/sendgrid-test) に実際のコードを置いてあります。
 
 https://github.com/hmatsu47/sendgrid-test
