@@ -3,7 +3,7 @@ title: "SendGrid で送信したメールの Bounce Event を取得するサン�
 emoji: "🐐"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["sendgrid", "aws", "lambda", "python"]
-published: false
+published: true
 ---
 
 AWS Lambda（Python）で SendGrid を使ってメールを送信し、その Bounce Event（`Bounced`および`Dropped`）を取得するサンプルです。
@@ -12,6 +12,7 @@ AWS Lambda（Python）で SendGrid を使ってメールを送信し、その Bo
 
 「メール送信時に送信履歴用の DynamoDB テーブルに記録した情報」と「SendGrid の Event Webhook で取得した情報」を突合し、Bounce Event に関する情報を取得するサンプルです。
 
+:::message
 今回のサンプルでは、メール送信部分を
 
 - メール送信用の DynamoDB テーブルに送信するメールの情報をレコード登録
@@ -20,16 +21,13 @@ AWS Lambda（Python）で SendGrid を使ってメールを送信し、その Bo
 
 という流れで処理していますが、この部分はメール送信を行うアプリケーションで実装したほうが良いでしょう（わざわざ DynamoDB Streams を使って実装する必要はないと思います）。
 
-:::message
 AWS のマネジメントコンソール操作だけでテスト実行できるように、このようなサンプル実装にしています。
 :::
 
-そして、
-
 - SendGrid の Event Webhook によって Bounce Event 取得用 API Gateway を呼び出し
 - 同 API Gateway 経由で Bounce Event 取得用 Lambda 関数を実行
-- 同 Lambda 関数 で受信した`Bounced`および`Dropped`のイベント情報と DynamoDB 送信履歴テーブルのレコードを突合
-- 突合した結果を DynamoDB Bounce Event 用テーブルにレコード登録
+- 同 Lambda 関数 で受信した`Bounced`および`Dropped`のイベント情報と送信履歴用 DynamoDB テーブルのレコードを突合
+- 突合した結果を Bounce Event 用 DynamoDB テーブルにレコード登録
 
 という流れで Bounce Event を記録します。
 
@@ -152,7 +150,7 @@ Amazon 所有キーを使う場合はキーの作成は不要です。
 
 最後に **「完了」** をクリックして作成完了です。
 
-#### 1-2. メール送信用テーブルの作成
+#### 1-2. メール送信用 DynamoDB テーブルの作成
 
 ![](/images/sendgrid-bounce/dynamodb_mail_sender_01.png)
 
@@ -178,7 +176,7 @@ Amazon 所有キーを使う場合は **「Amazon DynamoDB が所有」** を選
 DynamoDB Streams のトリガーは後で作成（追加）します。
 :::
 
-#### 1-3. メール送信履歴用テーブルの作成
+#### 1-3. メール送信履歴用 DynamoDB テーブルの作成
 
 引き続きメール送信履歴用テーブルを作成します。
 
@@ -187,7 +185,7 @@ DynamoDB Streams のトリガーは後で作成（追加）します。
 
 ほかの項目はメール送信用テーブルと同じです。
 
-#### 1-4. Bounce Event 用テーブルの作成
+#### 1-4. Bounce Event 用 DynamoDB テーブルの作成
 
 最後に Bounce Event 用テーブルを作成します。
 
@@ -195,6 +193,10 @@ DynamoDB Streams のトリガーは後で作成（追加）します。
 - パーティションキー : `fullMessageId`（文字列）
 
 ほかの項目はメール送信用テーブルと同じです。
+
+:::message
+実運用で使う場合、DynamoDB の各テーブルには TTL を設定すると良いでしょう。
+:::
 
 ### 2. Lambda 関数 / API Gateway / IAM Role および KMS キーの作成・設定
 
@@ -216,7 +218,7 @@ zip sendgrid-sdk.zip -r python
 - 互換性のあるアーキテクチャ : x86_64・arm64 ともチェック
 - ランタイム : Python 3.9
 
-先ほど作った`.zip`ファイルをアップロードし、 **「作成」** ボタンをクリックします。
+先ほど作った`.zip`ファイルをアップロードし、 **「作成」** をクリックします。
 
 #### 2-2. メール送信用 Lambda 関数の作成
 
@@ -229,11 +231,11 @@ zip sendgrid-sdk.zip -r python
 - アーキテクチャ : どちらでも可（ここでは arm64 を選択）
 - 実行ロール : 基本的な Lambda アクセス権限で新しいロールを作成
 
-**「関数の作成」** ボタンをクリックします。
+**「関数の作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/lambda_sender_02.png)
 
-##### 「コード」 - 「レイヤー」 - 「レイヤーの追加」ボタン :
+##### 「コード」 - 「レイヤー」 - 「レイヤーの追加」 :
 
 ![](/images/sendgrid-bounce/lambda_sender_04.png)
 
@@ -241,7 +243,7 @@ zip sendgrid-sdk.zip -r python
 - カスタムレイヤー : 2-1. で作成したものを選択
   - 画面は「バージョン 2」になっているが再作成等をしていない場合は「バージョン 1」
 
-**「追加」** ボタンをクリックします。
+**「追加」** をクリックします。
 
 ##### 「コード」 - 「コードソース」 : `lambda_function.py`
 
@@ -249,9 +251,9 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/lambda_sender_03.png)
 
-**「Deploy」** ボタンをクリックします。
+**「Deploy」** をクリックします。
 
-##### 「設定」 - 「トリガー」 - 「トリガーを追加」ボタン :
+##### 「設定」 - 「トリガー」 - 「トリガーを追加」 :
 
 ![](/images/sendgrid-bounce/lambda_sender_05.png)
 
@@ -259,11 +261,11 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 - DynamoDB テーブル : メール送信用テーブルを選択
 - バッチサイズ : 100
 
-**「追加」** ボタンをクリックします。
+**「追加」** をクリックします。
 
 ![](/images/sendgrid-bounce/lambda_sender_06.png)
 
-##### 「設定」 - 「一般設定」 - 「編集」ボタン :
+##### 「設定」 - 「一般設定」 - 「編集」 :
 
 ![](/images/sendgrid-bounce/lambda_sender_07.png)
 
@@ -272,23 +274,23 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/lambda_sender_08.png)
 
-ポリシーの **「編集」** ボタンをクリックします。
+ポリシーの **「編集」** をクリックします。
 
 ![](/images/sendgrid-bounce/lambda_sender_09.png)
 
 DynamoDB に対する権限を追加（または追加されていることを確認）します。
 
 - アクション : ListStreams／リソース : \*
-- アクション : GetItem・Query・PutItem／リソース : メール送信履歴用テーブルの ARN
-- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用テーブルの Stream の ARN
+- アクション : GetItem・Query・PutItem／リソース : メール送信履歴用 DynamoDB テーブルの ARN
+- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用 DynamoDB テーブルの Stream の ARN
 
-**「ポリシーの確認」** ボタンをクリックします。
+**「ポリシーの確認」** をクリックします。
 
 ![](/images/sendgrid-bounce/lambda_sender_10.png)
 
-**「変更の保存」** ボタンをクリックします。
+**「変更の保存」** をクリックします。
 
-Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存」** ボタンをクリックします。
+Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存」** をクリックします。
 
 :::message
 環境変数は暗号化用の KMS キーを作成してから設定します。
@@ -307,24 +309,24 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 
 #### 2-4. メール送信用 Lambda 関数の環境変数を設定
 
-メール送信用 Lambda 関数の画面で **「設定」 - 「環境変数」 - 「編集」** ボタンをクリックします。
+メール送信用 Lambda 関数の画面で **「設定」 - 「環境変数」 - 「編集」** をクリックします。
 
 ![](/images/sendgrid-bounce/lambda_sender_11.png)
 
 - キー :
   - `SENDGRID_API_KEY` : SendGrid 側の設定 (1) の 2. で発行した API キー
-  - `TABLE_SENT_LOG` : メール送信履歴用テーブルの名前
+  - `TABLE_SENT_LOG` : メール送信履歴用 DynamoDB テーブルの名前
 - 転送時の暗号化 : **「転送時の暗号化に使用するヘルパーの有効化」** にチェック
 - 保管時に暗号化する AWS KMS キー : **「カスタマーマスターキーの使用」** を選択
 - カスタマーマスターキー : 2-3. で作成したキーを選択
 
-キー「`SENDGRID_API_KEY`」の右側にある **「暗号化」** ボタンで値の暗号化を行います。
+キー「`SENDGRID_API_KEY`」の右側にある **「暗号化」** で値の暗号化を行います。
 
 ![](/images/sendgrid-bounce/lambda_sender_12.png)
 
-先ほどと同じ AWS KMS キーを選択し、**「暗号化」** ボタンをクリックします。
+先ほどと同じ AWS KMS キーを選択し、**「暗号化」** をクリックします。
 
-前の画面に戻ったら **「保存」** ボタンをクリックして完了です。
+前の画面に戻ったら **「保存」** をクリックして完了です。
 
 #### 2-5. Bounce Event 取得用 Lambda 関数の作成
 
@@ -341,11 +343,11 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 - 一般設定 - タイムアウト : 30 秒
 - アクセス権限 : 選択されているポリシーに DynamoDB に関する権限を追加
-  - アクション : GetItem／リソース : メール送信履歴用テーブルの ARN
-  - アクション : PutItem／リソース : Bounce Event 用テーブルの ARN
+  - アクション : GetItem／リソース : メール送信履歴用 DynamoDB テーブルの ARN
+  - アクション : PutItem／リソース : Bounce Event 用 DymanoDB テーブルの ARN
 - 環境変数 :
-  - `TABLE_BOUNCE` : Bounce Event 用テーブルの名前
-  - `TABLE_SENT_LOG` : メール送信履歴用テーブルの名前
+  - `TABLE_BOUNCE` : Bounce Event 用 DynamoDB テーブルの名前
+  - `TABLE_SENT_LOG` : メール送信履歴用 DynamoDB テーブルの名前
 
 ::: message
 トリガーは API Gateway 作成時に設定（追加）します（Lambda 統合の設定を行うことで追加される）。
@@ -359,23 +361,23 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/api_hook_receiver_02.png)
 
-**「REST API」** の **「構築」** ボタンをクリックします。
+**「REST API」** の **「構築」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_03.png)
 
-任意の API 名（例 : 「testEventHookReceiver」を入力して **「API の作成」** ボタンをクリックします。
+任意の API 名（例 : 「testEventHookReceiver」を入力して **「API の作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_04.png)
 
-**「リソース」 - 「アクション」** ボタンのメニューで **「リソースの作成」** を選択します。
+**「リソース」 - 「アクション」** のメニューで **「リソースの作成」** を選択します。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_05.png)
 
-任意のリソース名（悪用されにくいようランダムで長いもの）を入力して **「リソースの作成」** ボタンをクリックします。
+任意のリソース名（悪用されにくいようランダムで長いもの）を入力して **「リソースの作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_06.png)
 
-同じリソースの **「アクション」** ボタンのメニューで **「メソッドの作成」** を選択します。
+同じリソースの **「アクション」** のメニューで **「メソッドの作成」** を選択します。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_07.png)
 
@@ -385,11 +387,11 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 - Lambda プロキシ統合の使用 : チェック
 - Lambda 関数 : Bounce Event 取得用 Lambda 関数の名前
 
-**「保存」** ボタンをクリックします。
+**「保存」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_08.png)
 
-**「OK」** ボタンをクリックします。
+**「OK」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_09.png)
 
@@ -414,14 +416,14 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/api_hook_receiver_13.png)
 
-同じリソースの **「アクション」** ボタンのメニューで **「API のデプロイ」** を選択します。
+同じリソースの **「アクション」** のメニューで **「API のデプロイ」** を選択します。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_14.png)
 
 - デプロイされるステージ : \[新しいステージ\]
 - ステージ名 : v1
 
-**「デプロイ」** ボタンをクリックして API をデプロイします。
+**「デプロイ」** をクリックして API をデプロイします。
 
 #### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
@@ -435,7 +437,7 @@ Amazon 所有キーを使う場合は不要です。
 
 ![](/images/sendgrid-bounce/kms_user_02.png)
 
-**「キーユーザー」** の **「追加」** ボタンをクリックします。
+**「キーユーザー」** の **「追加」** をクリックします。
 
 ![](/images/sendgrid-bounce/kms_user_03.png)
 
@@ -463,8 +465,50 @@ Amazon 所有キーを使う場合は不要です。
   - DELIVERABILITY DATA : Dropped・Bounced にチェック
 - Event Webhook Status : ENABLED
 
-**「Save」** ボタンをクリックします。
+**「Save」** をクリックします。
 
 以上ですべての設定が完了です。
 
 ## テスト実行
+
+テストメールを送信してみます。
+
+### 1. 存在するメールアドレスに送信してみる
+
+![](/images/sendgrid-bounce/test_sent_01.png)
+
+**「DynamoDB」 - 「項目」** 画面でメール送信用 DynamoDB テーブルを選択し、**「項目を作成」** をクリックします。
+
+![](/images/sendgrid-bounce/test_sent_02.png)
+
+画面の各属性・値を入力して **「項目を作成」** をクリックすると、メールが送信されます。
+
+![](/images/sendgrid-bounce/test_sent_03.png)
+
+メール送信履歴用 DynamoDB テーブルで送信内容を確認します。
+
+![](/images/sendgrid-bounce/test_sent_04.png)
+
+4 〜 5 分ほど待って、Bounce Event 用 DynamoDB テーブルにレコードが登録されないことを確認します。
+
+### 2. 存在しないメールアドレスを追加して送信してみる
+
+![](/images/sendgrid-bounce/test_sent_05.png)
+
+今度は、`to`に 2 つ目のメールアドレス（存在しないアカウント）を追加して送信してみます。
+
+:::message alert
+存在しないメールアドレスのドメインは、必ず自己所有ドメインにします。他人の所有ドメインに宛てには送信しないでください。
+:::
+
+![](/images/sendgrid-bounce/test_sent_06.png)
+
+メール送信履歴用 DynamoDB テーブルで送信内容を確認します。
+
+![](/images/sendgrid-bounce/test_sent_07.png)
+
+3 〜 4 分ほど待って、SendGrid の画面（**「Activity」 - 「Activity Feed」**）でメールの送信処理状況を確認します。
+
+![](/images/sendgrid-bounce/test_sent_08.png)
+
+その後、Bounce Event 用 DynamoDB テーブルにレコードが登録されたことを確認します。
