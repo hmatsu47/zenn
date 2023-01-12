@@ -265,6 +265,20 @@ export const saveSnapshot = (testName: string, snapshot: string) => {
 があります。
 これを吸収するために用意したのが `formatSnapshot()` です（正規表現による置換）。
 
+:::message
+**2022/1/13 追記：**
+SolidJS 1.6.5 あたりからだと思いますが、`css-`に続くランダムな文字列が 6 文字から 8 文字に変わりました。
+そのため、該当バージョン以降では`formatSnapshot` を以下のように変更する必要があります。
+
+```typescript:snapStore.ts（部分）
+// スナップショットを整形する（インラインスタイル名と改行）
+export const formatSnapshot = (snapshot: string) => {
+  return snapshot.replace(/css-\w{8}/g, 'css-xxxxxxxx');
+};
+```
+
+:::
+
 ### 3. ボタンと `Signal`
 
 3 つ目の例では、スナップショットテストに加えて、 `Signal` の値とボタンクリックを使ったテストを実装しています。
