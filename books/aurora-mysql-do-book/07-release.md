@@ -86,6 +86,61 @@ Web サーバの起動処理だったので、サービス再開を準備して�
 
 大きな問題には繋がりませんでしたが、影響を確認するためにサービス再開後に調査が必要になり、予定していた作業時間を 3 時間以上オーバーしてしまいました（さっさと帰って寝るはずだったのが、昼近くに帰ることに。太陽が眩しかったです）。
 
+---
+
+**2023/1/15 追記：**
+
+### サービス再開後、binlog レプリケーションを逆方向に切り替えるときにレプリケーションエラーが発生
+
+一つ書き忘れていたので追記します。
+
+この移行作業では、遠隔バックアップ用の DB について、
+
+- v3 移行前は v1 の本番 DB から v2 の中継用 DB および v3 の遠隔バックアップ用 DB を経て v3 の新本番 DB に binlog レプリケーション
+- v3 移行後はこれらの binlog レプリケーションをリセットして、v3 の新本番 DB から v3 の遠隔バックアップ用 DB に binlog レプリケーション
+
+という流れで、v3 の DB と遠隔バックアップ用 DB（v3）の binlog レプリケーションの方向を逆転させました。
+
+このとき、
+
+- 全てのレプリカ（スレーブ）DB で`CALL mysql.rds_stop_replication;`
+- （サービス停止状態でデータ整合確認などの各種作業を実施）
+- v3 の新本番 DB で`CALL mysql.rds_reset_external_source;`
+- v3 の遠隔バックアップ用 DB で`CALL mysql.rds_set_external_source(【Source 接続用の設定値】);`
+- v3 の遠隔バックアップ用 DB で`CALL mysql.rds_start_replication;`
+
+という流れで進めようとしたところ、ソース DB の切り替え（最後から 2 つ目）で
+
+`ERROR 1371 (HY000): Failed purging old relay logs: Failed during log reset`
+
+が発生しました。
+
+v3 の遠隔バックアップ用 DB で`SHOW REPLICA STATUS\G`したところ、
+
+- ソース DB の設定は新しいものが入っている
+- 以前の relaylog が残ってしまっている
+
+ことが分かり、
+
+http://blog.livedoor.jp/harukisan7/archives/32943403.html
+
+を参考にして、v3 の遠隔バックアップ用 DB で
+
+- 一旦`CALL mysql.rds_start_replication;`でレプリケーションを開始
+- `SHOW REPLICA STATUS\G`でレプリケーションが進んでいないことを確認
+  - `Replica_SQL_Running:`が`No`
+- この状態で`CALL mysql.rds_reset_external_source;`
+- あらためて`CALL mysql.rds_set_external_source(【Source 接続用の設定値】);`
+- もう一度`CALL mysql.rds_start_replication;`
+
+を実行したところ、正しくレプリケーションできる状態になりました。
+
+:::message
+最初の`CALL mysql.rds_start_replication;`を実行せずに、`CALL mysql.rds_reset_external_source;`から進めてもダメでした。
+:::
+
+---
+
 ## 切り替え後の作業（2022/10）
 
 旧 DB の停止とスナップショット化、監視対象の切り替え、スケールアップに伴うリザーブドインスタンスの追加購入を行いました。
