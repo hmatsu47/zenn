@@ -36,6 +36,12 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.U
 Aurora MySQL v2 → v3 の **[インプレースアップグレードがサポートされました](https://aws.amazon.com/jp/about-aws/whats-new/2022/09/amazon-aurora-supports-in-place-upgrades-mysql-5-7-8-0/)**。
 :::
 
+:::message
+**2023/1/21 追記：**
+スナップショットからの復元時のアップグレードやインプレースアップグレードの際に、ストアドプロシージャやストアドファンクションでクォートのない **[予約語](https://github.com/hmatsu47/aurora_mysql1to3diff/blob/main/mysql57_80_reserved.md)** をテーブル名・列名などに使うと途中で失敗します。
+ご注意ください。
+:::
+
 - **[v1 → v2 の際に`engine`属性が`aurora`から`aurora-mysql`に変わる](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#v1-%E2%86%92-v2-%E3%81%AE%E9%9A%9B%E3%81%ABengine%E5%B1%9E%E6%80%A7%E3%81%8Caurora%E3%81%8B%E3%82%89aurora-mysql%E3%81%AB%E5%A4%89%E3%82%8F%E3%82%8B)**
   - CLI や API で処理を自動化している場合に注意
 - **[パラメータグループに注意](/hmatsu47/articles/aurora-mysql3-003-ref-aws-01#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AB%E6%B3%A8%E6%84%8F)**
