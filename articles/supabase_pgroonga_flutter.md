@@ -176,14 +176,6 @@ class NearSpotList {
 
   NearSpotList(this.spotList);
 }
-
-// スポット一覧表示画面に渡す内容一式
-class FullSpotList {
-  SupabaseClient? client;
-  LatLng? latLng;
-
-  FullSpotList(this.client, this.latLng);
-}
 ```
 
 ```dart:supabase_access.dart
