@@ -61,7 +61,7 @@ CREATE INDEX spot_muni_idx ON spot_opendata (municipality);
 CREATE INDEX spot_pref_muni_idx ON spot_opendata (pref_muni);
 ```
 
-データは[前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1#%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)と同じです。
+テーブルに投入するデータは[前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1#%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)と同じです。
 :::
 
 ## PGroonga を有効にする
