@@ -2,21 +2,37 @@
 title: "Flutter で Supabase の PGroonga 全文検索を試してみた"
 emoji: "🔍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["flutter", "supabase", "全文検索"]
-published: false
+topics: ["flutter", "supabase", "全文検索", "pgroonga"]
+published: true
 ---
 
 Supabase が PGroonga に対応したと聞いたので、Flutter で試してみました。
 
+https://supabase.com/blog/launch-week-6-community-day#postgres-ecosystem
+
+## PGroonga とは
+
+PostgreSQL で全文検索エンジン Groonga を使うための拡張機能（Extensions）です。
+
 https://www.clear-code.com/blog/2023/1/17/supabase-support-pgroonga.html
 
-題材のベースは、以前こちらの記事で言及した地図アプリです。
+チュートリアルのページはこちらです。
+
+https://pgroonga.github.io/ja/tutorial/
+
+今回はこのページを参考にして Supabase のテーブル（インデックス）およびストアドファンクションを実装します。
+
+## 今回の題材となるアプリケーション
+
+過去にこちらの記事で言及した地図アプリです。
 
 https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1
 
-:::message
-記事に書いた後、若干改修しています。
-:::
+現在位置から指定距離の範囲内にあるスポットを検索して距離が近い順に返すストアドファンクションに、引数と`WHERE`句の条件（`CASE WHEN`による）を追加し、検索キーワードを含むスポットを（PGroonga で全文検索して）距離が近い順に返すことができるように改修します。
+
+アプリケーションの GitHub リポジトリはこちらです。
+
+https://github.com/hmatsu47/maptool
 
 ## PGroonga を有効にする
 
@@ -44,9 +60,17 @@ CREATE INDEX pgroonga_content_index
         WITH (tokenizer='TokenMecab');
 ```
 
+最初に`ALTER TABLE`で全文検索対象の生成列を追加しています。
+
+そしてその生成列に対して`CREATE INDEX`で PGroonga の全文検索インデックスを作成しています（トークナイザには MeCab を指定）。
+
 ## ストアドファンクションを全文検索対応にする
 
 同様に、**「SQL Editor」** で **「New query」** から SQL 文を実行（RUN）します。
+
+:::message
+PostGIS の関数を使うケースと同様、クエリビルダで扱うことができないので（多分）、ストアドファンクションに記述してアプリケーションから RPC 経由で呼び出します。
+:::
 
 ```sql:ストアドファンクション全文検索対応化
 CREATE OR REPLACE
@@ -87,9 +111,157 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
+ストアドファンクション`get_spots`の引数にキーワード（`keywords`）を追加し、キーワードが空文字でない場合に **`WHERE ft_text &@~ keywords`** の条件で全文検索できるようにしました。
+
+あわせて、検索対象とする距離の範囲（`dist_limit`）に`-1`が指定されている場合は、現在位置からの距離を限定せず検索するように変更しています。
+
+:::message
+[前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1)の後、検索対象のスポットデータをカテゴリ（`category_id_number`）別に絞り込んでピン表示できるように改修していました。
+:::
+
 :::message alert
-以前のストアドプロシージャは、引数の数が違うので別物と見なされて`REPLACE`されずにそのまま残ってしまいます。
+以前のストアドファンクションは、引数の数が違うので別物と見なされて`REPLACE`されずにそのまま残ってしまいます。
 **「Database」-「Functions」** の **「schema public」** 一覧から **「Delete function」** するか、SQL Editor で`DROP FUNCTION`してください。
 :::
 
 ## アプリケーションに全文検索を組み込む
+
+[前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1)で使ったコードをそれぞれ修正し（置き換え）ます。
+
+```yaml:pubspec.yaml（関連部分）
+  mapbox_gl: ^0.16.0
+  supabase: ^1.2.0
+```
+
+```dart:class_definition.dart（関連部分）
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supabase/supabase.dart';
+
+// 都道府県＋市区町村
+class PrefMuni {
+  String prefecture;
+  String municipalities;
+
+  PrefMuni(this.prefecture, this.municipalities);
+
+  String getPrefMuni() {
+    return prefecture + municipalities;
+  }
+}
+
+// Supabase category の内容
+class SpotCategory {
+  int id;
+  String name;
+
+  SpotCategory(this.id, this.name);
+}
+
+// Supabase get_spots の内容
+class SpotData {
+  num distance;
+  String categoryName;
+  String title;
+  String describe;
+  LatLng latLng;
+  PrefMuni prefMuni;
+
+  SpotData(this.distance, this.categoryName, this.title, this.describe,
+      this.latLng, this.prefMuni);
+}
+
+// 近隣スポット一覧表示画面に渡す内容一式
+class NearSpotList {
+  List<SpotData> spotList;
+
+  NearSpotList(this.spotList);
+}
+
+// スポット一覧表示画面に渡す内容一式
+class FullSpotList {
+  SupabaseClient? client;
+  LatLng? latLng;
+
+  FullSpotList(this.client, this.latLng);
+}
+```
+
+```dart:supabase_access.dart
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supabase/supabase.dart';
+
+import 'class_definition.dart';
+
+// Supabase Client
+SupabaseClient getSupabaseClient(String supabaseUrl, String supabaseKey) {
+  return SupabaseClient(supabaseUrl, supabaseKey);
+}
+
+Future<List<SpotCategory>> searchSpotCategory(SupabaseClient client) async {
+  final List<dynamic> items =
+      await client.from('category').select().order('id', ascending: true);
+  final List<SpotCategory> resultList = [];
+  for (dynamic item in items) {
+    final SpotCategory category =
+        SpotCategory(item['id'] as int, item['category_name'] as String);
+    resultList.add(category);
+  }
+  return resultList;
+}
+
+Future<List<SpotData>> searchNearSpot(SupabaseClient client, LatLng latLng,
+    int? distLimit, int? categoryId, String? keywords) async {
+  final List<dynamic> items =
+      await client.rpc('get_spots', params: {
+    'point_latitude': latLng.latitude,
+    'point_longitude': latLng.longitude,
+    'dist_limit': (distLimit ?? -1),
+    'category_id_number': (categoryId ?? -1),
+    'keywords': (keywords ?? '')
+  });
+  final List<SpotData> resultList = [];
+  for (dynamic item in items) {
+    final SpotData spotData = SpotData(
+        item['distance'] as num,
+        item['category_name'] as String,
+        item['title'] as String,
+        item['describe'] as String,
+        LatLng((item['latitude'] as num).toDouble(),
+            (item['longitude'] as num).toDouble()),
+        PrefMuni(item['prefecture'] as String, item['municipality'] as String));
+    resultList.add(spotData);
+  }
+  return resultList;
+}
+```
+
+---
+
+呼び出し側のうち全文検索を使うコードはこちらです。
+
+```dart:supabase_access.dart呼び出し側
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supabase/supabase.dart';
+
+import 'class_definition.dart';
+import 'supabase_access.dart';
+
+  SupabaseClient? _supabaseClient;
+  String _supabaseUrl = '【Supabase の URL】';
+  String _supabaseKey = '【Supabase の API Key】';
+  _supabaseClient = getSupabaseClient(_supabaseUrl, _supabaseKey);
+
+  final LatLng position = 【起点とする緯度経度】;
+  final List<SpotData> spotList =
+      await searchNearSpot(_client!, _latLng!, null, null, keywords);
+```
+
+:::message
+カテゴリ（`category_id_number`）で対象を絞り込む場合は`searchNearSpot`の 3 つ目の引数で、起点からの距離（m）で対象を絞り込む場合は 4 つ目の引数で指定します。
+:::
+
+---
+
+以上です。
+
+最初既存プロジェクトに「PGROONGA」がなかなか表示されず焦った以外はすんなり実装できました。
