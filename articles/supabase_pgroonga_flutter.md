@@ -160,7 +160,7 @@ $$ LANGUAGE plpgsql;
 
 ```yaml:pubspec.yaml（関連部分）
   mapbox_gl: ^0.16.0
-  supabase: ^1.2.0
+  supabase: ^1.4.0
 ```
 
 ```dart:class_definition.dart（関連部分）
