@@ -128,6 +128,8 @@ BEGIN
   FROM spot_opendata
   INNER JOIN category ON spot_opendata.category_id = category.id
   WHERE
+    (CASE WHEN dist_limit = -1 AND keywords = '' THEN false ELSE true END)
+  AND
     (CASE WHEN dist_limit = -1 THEN true
       ELSE (ST_POINT(point_longitude, point_latitude)::geography <-> spot_opendata.location::geography) <= dist_limit END)
   AND
