@@ -21,7 +21,7 @@ PGroonga のドキュメントを参考に実装していきます。
 https://pgroonga.github.io/ja/how-to/synonym-expansion.html
 
 :::message
-これを書いている 2023/1/28 現在、当該ページに Typo があるようです（Pull Request を送っておきました）。
+~~これを書いている 2023/1/28 現在、当該ページに Typo があるようです（Pull Request を送っておきました）~~ 修正されました。
 https://github.com/pgroonga/pgroonga.github.io/pull/97
 :::
 
