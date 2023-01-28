@@ -151,6 +151,10 @@ $$ LANGUAGE plpgsql;
 [前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1)の後、検索対象のスポットデータをカテゴリ（`category_id_number`）別に絞り込んでピン表示できるように改修していました。
 :::
 
+こちらは SQL Editor で`get_spots`を使った検索例です。
+
+![](/images/supabase_pgroonga_flutter/supabase_pgroonga_03.png)
+
 :::message alert
 以前のストアドファンクションは、引数の数が違うので別物と見なされて`REPLACE`されずにそのまま残ってしまいます。
 **「Database」-「Functions」** の **「schema public」** 一覧から **「Delete function」** するか、SQL Editor で`DROP FUNCTION`してください。
@@ -261,7 +265,7 @@ Future<List<SpotData>> searchNearSpot(SupabaseClient client, LatLng latLng,
 
 ---
 
-呼び出し側のうち全文検索を使うコードはこちらです。
+呼び出し側のうち全文検索を使うコードはこちらです。起点からの距離が近い順に結果が返ってきます。
 
 ```dart:supabase_access.dart呼び出し側
 import 'package:mapbox_gl/mapbox_gl.dart';
