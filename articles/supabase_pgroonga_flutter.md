@@ -62,6 +62,12 @@ CREATE INDEX spot_pref_muni_idx ON spot_opendata (pref_muni);
 ```
 
 テーブルに投入するデータは[前回記事](https://qiita.com/hmatsu47/items/c3f9cafb499aedaca1f1#%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)と同じです。
+
+> - **[サンプルデータ](https://github.com/hmatsu47/maptool/tree/main/sampleData/supabase)**
+>   - このサンプルデータは、以下の著作物を改変して利用しています。
+>     - 愛知県文化財マップ（ナビ愛知）、愛知県、クリエイティブ・コモンズ・ライセンス 表示２.１日本
+>     - https://www.pref.aichi.jp/soshiki/joho/0000069385.html
+
 :::
 
 ## PGroonga を有効にする

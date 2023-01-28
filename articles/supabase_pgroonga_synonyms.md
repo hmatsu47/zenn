@@ -120,5 +120,14 @@ SQL Editor で「ミュージアム」を検索してみると、
 「美術館」「博物館」もヒットしていることがわかります。
 
 :::message
+
+- **[サンプルデータ](https://github.com/hmatsu47/maptool/tree/main/sampleData/supabase)**
+  - このサンプルデータは、以下の著作物を改変して利用しています。
+    - 愛知県文化財マップ（ナビ愛知）、愛知県、クリエイティブ・コモンズ・ライセンス 表示２.１日本
+    - https://www.pref.aichi.jp/soshiki/joho/0000069385.html
+
+:::
+
+:::message
 前述のとおり、Flutter アプリケーション側は変更不要です。
 :::
