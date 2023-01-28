@@ -62,6 +62,12 @@ INSERT INTO synonyms (term, synonyms) VALUES ('ミュージアム', ARRAY['ミ�
 
 に書き換えます。
 
+https://pgroonga.github.io/ja/reference/functions/pgroonga-query-expand.html
+
+:::message
+同義語が`OR`条件で列挙（展開）されるイメージです。
+:::
+
 ```sql:CREATE_FUNCTION
 CREATE OR REPLACE
  FUNCTION get_spots(point_latitude double precision, point_longitude double precision, dist_limit int, category_id_number int, keywords text)
