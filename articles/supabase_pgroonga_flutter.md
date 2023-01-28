@@ -303,3 +303,10 @@ import 'supabase_access.dart';
 以上です。
 
 最初既存プロジェクトに「PGROONGA」がなかなか表示されず焦った以外はすんなり実装できました。
+
+---
+
+**2023/1/28 追記：**
+続きの記事を書きました。
+
+https://zenn.dev/hmatsu47/articles/supabase_pgroonga_synonyms
