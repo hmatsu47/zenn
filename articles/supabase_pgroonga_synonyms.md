@@ -50,6 +50,12 @@ INSERT INTO synonyms (term, synonyms) VALUES ('博物館', ARRAY['博物館', '�
 INSERT INTO synonyms (term, synonyms) VALUES ('ミュージアム', ARRAY['ミュージアム', '美術館', '博物館']);
 ```
 
+- 「美術館」で検索したときに「ミュージアム」を含む文章も対象とする
+- 「博物館」で検索したときに「ミュージアム」を含む文章も対象とする
+- 「ミュージアム」で検索したときに「美術館」「博物館」を含む文章も対象とする
+
+という指定です。
+
 :::message
 `pgroonga_query_expand`関数の[ドキュメント](https://pgroonga.github.io/ja/reference/functions/pgroonga-query-expand.html)の「使い方」に記されているとおり、同義語グループを使う方法もあります。
 先の例では「美術館」と「博物館」を同義語として扱わないので単語を個別に指定していますが、すべての単語を相互に同義語として扱う場合は同義語グループのほうが便利です。
