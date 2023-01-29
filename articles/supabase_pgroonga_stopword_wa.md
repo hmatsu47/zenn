@@ -3,7 +3,7 @@ title: "Supabase の PGroonga 全文検索でストップワード対応のワ�
 emoji: "⏹"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["supabase", "全文検索", "pgroonga"]
-published: false
+published: true
 ---
 
 こちらの記事の続きです。
@@ -77,7 +77,7 @@ CREATE INDEX pgroonga_content_index
 同義語対応のときと同様、1 行だけの変更です。
 
 :::message
-`pgroonga_query_expand`関数の 4 つ目のパラメータ（`keywords`）を、全文検索用の生成列と同じように`REGEXP_REPLACE`関数を使う形に書き換えます。
+`pgroonga_query_expand`関数の 4 つ目のパラメータ（`keywords`：検索キーワード）を、全文検索用の生成列と同じように`REGEXP_REPLACE`関数を使う形に書き換えます。
 :::
 
 ```sql:ストアドファンクション・ストップワード対応
