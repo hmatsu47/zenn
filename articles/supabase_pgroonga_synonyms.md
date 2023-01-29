@@ -52,6 +52,7 @@ INSERT INTO synonyms (term, synonyms) VALUES ('ミュージアム', ARRAY['ミ�
 
 :::message
 `pgroonga_query_expand`関数の[ドキュメント](https://pgroonga.github.io/ja/reference/functions/pgroonga-query-expand.html)の「使い方」に記されているとおり、同義語グループを使う方法もあります。
+先の例では「美術館」と「博物館」を同義語として扱わないので単語を個別に指定していますが、すべての単語を相互に同義語として扱う場合は同義語グループのほうが便利です。
 :::
 
 ## ストアドファンクションを同義語検索対応にする
