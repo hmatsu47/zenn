@@ -63,7 +63,7 @@ INSERT INTO synonyms (term, synonyms) VALUES ('ミュージアム', ARRAY['ミ�
 
 ## ストアドファンクションを同義語検索対応にする
 
-[前回の記事](https://zenn.dev/hmatsu47/articles/supabase_pgroonga_flutter#%E3%82%B9%E3%83%88%E3%82%A2%E3%83%89%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%99%E3%82%8B)で、`WHERE`の条件に
+[前回の記事](https://zenn.dev/hmatsu47/articles/supabase_pgroonga_flutter#%E3%82%B9%E3%83%88%E3%82%A2%E3%83%89%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%99%E3%82%8B)で、`WHERE`句の条件に
 
 - **`ft_text &@~ keywords`**
 
@@ -79,7 +79,7 @@ https://pgroonga.github.io/ja/reference/functions/pgroonga-query-expand.html
 同義語が`OR`条件で列挙（展開）されるイメージです。
 :::
 
-```sql:CREATE_FUNCTION
+```sql:ストアドファンクション同義語検索対応
 CREATE OR REPLACE
  FUNCTION get_spots(point_latitude double precision, point_longitude double precision, dist_limit int, category_id_number int, keywords text)
 RETURNS TABLE (
