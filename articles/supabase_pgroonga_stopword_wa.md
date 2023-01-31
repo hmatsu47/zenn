@@ -8,6 +8,7 @@ published: true
 
 こちらの記事の続きです。
 
+https://zenn.dev/hmatsu47/articles/supabase_pgroonga_flutter
 https://zenn.dev/hmatsu47/articles/supabase_pgroonga_synonyms
 
 同義語検索の次は、ストップワード（検索対象から除外するキーワードや文字）の設定を…と思ったのですが、
