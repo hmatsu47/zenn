@@ -142,3 +142,11 @@ SQL Editor で「ミュージアム」を検索してみると、
 :::message
 前述のとおり、Flutter アプリケーション側は変更不要です。
 :::
+
+---
+
+**2023/2/1 追記：**
+
+続きの記事を書きました。
+
+https://zenn.dev/hmatsu47/articles/supabase_pgroonga_stopword_wa
