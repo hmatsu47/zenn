@@ -172,12 +172,32 @@ $$ LANGUAGE plpgsql;
 
 ```yaml:pubspec.yaml（関連部分）
   mapbox_gl: ^0.16.0
-  supabase: ^1.5.1
+  supabase_flutter: ^1.4.0
 ```
+
+:::message
+**2023/2/17 追記：**
+これまで、パッケージとして[`supabase`](https://pub.dev/packages/supabase)を使っていましたが、同パッケージの Note に
+
+> If you are developing a Flutter application, use supabase_flutter instead. supabase package is for non-Flutter Dart environments.
+
+と書かれているので、[`supabase_flutter`](https://pub.dev/packages/supabase_flutter)に変更しました。
+これにあわせてインポートも以下のように書き換えます。
+
+```dart:(旧)supabaseインポート部分
+import 'package:supabase/supabase.dart';
+```
+
+```dart:(新)supabase_flutterインポート部分
+import 'package:supabase_flutter/supabase_flutter.dart';
+```
+
+この記事の範囲における使い方に変更はありません。
+:::
 
 ```dart:class_definition.dart（関連部分）
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supabase/supabase.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // 都道府県＋市区町村
 class PrefMuni {
@@ -222,7 +242,7 @@ class NearSpotList {
 
 ```dart:supabase_access.dart
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supabase/supabase.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'class_definition.dart';
 
@@ -275,7 +295,7 @@ Future<List<SpotData>> searchNearSpot(SupabaseClient client, LatLng latLng,
 
 ```dart:supabase_access.dart呼び出し側
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supabase/supabase.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'class_definition.dart';
 import 'supabase_access.dart';
