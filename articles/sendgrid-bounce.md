@@ -257,16 +257,6 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 **「Deploy」** をクリックします。
 
-##### 「設定」 - 「トリガー」 - 「トリガーを追加」 :
-
-![](/images/sendgrid-bounce/lambda_sender_05.png)
-
-- トリガーの設定 : **「DynamoDB」** を選択
-- DynamoDB テーブル : メール送信用テーブルを選択
-- バッチサイズ : 100
-
-**「追加」** をクリックします。
-
 ![](/images/sendgrid-bounce/lambda_sender_06.png)
 
 ##### 「設定」 - 「一般設定」 - 「編集」 :
@@ -299,6 +289,16 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 :::message
 環境変数は暗号化用の KMS キーを作成してから設定します。
 :::
+
+##### 「設定」 - 「トリガー」 - 「トリガーを追加」 :
+
+![](/images/sendgrid-bounce/lambda_sender_05.png)
+
+- トリガーの設定 : **「DynamoDB」** を選択
+- DynamoDB テーブル : メール送信用テーブルを選択
+- バッチサイズ : 100
+
+**「追加」** をクリックします。
 
 #### 2-3. Lambda 関数（メール送信）用 KMS キーの作成
 
