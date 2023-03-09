@@ -358,7 +358,6 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 - ランタイム : Python 3.9
 - アーキテクチャ : どちらでも可（ここでは arm64 を選択）
 - 実行ロール : 基本的な Lambda アクセス権限で新しいロールを作成
-- レイヤーの追加 : カスタムレイヤー（2-1. で作成したものを選択）
 - コード : `lambda_function.py`
 
 https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3f379acc/lambda/testBounceReceiver/lambda_function.py
