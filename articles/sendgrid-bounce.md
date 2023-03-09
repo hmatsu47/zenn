@@ -272,11 +272,15 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/lambda_sender_09.png)
 
-DynamoDB に対する権限を追加（または追加されていることを確認）します。
+DynamoDB に対する権限を追加します。
 
 - アクション : ListStreams／リソース : \*
 - アクション : GetItem・Query・PutItem／リソース : メール送信履歴用 DynamoDB テーブルの ARN
-- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用 DynamoDB テーブルの Stream の ARN
+- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : 一旦 \*（すべて）を指定
+
+:::message
+DescribeStream・GetRecords・GetShardIterator のリソース指定は、トリガー作成後に「メール送信用 DynamoDB テーブルの Stream の ARN」に変更します（↑のスクリーンショットは変更後のものです）。
+:::
 
 **「ポリシーの確認」** をクリックします。
 
@@ -285,6 +289,10 @@ DynamoDB に対する権限を追加（または追加されていることを�
 **「変更の保存」** をクリックします。
 
 Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存」** をクリックします。
+
+:::message
+後ほどポリシーを再編集するので、ポリシーの画面は閉じずに残しておきます。
+:::
 
 :::message
 環境変数は暗号化用の KMS キーを作成してから設定します。
@@ -299,6 +307,12 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 - バッチサイズ : 100
 
 **「追加」** をクリックします。
+
+前述のとおり、先ほど編集したポリシーを再度 **「編集」** し、DynamoDB に対する権限を変更します（対象リソースを限定）。
+
+- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用 DynamoDB テーブルの Stream の ARN
+
+**「ポリシーの確認」** → **「変更の保存」** で保存します。
 
 #### 2-3. Lambda 関数（メール送信）用 KMS キーの作成
 
