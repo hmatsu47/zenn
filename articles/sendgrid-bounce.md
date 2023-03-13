@@ -108,7 +108,7 @@ https://github.com/hmatsu47/sendgrid-test
 
 どこかに API キーを控え、**「Done」** をクリックして完了です。
 
-::: message
+:::message
 Event Webhook は Bounce Event 取得用 API Gateway 作成後に登録します。
 :::
 
@@ -122,7 +122,7 @@ DynamoDB テーブルをいくつか作成していきます。
 
 最初に DynamoDB テーブル暗号化用 KMS キーを作成します。
 
-::: message
+:::message
 Amazon 所有キーを使う場合はキーの作成は不要です。
 :::
 
@@ -146,7 +146,7 @@ Amazon 所有キーを使う場合はキーの作成は不要です。
 
 **「次へ」** をクリックします。
 
-::: message
+:::message
 キーの使用者（ユーザー）は各 Lambda 関数作成後に追加します。
 :::
 
@@ -168,7 +168,7 @@ Amazon 所有キーを使う場合はキーの作成は不要です。
 
 **「キャパシティーモード」** は **「オンデマンド」** を、**「暗号化キーの管理」** は **「アカウントからのキー」** で先ほど作成した KMS キーを選択します。
 
-::: message
+:::message
 Amazon 所有キーを使う場合は **「Amazon DynamoDB が所有」** を選択します。
 :::
 
