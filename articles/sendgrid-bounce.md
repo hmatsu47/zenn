@@ -368,7 +368,7 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 ![](/images/sendgrid-bounce/api_hook_receiver_03.png)
 
-任意の API 名（例 : 「testEventHookReceiver」を入力して **「API の作成」** をクリックします。
+任意の API 名（例 : 「testEventHookReceiver」）を入力して **「API の作成」** をクリックします。
 
 ![](/images/sendgrid-bounce/api_hook_receiver_04.png)
 
