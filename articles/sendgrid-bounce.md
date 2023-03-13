@@ -352,7 +352,7 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
   - `TABLE_BOUNCE` : Bounce Event 用 DynamoDB テーブルの名前
   - `TABLE_SENT_LOG` : メール送信履歴用 DynamoDB テーブルの名前
 
-::: message
+:::message
 トリガーは API Gateway 作成時に設定（追加）します（Lambda 統合の設定を行うことで追加される）。
 :::
 
@@ -430,7 +430,7 @@ https://github.com/hmatsu47/sendgrid-test/blob/5c6c03beb108dcc675646f3a4a459cfe3
 
 #### 2-7. Dynamo DB テーブル用 KMS キーにユーザー（IAM Role）を追加
 
-::: message
+:::message
 Amazon 所有キーを使う場合は不要です。
 :::
 
