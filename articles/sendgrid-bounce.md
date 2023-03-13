@@ -276,11 +276,7 @@ DynamoDB に対する権限を追加します。
 
 - アクション : ListStreams／リソース : \*
 - アクション : GetItem・Query・PutItem／リソース : メール送信履歴用 DynamoDB テーブルの ARN
-- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : 一旦 \*（すべて）を指定
-
-:::message
-DescribeStream・GetRecords・GetShardIterator のリソース指定は、トリガー作成後に「メール送信用 DynamoDB テーブルの Stream の ARN」に変更します（↑のスクリーンショットは変更後のものです）。
-:::
+- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用 DynamoDB テーブルの stream/\*（ARN）を指定
 
 **「ポリシーの確認」** をクリックします。
 
@@ -307,16 +303,6 @@ Lambda 関数の **「基本設定を編集」** 画面に戻って **「保存�
 - バッチサイズ : 100
 
 **「追加」** をクリックします。
-
-前述のとおり、先ほど編集したポリシーを再度 **「編集」** し、DynamoDB に対する権限を変更します（対象リソースを限定）。
-
-- アクション : DescribeStream・GetRecords・GetShardIterator／リソース : メール送信用 DynamoDB テーブルの Stream の ARN
-
-:::message
-「メール送信用 DynamoDB テーブルの Stream の ARN」は、Lambda の **「設定」 - 「トリガー」** か、DynamoDB テーブルの **「エクスポートおよびストリーム」** で確認できます。
-:::
-
-**「ポリシーの確認」** → **「変更の保存」** で保存します。
 
 #### 2-3. Lambda 関数（メール送信）用 KMS キーの作成
 
