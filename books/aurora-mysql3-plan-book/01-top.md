@@ -46,4 +46,8 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Versio
 :::message
 Aurora MySQL v3 の現時点のリリース（3.01.0 〜 3.02.1：MySQL 8.0.23 ベース）は LTS ではありません。
 今後のマイナーバージョンで LTS リリースが設けられる予定です。
+
+**2023/4/16 追記：**
+2023/3/1 リリースのマイナーバージョン 3.03.0 より、MySQL 8.0.26 ベースに変更になりました。
+なお、このバージョンも LTS ではありません。
 :::

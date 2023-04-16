@@ -32,6 +32,12 @@ https://endoflife.software/applications/databases/mysql
 :::
 
 :::message
+**2023/4/16 追記：**
+2023/3/1 リリースのマイナーバージョン 3.03.0 より、MySQL 8.0.26 ベースに変更になりました。
+なお、このバージョンも LTS ではありません。
+:::
+
+:::message
 **こちらの記事群を本にまとめました。**
 **[Aurora MySQL v1 → v3（3.02.1 移行計画編）](https://zenn.dev/hmatsu47/books/aurora-mysql3-plan-book)**
 :::
