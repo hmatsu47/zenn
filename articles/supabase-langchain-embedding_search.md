@@ -127,6 +127,8 @@ VITE_OPENAI_KEY=【OpenAIのAPI key】
 
 ### テストデータ投入
 
+_`curl -X POST -H 'Content-Type: application/json; charset=UTF-8' http://localhost:【起動ポート番号】 -d '{"contents":【ドキュメント配列】, "metadata":【メタデータ配列】}'`_ で投入できます。 _`-d @【投入するファイルのパス】`_ も可能です。
+
 [こちらのテストデータ](https://github.com/hmatsu47/dbdev-langchain-test/blob/master/test-data.json) を`curl`で投入します。
 
 https://github.com/hmatsu47/dbdev-langchain-test/blob/master/test-data.json
@@ -153,6 +155,8 @@ https://github.com/hmatsu47/dbdev-langchain-test/blob/master/test-data.json
 :::
 
 ### 検索
+
+_`curl http://localhost:【起動ポート番号】/【検索キーワード】/【結果の最大数】`_ で検索が可能です。
 
 実際に検索してみます。
 
@@ -203,6 +207,11 @@ https://github.com/hmatsu47/dbdev-langchain-test/blob/master/test-data.json
 ```
 
 まあまあそれっぽい検索結果が出ていますね。
+
+## 注意
+
+- Node.js v16 では動きません。`fetch`を（試験的に）サポートする Node.js v18 以降で実行してください。
+- 全体的に入力値チェックなどは実装していません。
 
 ## 参考
 
