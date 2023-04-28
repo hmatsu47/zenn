@@ -121,6 +121,51 @@ VITE_SUPABASE_ANON_KEY=【Supabaseのプロジェクトanon key】
 VITE_OPENAI_KEY=【OpenAIのAPI key】
 ```
 
+:::message
+Vector Store への文書追加と検索のコードはこちらです。
+
+```typescript:文書追加
+// ドキュメント追加
+const postDocuments = async (body: { contents: string[]; metadata: Embeddings; }) => {
+  await SupabaseVectorStore.fromTexts(
+    body.contents,
+    body.metadata,
+    new OpenAIEmbeddings({
+      openAIApiKey: import.meta.env.VITE_OPENAI_KEY,
+    }),
+    {
+      client: supabaseClient,
+      tableName: "documents",
+      queryName: "match_documents",
+    }
+  );
+  const results = {
+    message: "OK"
+  }
+  return results;
+}
+```
+
+```typescript:文書検索
+// 検索
+const search = async (keyword: string, count: number) => {
+  const vectorStore = await SupabaseVectorStore.fromExistingIndex(
+    new OpenAIEmbeddings({
+      openAIApiKey: import.meta.env.VITE_OPENAI_KEY,
+    }),
+    {
+      client: supabaseClient,
+      tableName: "documents",
+      queryName: "match_documents",
+    }
+  );
+  const results = await vectorStore.similaritySearch(keyword, count);
+  return results;
+};
+```
+
+:::
+
 ### 起動
 
 `npm run dev`で起動します。
@@ -227,6 +272,6 @@ https://python.langchain.com/en/latest/modules/indexes/vectorstores/examples/sup
 今回は Python のライブラリは使っていません。
 :::
 
-### サンプルコード
+### サンプルコード（`app.ts`）全体
 
 https://github.com/hmatsu47/dbdev-langchain-test/blob/master/app.ts
