@@ -275,3 +275,10 @@ https://python.langchain.com/en/latest/modules/indexes/vectorstores/examples/sup
 ### サンプルコード（`app.ts`）全体
 
 https://github.com/hmatsu47/dbdev-langchain-test/blob/master/app.ts
+
+### その他
+
+文書ベクトルと全文検索を併用する **[langchain-hybrid_search](https://database.dev/langchain/hybrid_search)** もあります。
+
+https://database.dev/langchain/hybrid_search
+https://js.langchain.com/docs/modules/indexes/retrievers/supabase-hybrid
