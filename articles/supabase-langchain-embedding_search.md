@@ -270,6 +270,7 @@ https://python.langchain.com/en/latest/modules/indexes/vectorstores/examples/sup
 
 :::message
 今回は Python のライブラリは使っていません。
+Supabase に関しては JS/TS のライブラリのほうが実装が先行しているようです。
 :::
 
 ### サンプルコード（`app.ts`）全体
