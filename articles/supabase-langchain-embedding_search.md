@@ -93,6 +93,48 @@ create extension "langchain-embedding_search"
 このとき生成される`documents`テーブルは RLS 無効状態です。プロダクト利用する際は RLS を適切に設定しましょう。
 :::
 
+:::message alert
+**2023/6/8 追記：**
+2023/6/8 現在、最新バージョンは 1.1.0 のはずですが、dbdev ではまだ対応していないようです（1.1.0 を指定するとエラーが発生）。
+
+> _Failed to run sql query: extension "langchain-embedding_search" has no installation script nor update path for version "1.1.0"_
+
+また、その関係で、`langchainjs`バージョン 0.0.88 以降を使うと、`match_documents`ストアドファンクションと引数が合わず、langchainjs からの呼び出しがエラーになります。
+
+そのため、`langchainjs`バージョン 0.0.88 以降を使うときは、`langchain-embedding_search`バージョン 1.1.0 と同じ`fliter`引数つきの`match_documents`ストアドファンクションを手動で追加します。
+
+```sql:match_documentsストアドファンクション手動追加
+create function match_documents (
+  query_embedding vector(1536),
+  match_count int DEFAULT null,
+  filter jsonb DEFAULT '{}'
+) returns table (
+  id bigint,
+  content text,
+  metadata jsonb,
+  similarity float
+)
+language plpgsql
+as $$
+#variable_conflict use_column
+begin
+  return query
+  select
+    id,
+    content,
+    metadata,
+    1 - (documents.embedding <=> query_embedding) as similarity
+  from documents
+  where metadata @> filter
+  order by documents.embedding <=> query_embedding
+  limit match_count;
+end;
+$$;
+```
+
+なお、このワークアラウンドで対応した後に`langchain-embedding_search`バージョン 1.1.0 が有効化できるようになったときは、この`match_documents`ストアドファンクションを手動で削除してから有効化します。
+:::
+
 ### Supabase プロジェクトの URL と匿名（anon）キーを確認
 
 **「API Settings」** で **「Project URL」** と **「Project API keys」** の `anon`・`public`キーを確認しておきます。
