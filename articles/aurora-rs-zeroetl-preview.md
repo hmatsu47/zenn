@@ -20,7 +20,7 @@ https://aws.amazon.com/jp/about-aws/whats-new/2023/06/amazon-aurora-mysql-zero-e
 
 Aurora などのリレーショナルデータベース上のデータは、通常 ETL（Extract（抽出）/ Transform（変換）/ Load（ロード）の略）の流れを経て Redshift などのデータウェアハウスや分析基盤への流し込みを行います。
 
-Aurora と Redshift のゼロ ETL 統合は、**この部分の構築・設定を簡素化し、ほぼリアルタイムでデータの流し込みを可能にする機能** です。
+Aurora と Redshift のゼロ ETL 統合は、**この部分の構築・設定を簡素化し、ほぼリアルタイムでデータの流し込み（複製）を可能にする機能** です。
 
 結果として、Redshift を使用した分析や機械学習がほぼリアルタイムで実行できます。
 
@@ -43,7 +43,7 @@ https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/zero-etl.html
 特に、サポートされない（Aurora MySQL の）データ型が存在する一方で、そのデータ型を持つテーブルのフィルタができない点については、実利用上大きな障害になりそうですね。
 
 少し脱線しますが、こちら ↓ の記事から始まる一連の記事に、競合となる MySQL HeatWave の制限事項をまとめています（現在進行中）。
-MySQL HeatWave にも`BLOB`型などサポートされないデータ型がありますが、HeatWave 側にロードされないようフィルタする機能があります。
+MySQL HeatWave にも`BLOB`型などサポートされないデータ型がありますが、HeatWave 側にロードされないようフィルタする機能があります（テーブル単位または列単位で）。
 
 https://qiita.com/hmatsu47/items/5bf7b37f694e56f3dc82
 
