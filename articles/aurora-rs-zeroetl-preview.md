@@ -3,7 +3,7 @@ title: "公開プレビュー中の Amazon Aurora MySQL と Amazon Redshift の 
 emoji: "🔺"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["aws", "aurora", "redshift", "etl"]
-published: false
+published: true
 ---
 
 Amazon Aurora MySQL と Amazon Redshift の ゼロ ETL 統合が公開プレビュー中なので、試してみました。
