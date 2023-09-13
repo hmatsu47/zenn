@@ -24,7 +24,7 @@ Aurora と Redshift のゼロ ETL 統合は、**この部分の構築・設定�
 
 結果として、Redshift を使用した分析や機械学習がほぼリアルタイムで実行できます。
 
-https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/zero-etl.html#zero-etl.limitations.data-types
+https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/zero-etl.html
 
 :::message
 プレビュー中のユーザーガイドですので、GA の際にリンク先ページがなくなる可能性があります（以降同様）。
