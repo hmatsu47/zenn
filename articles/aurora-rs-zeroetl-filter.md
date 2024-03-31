@@ -96,7 +96,7 @@ Aurora クラスターの作成が完了するまでの間に Redshift Serverles
 
 ### Redshift Serverless ワークグループ・名前空間作成
 
-Aurora MySQL と Redshift の zero-ETL 統合はすでに GA になっているので、Redshift Serverless ワークグループと名前空間もプレビュー版ではなく通常のものをを作成します。
+Aurora MySQL と Redshift の zero-ETL 統合はすでに GA になっているので、Redshift Serverless ワークグループと名前空間もプレビュー版ではなく通常のものを作成します。
 
 #### ワークグループを作成
 
