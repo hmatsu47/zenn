@@ -27,6 +27,10 @@ https://zenn.dev/hmatsu47/articles/aurora-rs-zeroetl-preview#%E3%82%BC%E3%83%AD-
 
 以前の zero-ETL では、**Aurora から Redshift への変換をサポートしていない型（`BLOB`など）を持つ列が Aurora クラスター内に 1 つでもあると、Redshift へのロードができませんでした。**
 
+:::message
+Aurora MySQL の binlog 側でフィルタリングする方法はありましたが、zero-ETL 統合での使用は非推奨でした。
+:::
+
 データベース（スキーマ）・テーブルレベルのフィルタリングがサポートされたことにより、**変換対象外の列を持つテーブルを連携対象から除外する形で Redshift へのロードができるようになりました。**
 
 また、Redshift にロードする必要のないデータベース（スキーマ）をまとめて除外できるようになりました。
