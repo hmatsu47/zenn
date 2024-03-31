@@ -3,7 +3,7 @@ title: "Amazon Aurora MySQL と Amazon Redshift の zero-ETL 統合でフィル�
 emoji: "🚚"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["aws", "aurora", "redshift", "etl"]
-published: false
+published: true
 ---
 
 [公開プレビュー時に試していた](https://zenn.dev/hmatsu47/articles/aurora-rs-zeroetl-preview) Amazon Aurora MySQL と Redshift の zero-ETL 統合ですが、2023/11 に GA になった時点ではフィルタリングが実装されていませんでした。
