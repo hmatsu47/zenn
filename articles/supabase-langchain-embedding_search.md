@@ -12,6 +12,11 @@ https://pgunconf.connpass.com/event/278329/
 
 **[PostgreSQL パッケージマネージャー dbdev](https://database.dev/)** を使って **[Supabase](https://supabase.com/)** に **[langchain-embedding_search](https://database.dev/langchain/embedding_search)** を導入し、Supabase を Vector Store として使ってみます。
 
+:::message alert
+**2024/4/30 追記：**
+2024 年現在、LangChain のパッケージ構成およびコードの書き方が当記事の執筆時点とは大幅に変わっています。
+:::
+
 ## dbdev とは？
 
 PostgreSQL の拡張機能や SQL 集を管理するパッケージマネージャーとして Supabase が提供するものです。
