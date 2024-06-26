@@ -21,8 +21,10 @@ https://atsuizo.hatenadiary.jp/entry/2019/01/23/112608
 :::message
 **2024/6/26 追記：**
 MySQL 8.0.37 で問題が解消されたようです（Aurora MySQL v3 では未反映）。
-https://ca-srg.dev/dba9a0f2aa9049259a9610274b258bf2
+- **[MySQL8.0でSELECT COUNT(*)が低速になる動作は8.0.37で解消されていた！](https://ca-srg.dev/dba9a0f2aa9049259a9610274b258bf2)（CyberAgent SRG 技術記事）**
 :::
+
+https://ca-srg.dev/dba9a0f2aa9049259a9610274b258bf2
 
 ## テストの内容
 
