@@ -169,12 +169,12 @@ Time: 3.795 ms
 
 ### 所要時間比較（単位：ミリ秒）
 
-| extension / INDEX                 | INDEX 作成 | 検索（3 回平均） |
-| --------------------------------- | ---------: | ---------------: |
-| pgvector（INDEX なし）            |          - |           41.388 |
-| pgvector（HNSW）                  | 10,108.801 |           39.227 |
-| pgvector（バイナリ Re-rank）      |  3,514.146 |            2.404 |
-| pgvectorscale（バイナリ Re-rank） | 12,289.672 |            4.810 |
+| extension / INDEX                                  | INDEX 作成 | 検索（3 回平均） |
+| -------------------------------------------------- | ---------: | ---------------: |
+| pgvector（INDEX なし）                             |          - |           41.388 |
+| pgvector（HNSW 32 ビット）                         | 10,108.801 |           39.227 |
+| pgvector（HNSW バイナリ Re-rank）                  |  3,514.146 |            2.404 |
+| pgvectorscale（StreamingDiskANN バイナリ Re-rank） | 12,289.672 |            4.810 |
 
 結果としては **pgvector によるバイナリ Re-rank 検索よりも遅くなってしまいました。**
 
