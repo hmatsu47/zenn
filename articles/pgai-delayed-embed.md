@@ -6,4 +6,8 @@ topics: ["postgresql", "pgvector", "pgai", "embeddings"]
 published: false
 ---
 
+[前回 ↓ の記事](https://zenn.dev/hmatsu47/articles/pgvectorscale) で取り上げた [pgvectorscale](https://github.com/timescale/pgvectorscale) と同時に [Timescale 社](https://www.timescale.com/homepage)が OSS としてリリースした PostgreSQL 拡張機能（extension）、[pgai](https://github.com/timescale/pgai) を少しだけ試してみました。
+
+https://zenn.dev/hmatsu47/articles/pgvectorscale
+
 ※記入中
