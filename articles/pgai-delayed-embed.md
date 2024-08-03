@@ -10,4 +10,8 @@ published: false
 
 https://zenn.dev/hmatsu47/articles/pgvectorscale
 
+## pgai とは
+
+## pgai 使用例
+
 ※記入中
