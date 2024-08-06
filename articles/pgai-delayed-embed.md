@@ -14,4 +14,8 @@ https://zenn.dev/hmatsu47/articles/pgvectorscale
 
 ## pgai 使用例
 
+### トリガーとストアドファンクションによるモデレートの実装
+
+### ストアドファンクションによる遅延埋め込みの実装
+
 ※記入中
