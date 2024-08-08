@@ -12,6 +12,8 @@ https://zenn.dev/hmatsu47/articles/pgvectorscale
 
 ## pgai とは
 
+### サポート対象生成 AI モデル
+
 ## pgai 使用例
 
 ### トリガーとストアドファンクションによるモデレートの実装
