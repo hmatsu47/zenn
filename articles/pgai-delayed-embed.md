@@ -12,6 +12,8 @@ https://zenn.dev/hmatsu47/articles/pgvectorscale
 
 ## pgai とは
 
+https://github.com/timescale/pgai
+
 ### サポート対象の生成 AI モデル
 
 ## pgai 使用例
