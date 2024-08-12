@@ -1,5 +1,5 @@
 ---
-title: "pgai を使って遅延埋め込みを試してみた"
+title: "pgai を軽く試してみた"
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["postgresql", "pgvector", "pgai", "embeddings"]
@@ -18,8 +18,6 @@ https://github.com/timescale/pgai
 
 ## pgai 使用例
 
-### トリガーとストアドファンクションによるモデレートの実装
-
-### ストアドファンクションによる遅延埋め込みの実装
+## 軽く試してみた
 
 ※記入中
