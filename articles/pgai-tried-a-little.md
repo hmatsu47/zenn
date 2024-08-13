@@ -40,7 +40,7 @@ https://github.com/timescale/pgai/tree/main/tests
 - [ベクトル遅延埋め込み](https://github.com/timescale/pgai/blob/main/docs/delayed_embed.md)
   :::
 
-また、pgai の機能（関数）本体はストアドファンクションとして`plpython3u`を使って実装されているので、[ストアドファンクション定義の SQL](https://github.com/timescale/pgai/tree/main/sql/idempotent) を見ると実装内容がわかります。
+また、pgai の機能（関数）本体はストアドファンクションとして`plpython3u`を使って実装されているので、[ストアドファンクション定義の SQL 文](https://github.com/timescale/pgai/tree/main/sql/idempotent)を見ると実装内容がわかります。
 
 https://github.com/timescale/pgai/tree/main/sql/idempotent
 
