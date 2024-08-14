@@ -27,7 +27,7 @@ https://aws.amazon.com/jp/about-aws/whats-new/2023/12/amazon-aurora-postgresql-i
 - Anthropic
 - Cohere
 
-の API をサポートしているようです。
+の API をサポートしているようです（サポートしている機能はそれぞれ異なります）。
 
 具体的な対応モデル・機能および使い方について網羅的に示すドキュメントは残念ながら現時点では存在しないようですが、[テストコード](https://github.com/timescale/pgai/tree/main/tests)が参考になります。
 
