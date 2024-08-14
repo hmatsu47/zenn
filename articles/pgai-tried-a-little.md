@@ -36,7 +36,7 @@ https://github.com/timescale/pgai/tree/main/tests
 :::message
 ドキュメントには OpenAI の API を使用する例が 2 つ示されています。
 
-- [モデレート](https://github.com/timescale/pgai/blob/main/docs/moderate.md)
+- [モデレーション](https://github.com/timescale/pgai/blob/main/docs/moderate.md)
 - [ベクトル遅延埋め込み](https://github.com/timescale/pgai/blob/main/docs/delayed_embed.md)
   :::
 
