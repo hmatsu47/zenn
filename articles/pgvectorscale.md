@@ -202,3 +202,22 @@ https://www.timescale.com/blog/pgvector-is-now-as-fast-as-pinecone-at-75-less-co
 （それを受けて [Timescale 社](https://www.timescale.com/) が pgvectorscale を実装したこと、および Pinecone の DiskANN よりも pgvectorscale が優れていることを説明する記事）
 
 余計なお世話かもしれませんが、Timescale 社のブログ記事、似たようなテーマの記事が複数ポストされていて、GitHub リポジトリなどからはその一方の記事にしかリンクされていなかったりするので、目的の記事が見つけづらいんですよね…。
+
+---
+
+**2024/8/18 追記：**
+
+[先の追記で挙げた記事](https://www.timescale.com/blog/pgvector-is-now-as-fast-as-pinecone-at-75-less-cost/)からリンクされている[こちら ↓ の記事](https://www.timescale.com/blog/how-we-made-postgresql-as-fast-as-pinecone-for-vector-data/)に、
+
+https://www.timescale.com/blog/how-we-made-postgresql-as-fast-as-pinecone-for-vector-data/
+
+- DiskANN アルゴリズムにストリーミング取得のサポートを追加して StreamingDiskANN インデックスを実装した理由
+  - HNSW ではインデックスを探索する際にランダムアクセスが発生しがち
+  - pgvector での`hnsw.ef_search`による探索のカットオフが、セカンダリフィルター適用時に悪影響を及ぼす可能性がある
+- pgvector に実装されたバイナリ量子化（BQ）インデックスとは別に統計的バイナリ量子化（SBQ）インデックスを実装した理由
+  - BQ による「0」「1」のビット化境界は、実際の値を正しく二分する境界と異なる
+  - 次元数が少ないケース（768 次元など）では次元あたりのビット数を「1」ではなく「2」としたほうが精度が向上する
+
+が記されています。
+
+なお、この Zenn 記事で試したのとは別のデータセットで軽く試した範囲では、データ量が圧倒的に足りなかったためか、`hnsw.ef_search`の問題は再現できませんでした。
