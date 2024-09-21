@@ -92,39 +92,102 @@ PING aurora-source-instance-1.XXXXXXXXXXXX.ap-northeast-1.rds.amazonaws.com (172
 
 ## PrivateLink 用のターゲットグループを設定
 
+AWS マネジメントコンソールで EC2 のメニューから「ターゲットグループ」を選択し、「ターゲットグループの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_011.png)
+
+- ターゲットタイプ : IP アドレス
+- ターゲットグループ名 : 任意
+- プロトコル・ポート : TCP・3306
+- IP アドレスタイプ : IPv4
+- VPC : Aurora クラスター作成先の VPC
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_012.png)
 
+- ヘルスチェックプロトコル : TCP
+- ヘルスチェックポート : 上書き・**3306 以外**の番号（例：40000）
+
+「次へ」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_013.png)
+
+ターゲットを登録します。
+
+- ネットワーク : Aurora クラスター作成先の VPC
+- IPv4 アドレス : 先に調べておいたソース DB クラスターの Writer エンドポイントの IP アドレス
+- ポート : 3306
+
+「保留中として以下を含める」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_014.png)
 
+ターゲットを確認して「ターゲットグループを作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_015.png)
+
+作成したターゲットグループを開き、指定した IP アドレスがターゲットとして登録されたのを確認します。
+
+なお、ヘルスチェックは成功しない状態（Unhealthy）のままで問題ありません。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_016.png)
 
 ## PrivateLink 用の NLB を作成
 
+引き続き EC2 のメニューから「ロードバランサー」を選択し、「ロードバランサーの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_021.png)
+
+Network Load Balancer の「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_022.png)
 
+- ロードバランサー名 : 任意
+- スキーム : 内部
+- ロードバランサーの IP アドレスタイプ : IPv4
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_023.png)
+
+- VPC : Aurora クラスター作成先の VPC
+- アベイラビリティゾーン : サブネットグループで選択したサブネットのゾーンをチェック
+  - サブネット : サブネットグループで選択したサブネット
+  - プライベート IPv4 アドレス : CIDR（選択したサブネットのアドレス空間）から割り当て済み
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_024.png)
 
+「新しいセキュリティグループを作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_025.png)
+
+- セキュリティグループ名 : 任意
+- 説明 : 任意
+- VPC : Aurora クラスター作成先の VPC
+- インバウンドルール : 空のまま
+- アウトバウンドルール : すべてのトラフィックを 0.0.0.0/0 へ送信（デフォルトのまま）
+
+「セキュリティグループを作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_026.png)
 
+セキュリティグループを作成したら、元の画面に戻って続きの設定を行います。
+
+- セキュリティグループ : 直前に作成したものを選択（右側のリロードボタンをクリックしてから）
+- リスナー TCP:3306 : デフォルトアクションとして先に作成したPrivateLink 用のターゲットグループを選択
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_027.png)
+
+設定内容を確認して「ロードバランサーの作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_028.png)
 
+ロードバランサー作成完了を待ちます。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_029.png)
 
+完了したら、「セキュリティ」タブを開いて「編集」ボタンをクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_030.png)
+
+「PrivateLink トラフィックにインバウンドルールを適用する」のチェックを外して「変更内容の保存」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_031.png)
 
