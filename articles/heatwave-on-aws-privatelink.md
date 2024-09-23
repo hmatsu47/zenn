@@ -3,7 +3,7 @@ title: "HeatWave on AWS で PrivateLink 接続を使ってインバウンドレ�
 emoji: "🏜"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mysql", "heatwave", "aws", "oci"]
-published: false
+published: true
 ---
 
 2024/8/22 に GA になった Egress PrivateLink を使ってインバウンドレプリケーションを試してみます。
@@ -475,7 +475,7 @@ ALTER TABLE tpch.supplier SECONDARY_LOAD;
 
 ### HeatWave エンジンで実行
 
-先ほどと同じ結果がすぐに返って来れば成功です。
+先ほどと同じ結果が短い時間で返って来れば成功です。
 
 ```sql:クエリ再実行（HeatWave on AWS）
 USE tpch;
