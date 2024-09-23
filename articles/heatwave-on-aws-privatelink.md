@@ -370,7 +370,7 @@ State が Active になったら完了です。
 :::message
 この記事ではインバウンドレプリケーション用の設定を扱います。そのため、AWS アカウントにある EC2・ECS などから HeatWave on AWS に接続するための、逆方向の PrivateLink については扱いません。
 
-逆方向の PrivateLink については、こちらの記事を参考にすると良いでしょう。
+逆方向の PrivateLink については、こちら↓の記事を参考にすると良いでしょう。
 
 https://blog.s-style.co.jp/2024/09/12560/
 :::
