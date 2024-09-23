@@ -171,7 +171,7 @@ Network Load Balancer の「作成」をクリックします。
 セキュリティグループを作成したら、元の画面に戻って続きの設定を行います。
 
 - セキュリティグループ : 直前に作成したものを選択（右側のリロードボタンをクリックしてから）
-- リスナー TCP:3306 : デフォルトアクションとして先に作成したPrivateLink 用のターゲットグループを選択
+- リスナー TCP:3306 : デフォルトアクションとして先に作成した PrivateLink 用のターゲットグループを選択
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_027.png)
 
@@ -192,6 +192,10 @@ Network Load Balancer の「作成」をクリックします。
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_031.png)
 
 ## ソース DB 用のセキュリティグループにインバウンドルールを追加
+
+ソース DB のインスタンスの画面で「接続とセキュリティ」タブから VPC セキュリティグループのリンクをクリックします。
+
+続いて、「インバウンドリンク」のタブで「インバウンドルールの編集」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_041.png)
 
