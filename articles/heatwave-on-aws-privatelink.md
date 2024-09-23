@@ -59,7 +59,7 @@ mysql> GRANT REPLICATION SLAVE on *.* to rpluser001;
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-ついでにバイナリログのログ（ファイル）名とログポジション（ファイルサイズ）を確認しておきます。
+ついでにバイナリログのログ（ファイル）名とログポジション（ファイルサイズ）を確認しておきます（後で使います）。
 
 ```sql:バイナリログ確認
 mysql> SHOW BINARY LOGS;
@@ -80,7 +80,7 @@ mysql> SHOW BINARY LOGS;
 
 であることがわかりました。
 
-あわせて、ソース DB クラスターの Writer エンドポイントの IP アドレスを（CloudShell などで）調べておきます。
+あわせて、ソース DB クラスターの Writer エンドポイントの IP アドレスを（CloudShell などで）調べておきます（後で使います）。
 
 ```sh:ソースDBクラスターWriterエンドポイントIPアドレス確認
 $ ping aurora-source.cluster-XXXXXXXXXXXX.ap-northeast-1.rds.amazonaws.com
@@ -199,27 +199,83 @@ Network Load Balancer の「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_041.png)
 
+以下のルールを追加します。
+
+- TCP:3306（MYSQL/Aurora） ソース : 先ほど作成・編集したセキュリティグループ
+
+追加したら「ルールを保存」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_042.png)
 
 ## PrivateLink 用のエンドポイントサービスを作成
 
+VPC のメニューから「エンドポイントサービス」を選択し、「エンドポイントサービスの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_051.png)
+
+- 名前 : 任意
+- ロードバランサーのタイプ : ネットワーク
+- ロードバランサー : 先ほど作成した NLB を選択
+- 承諾が必要 : チェック
+- プライベート DNS 名をサービスに関連付ける : **チェックを外す**
+- サポートされている IP アドレスタイプ : IPv4
+
+入力・選択したら「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_052.png)
 
+エンドポイントサービスの作成が完了したら、「サービス名」を確認します（後で使います）。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_053.png)
 
+「アクション」から「プリンシパルを許可」を選択します。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_054.png)
+
+「追加するプリンシパル」に HeatWave on AWS アカウントの ARN を入力します（固定値です）。
+
+- ARN : arn:aws:iam::612981981079:root
+
+入力したら「プリンシパルを許可」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_055.png)
 
 ## レプリカ DB（HeatWave on AWS）作成
 
+ここからは HeatWave on AWS コンソールで作業します。
+
+Resources タブ → DB Systems タブで「Create DB System」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_061.png)
+
+- Display name : 任意
+- Username・Password : 任意
+- Shape : 任意（ここでは MySQL.2.16GB を選択）
+- Data storage size : 任意（同じく 32 を指定）
+- Availability Zone : ソース DB を作成した AZ に合わせる
+- MySQL Configuration : デフォルトで OK だがカスタムでタイムゾーンを調整しておいたほうが良い
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_062.png)
 
+- MySQL version : ソース DB より後で出たバージョン（かつメジャーバージョン番号が同等以上・ここでは 8.4.0）を選択
+- Maintenance window : 任意
+- enable inbound connectivity from allowed public IP address ranges : チェックしない
+- Port : 3306
+- X Plugin Port : 空欄
+- Backup policy : 任意
+- IAM roles : 無指定
+
+「Next」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_063.png)
+
+- Provision HeatWave Cluster : チェック
+- Display name : 任意
+- Enable HeatWave Lakehouse : チェックしない
+- Shape : 任意（ここでは HeatWave.16GB を選択）
+- Node count : 任意（同じく 1 を指定）
+
+入力・選択したら「Create」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_064.png)
 
