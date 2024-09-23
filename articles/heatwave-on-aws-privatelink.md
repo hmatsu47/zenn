@@ -265,7 +265,7 @@ Resources タブ → DB Systems タブで「Create DB System」をクリック�
 - Backup policy : 任意
 - IAM roles : 無指定
 
-「Next」をクリックします。
+入力・選択したら「Next」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_063.png)
 
@@ -279,39 +279,103 @@ Resources タブ → DB Systems タブで「Create DB System」をクリック�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_064.png)
 
+作成完了を待ちます。
+
 ## Egress PrivateLink 作成
+
+Resources タブ → PrivateLinks タブで「Create PrivateLink」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_071.png)
 
+- Display name : 任意
+- PrivateLink type : Egress
+
+入力・選択したら「Next」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_072.png)
 
+- Service name : 先ほど作成したエンドポイントのサービス名
+- Source :
+  - Hostname : 空欄のまま
+  - Port : 3306 のまま
+  - Target DB System : 先ほど作成したレプリカ DB を選択
+
+入力・選択したら「Create」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_073.png)
+
+作成完了を待ちます。
+
+State が Active になったら完了です。
+
+完了したら、「Default hostname」を確認します（後で使います）。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_074.png)
 
 ## AWS 側でエンドポイント接続リクエストを承諾
 
+一旦 AWS マネジメントコンソールに移って作業を進めます。
+
+先ほど作成したエンドポイントサービスの画面で「エンドポイント接続」タブを開きます。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_081.png)
 
+HeatWave on AWS 側で作成したエンドポイント接続が一覧に Pending acceptance 状態で表示されるのでそれを選択し、「アクション」から「エンドポイント接続リクエストの承諾」を選択します。
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_082.png)
 
+内容を確認し、確認フィールドに「承諾」と入力して「承諾」（ボタン）をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_083.png)
+
+対象エンドポイント接続が Available 状態になります。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_084.png)
 
 ## チャネルを作成
 
+Resources タブ → Channels タブで「Create Channel」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_091.png)
+
+- Display name : 任意
+- Enable channel replication upon creation : チェック
+- Target DB System : レプリカ DB を選択
+- Channel over PrivateLink を選択
+- Egress PrivateLink : 先ほど作成した Egress PrivateLink を選択
+- Hostname : 先ほど確認した Egress PrivateLink の Default hostname の内容を入力
+- Port : 3306
+- Username・Password : 最初のほうで作成したレプリカ DB からの接続用ユーザーとパスワードを入力
+- SSL mode : Required
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_092.png)
 
+- Do not use GTID auto-positioning を選択
+- UUID specification : Same UUID as target DB system を選択
+- Binary log file name : 最初のほうで確認したバイナリログファイル名を入力
+- Binary log offset : 同様にログポジションを入力
+- Replication details : デフォルトのまま
+- Tables without primary key : お好みで選択
+- Channel filters : AWS Aurora MySQL v3 (8.0) を選択（実質フィルタなし）
+
+入力・選択したら「Create」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_093.png)
+
+作成完了を待ちます。
+
+State が Active になったら完了です。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_094.png)
 
 ## データレプリケーションをテスト
 
+環境構築が完了したら、実際にデータを投入してレプリケーションの動作を試してみます。
+
 ### Aurora MySQL へサンプルデータを投入
+
+以前[こちらの記事](https://qiita.com/hmatsu47/items/0979f877ad596cf3cf67#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E6%A7%8B%E7%AF%89)で使ったサンプルデータをソース DB（Auora）に投入します。
+
+https://qiita.com/hmatsu47/items/0979f877ad596cf3cf67#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E6%A7%8B%E7%AF%89
 
 ```sh:サンプルデータ投入（Aurora MySQL）
 $ mysqlsh -u admin -h aurora-source.cluster-XXXXXXXXXXXX.ap-northeast-1.rds.amazonaws.com -p
@@ -349,6 +413,10 @@ Executing common postamble SQL
 
 ### HeatWave on AWS でデータのレプリケーションを確認
 
+しばらく待ってから、HeatWave on AWS コンソールの Workspace タブで「Connect to DB System」をクリックし、レプリカ DB に接続します。
+
+Query Editor タブで以下の SQL 文を実行し、結果が正しく返ればデータは正常にレプリケーションされています。
+
 ```sql:クエリ実行（HeatWave on AWS）
 USE tpch;
 
@@ -377,7 +445,9 @@ ORDER BY
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_101.png)
 
-### HeatWave 有効化
+### HeatWave エンジン有効化
+
+ついでに HeatWave エンジンも有効化して試してみます。
 
 ```sql:HeatWaveエンジン有効化
 ALTER TABLE tpch.customer SECONDARY_ENGINE=RAPID;
@@ -404,6 +474,8 @@ ALTER TABLE tpch.supplier SECONDARY_LOAD;
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_102.png)
 
 ### HeatWave エンジンで実行
+
+先ほどと同じ結果がすぐに返って来れば成功です。
 
 ```sql:クエリ再実行（HeatWave on AWS）
 USE tpch;
@@ -432,3 +504,9 @@ ORDER BY
 ```
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_103.png)
+
+## 気になる点
+
+これは HeatWave on AWS というよりは AWS の PrivateLink の仕様上仕方がないことなのですが、ターゲットの指定が IP アドレスに限定されるので、ソース DB である Aurora のインスタンスタイプ変更などのメンテナンスを行うとターゲット再作成が必要になります。
+
+また、ソース DB のフェイルオーバーに追従するには、フェイルオーバーイベントをキャッチしてターゲットの IP アドレス（Writer）再登録を行う処理を Lambda などで実装する必要があります。
