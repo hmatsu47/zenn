@@ -10,9 +10,45 @@ published: false
 
 https://zenn.dev/hmatsu47/articles/heatwave-on-aws-privatelink
 
+記事の最後に、
+
+> また、ソース DB のフェイルオーバーに追従するには、Aurora クラスターのフェイルオーバーイベントを SNS トピック経由で受け取ってターゲットの IP アドレス（Writer）再登録を行う処理を Lambda などで実装する必要があります。
+
+と書きましたが、これを実装してみました。
+
+## PrivateLink 用のターゲットグループ属性を編集
+
+PrivateLink 用のターゲットグループの画面で「属性」タブを開いて右端の「編集」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_001.png)
 
+以下の設定項目を変更して「変更内容の保存」をクリックします。
+
+- ターゲットが異常になったときに接続を終了する : オフ（無効）
+- 登録解除時に接続を終了 : オン（有効）
+- 登録解除の遅延（ストリーミング間隔） : 0 秒
+- クロスゾーン負荷分散 : オン
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_002.png)
+
+## ソース DB（Aurora）のクラスターに Reader を追加
+
+（RDS のメニューで）ソース DB（Aurora）のクラスターの画面から、「アクション」メニューの「リーダーの追加」を実施します。
+
+## ターゲット入れ替え用の Lambda 関数を作成
+
+Aurora クラスターのフェイルオーバーイベントを受信した際に、PrivateLink 用のターゲットグループのターゲットを新しい Writer に入れ替えるための Lambda 関数です。
+
+Lambda の「関数の作成」画面で以下を入力・選択して関数を作成します。
+
+- 一から作成
+- 関数名 : 任意
+- ランタイム : Python 3.12
+- アーキテクチャ : 任意（arm64 を推奨）
+
+関数が作成されたら、「コード」タブでコードソースを入力します（`lambda_function.py`）。
+
+:::details lambda_function.py
 
 ```python:lambda_function.py
 import boto3
@@ -123,16 +159,38 @@ def lambda_handler(event, context):
     print('新しいIPアドレスをターゲットに登録しました : (%s)' % (new_ip_address))
 ```
 
+:::
+
+「設定」タブの「一般設定」でタイムアウトを 10 秒程度に設定しておきます。
+
+通常は 2 秒以内に処理が終わるので、デフォルトの 3 秒のままでも支障はありませんが、念のため少し延長しておきます。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_011.png)
 
+「環境変数」で以下の環境変数を登録します。
+
 - `IP_DICT` :
-  - `{"aurora-source-instance-1": "172.31.124.155", "aurora-source-instance-2": "172.31.128.232"}`
+  - `{"【1つ目のインスタンスID】": "【1つ目のインスタンスのIPアドレス】", "【2つ目のインスタンスID】": "【2つ目のインスタンスのIPアドレス】"}`
 - `TARGET_GROUP_ARN` :
   - 前の記事で作成したターゲットグループの ARN】
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_012.png)
 
+ここで一旦「コード」タブに戻って「Deploy」をクリックしておきます。
+
+### Lambda 関数実行用のロールに権限を追加
+
+「設定」タブの「アクセス権限」でロール名のリンクをクリックし、ロール（IAM）画面の「許可」タブで「インラインポリシーを作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_021.png)
+
+以下のポリシーを JSON 形式で入力して「次へ」をクリックします。
+
+:::message
+【アカウント ID】の部分を正しいアカウント ID に置き換えてください。
+:::
+
+:::details ポリシー（JSON）
 
 ```json:ポリシー
 {
@@ -162,34 +220,97 @@ def lambda_handler(event, context):
 }
 ```
 
+:::
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_022.png)
+
+「ポリシーの作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_023.png)
 
+## SNS トピックとサブスクリプションを作成
+
+Aurora クラスターのフェイルオーバーイベントを受けて Lambda 関数を呼び出すための SNS トピックとサブスクリプションを作成します。
+
+### SNS トピックを作成
+
+SNS のメニューから「トピック」を選択し、「トピックの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_031.png)
+
+以下を入力・選択して「トピックの作成」をクリックします。
+
+- タイプ : スタンダード
+- 名前 : 任意
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_032.png)
 
+### SNS サブスクリプションを作成
+
+SNS のメニューから「サブスクリプション」を選択し、「サブスクリプションの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_041.png)
 
-```json:サブスクリプションフィルターポリシー
-{
+以下を入力・選択して「サブスクリプションの作成」をクリックします。
+
+- トピック ARN : 直前に作成したトピックを選択
+- プロトコル : AWS Lambda
+- エンドポイント : 先に作成した Lambda 関数を選択
+- サブスクリプションフィルターポリシー : オン（有効化）
+
+  - フィルターポリシーのスコープ : メッセージ本文
+  - JSON エディタ : 以下の JSON を入力
+
+  ::::details サブスクリプションフィルターポリシー（JSON）
+
+  ```json:サブスクリプションフィルターポリシー
+  {
   "Event ID": [
-    {
+      {
       "suffix": "RDS-EVENT-0072"
-    },
-    {
+      },
+      {
       "suffix": "RDS-EVENT-0073"
-    }
+      }
   ]
-}
-```
+  }
+  ```
+
+  :::message
+  フェイルオーバーに追従してターゲットを切り替えるタイミングをできるだけ早くするため、「フェイルオーバー開始」イベントを拾って Lambda 関数を起動しています。
+  「フェイルオーバー終了」イベントを拾う場合は`RDS-EVENT-0071`を指定します。
+  :::
+
+  ::::
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_042.png)
 
+## Aurora（RDS）のイベントサブスクリプションを作成
+
+RDS のメニューから「イベントサブスクリプション」を選択し、「イベントサブスクリプションの作成」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_051.png)
 
+以下を入力・選択して「作成」をクリックします。
+
+- 名前 : 任意
+- 次への通知の送信 : Amazon リソースネーム（ARN）
+- ARN : 先ほど作成した SNS トピックの ARN を選択
+- ソースタイプ : クラスター
+- クラスターを含みます : 特定のクラスターを選択
+- 特定のクラスター : ソース DB（Aurora）のクラスターを選択
+- イベントカテゴリを含みます : 特定のイベントカテゴリを選択
+- 特定のイベントカテゴリ : failover
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_052.png)
+
+## フェイルオーバーを試してみる
+
+実際にソース DB（AUrora）でフェイルオーバーを発生させて、レプリケーションが追従するか試してみます。
+
+### ソース DB でテスト用の DB スキーマ・テーブル・データ行を追加
+
+簡単なテーブルを作成してデータ行を入れてみます。
 
 ```sql:ソースDBでDBスキーマ・テーブル・データ行追加
 mysql> CREATE DATABASE hoge;
@@ -207,19 +328,45 @@ mysql> INSERT INTO fuga SET val = 150;
 Query OK, 1 row affected (0.00 sec)
 ```
 
+### レプリカ DB で複製確認
+
+レプリカ DB（HeatWave on AWS）で確認してみます。
+
+先ほどソース DB で追加した DB スキーマ・テーブル・データ行が複製されています。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_061.png)
+
+### フェイルオーバーを実行
+
+ソース DB（Aurora）の画面から、フェイルオーバーを実行します。
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_071.png)
 
+「フェイルオーバー」をクリックします。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_072.png)
+
+しばらく待ってフェイルオーバーが実行されると、クラスターの「最近のイベント」にフェイルオーバー関連のイベントが表示されます。
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_073.png)
 
+PrivateLink 用のターゲットグループのターゲットが入れ替わりました。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_081.png)
+
+レプリカ DB（HeatWave on AWS）の Channel 状態が「Needs Attention」に変わりました。
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_091.png)
 
+その後、4 ～ 5 分ほど経過して「Active」に戻りました。
+
+インバウンドレプリケーションが復活したようです。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_092.png)
+
+### ソース DB でデータ行を追加
+
+インバウンドレプリケーションの状態を（ステータスの表示だけではなく）実際の環境で確かめるために、ソース DB（Aurora）でデータ行を追加してみます。
 
 ```sql:データ行追加
 mysql> INSERT INTO fuga SET val = 200;
@@ -234,4 +381,29 @@ mysql> INSERT INTO fuga SET val = 250;
 Query OK, 1 row affected (0.01 sec)
 ```
 
+### レプリカ DB でフェイルオーバー後の複製確認
+
+再びレプリカ DB（HeatWave on AWS）で確認してみます。
+
+先ほどソース DB で追加したデータ行が複製されています。
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_101.png)
+
+## 感想など
+
+ちょっと実装が大変ですね。
+
+あと、フェイルオーバーイベントが短い間隔で発生し、イベント通知が連続する・入れ替わる場合などエッジケースでテストしてみないと実用に耐えるかどうかわかりません。
+
+- イベント通知に含まれる新しい Writer インスタンスをそのまま「信用」してターゲットに加える仕様で大丈夫か？
+  - インバウンドレプリケーションの復活が少し（数十秒～ 1 分程度）遅れることになっても「フェイルオーバー完了」イベントを拾って、その時点の Aurora クラスターの Writer インスタンスを Aurora の API を使って確認した上でターゲットに加えるべき？
+- 古いターゲット（IP アドレス）の登録解除を行う際、「ターゲットグループにはターゲットが 1 つしかない」と決めつけて良いのか？
+  - 運用上 Writer インスタンスの IP アドレスしか含まれない想定だが、イベント通知の連続によりたまたま複数の IP アドレスがターゲットとして登録されてしまう事態を想定すべき？
+
+**インバウンドレプリケーションが復活（自動復旧）するまで 4 ～ 5 分掛かってしまう**のも気になりますね。
+
+MySQL 8.0.22 で実装された[（非同期）レプリケーション接続フェイルオーバー機能](https://blog.s-style.co.jp/2020/10/6828/)が使えると良いのに…と思いつつ、その場合は Egress PrivateLink をあらかじめ複数のソース DB インスタンスに接続しておく必要がありそう（注：現状の仕様ではどちらも不可）なので、コスト増が気になります。
+
+https://blog.s-style.co.jp/2020/10/6828/
+
+色々悩ましいですね。
