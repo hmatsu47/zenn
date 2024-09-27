@@ -184,7 +184,7 @@ def lambda_handler(event, context):
 
 ### Lambda 関数実行用のロールに権限を追加
 
-「設定」タブの「アクセス権限」でロール名のリンクをクリックし、ロール（IAM）画面の「許可」タブで「インラインポリシーを作成」をクリックします。
+「設定」タブの「アクセス権限」でロール名のリンクをクリックし、ロール（IAM）画面の「許可」タブで「許可を追加」→「インラインポリシーを作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_021.png)
 
