@@ -370,7 +370,7 @@ State が Active になったら完了です。
 :::message
 この記事ではインバウンドレプリケーション用の設定を扱います。そのため、AWS アカウントにある EC2・ECS などから HeatWave on AWS に接続するための、逆方向の PrivateLink については扱いません。
 
-逆方向の PrivateLink については、こちら↓の記事を参考にすると良いでしょう。
+逆方向の PrivateLink については、こちら ↓ の記事を参考にすると良いでしょう。
 
 https://blog.s-style.co.jp/2024/09/12560/
 :::
@@ -518,3 +518,10 @@ ORDER BY
 これは HeatWave on AWS というよりは AWS の PrivateLink の仕様上仕方がないことなのですが、ターゲットの指定が IP アドレスに限定されるので、（ソース DB である）Aurora のインスタンスタイプ変更などによってソース DB（Writer）の IP アドレスが変わると、新しい IP アドレスでのターゲット再作成が必要になります。
 
 また、ソース DB のフェイルオーバーに追従するには、Aurora クラスターのフェイルオーバーイベントを SNS トピック経由で受け取ってターゲットの IP アドレス（Writer）再登録を行う処理を Lambda などで実装する必要があります。
+
+---
+
+**2024/9/27 追記：**
+[続き](https://zenn.dev/hmatsu47/articles/heatwave-on-aws-privatelink-failover)を書きました。
+
+https://zenn.dev/hmatsu47/articles/heatwave-on-aws-privatelink-failover
