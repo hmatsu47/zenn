@@ -10,6 +10,16 @@ published: true
 
 https://dev.mysql.com/doc/heatwave-aws/en/heatwave-aws-ibr-config-privatelink.html#GUID-522AE101-2529-44B4-8306-65F171CBB099
 
+:::message
+Aurora がソース DB で HeatWave on AWS がレプリカ DB という、HeatWave on AWS から見て「インバウンド」なレプリケーションなのになぜ「Egress」方向の PrivateLink を使うのか、疑問に思われるかもしれません。
+
+MySQL および MySQL 系 DB のレプリケーションの場合、**レプリカ DB からソース DB に接続してバイナリログを受け取る**ので、HeatWave on AWS から Aurora に対して接続する方向（Egress）の PrivateLink が必要になる、というわけです。
+
+つまり、AWS の EC2 などのクライアントから HeatWave on AWS に接続する方向の Query PrivateLink とは逆方向の接続になります。
+
+（AWS の EC2 などからのクライアント接続と併用する場合、双方向の PrivateLink が必要）
+:::
+
 ## ソース DB（Aurora MySQL）作成
 
 以前[パブリック IP アドレスを使ってインバウンドレプリケーションしたとき](https://qiita.com/hmatsu47/items/fc7b033f701ae8d5fb4d)とは少し変えて、今回は以下の構成で試してみます。
@@ -96,6 +106,8 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_011.png)
 
+##### 基本的な設定
+
 - ターゲットタイプ : IP アドレス
 - ターゲットグループ名 : 任意
 - プロトコル・ポート : TCP・3306
@@ -103,6 +115,8 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 - VPC : Aurora クラスター作成先の VPC
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_012.png)
+
+##### ヘルスチェック
 
 - ヘルスチェックプロトコル : TCP
 - ヘルスチェックポート : 上書き・**3306 以外**の番号（例：40000）
@@ -113,6 +127,8 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 
 ターゲットを登録します。
 
+##### IP アドレス
+
 - ネットワーク : Aurora クラスター作成先の VPC
 - IPv4 アドレス : 先に調べておいたソース DB クラスターの Writer エンドポイントの IP アドレス
 - ポート : 3306
@@ -120,6 +136,8 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 「保留中として以下を含める」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_014.png)
+
+##### ターゲットを確認
 
 ターゲットを確認して「ターゲットグループを作成」をクリックします。
 
@@ -137,15 +155,21 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_021.png)
 
+##### ロードバランサータイプ
+
 Network Load Balancer の「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_022.png)
+
+##### 基本的な設定
 
 - ロードバランサー名 : 任意
 - スキーム : 内部
 - ロードバランサーの IP アドレスタイプ : IPv4
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_023.png)
+
+##### ネットワークマッピング
 
 - VPC : Aurora クラスター作成先の VPC
 - アベイラビリティゾーン : サブネットグループで選択したサブネットのゾーンをチェック
@@ -154,15 +178,25 @@ Network Load Balancer の「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_024.png)
 
+##### セキュリティグループ
+
 「新しいセキュリティグループを作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_025.png)
 
+##### 基本的な詳細
+
 - セキュリティグループ名 : 任意
 - 説明 : 任意
 - VPC : Aurora クラスター作成先の VPC
-- インバウンドルール : 空のまま
-- アウトバウンドルール : すべてのトラフィックを 0.0.0.0/0 へ送信（デフォルトのまま）
+
+##### インバウンドルール
+
+- 空のまま
+
+##### アウトバウンドルール
+
+- すべてのトラフィックを 0.0.0.0/0 へ送信（デフォルトのまま）
 
 「セキュリティグループを作成」をクリックします。
 
@@ -170,7 +204,12 @@ Network Load Balancer の「作成」をクリックします。
 
 セキュリティグループを作成したら、元の画面に戻って続きの設定を行います。
 
+##### セキュリティグループ
+
 - セキュリティグループ : 直前に作成したものを選択（右側のリロードボタンをクリックしてから）
+
+##### リスナーとルーティング
+
 - リスナー TCP:3306 : デフォルトアクションとして先に作成した PrivateLink 用のターゲットグループを選択
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_027.png)
@@ -187,6 +226,8 @@ Network Load Balancer の「作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_030.png)
 
+##### セキュリティ設定
+
 「PrivateLink トラフィックにインバウンドルールを適用する」のチェックを外して「変更内容の保存」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_031.png)
@@ -198,6 +239,8 @@ Network Load Balancer の「作成」をクリックします。
 続いて、「インバウンドリンク」のタブで「インバウンドルールの編集」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_041.png)
+
+##### インバウンドルール
 
 以下のルールを追加します。
 
@@ -213,9 +256,17 @@ VPC のメニューから「エンドポイントサービス」を選択し、�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_051.png)
 
+##### エンドポイントサービスの設定
+
 - 名前 : 任意
 - ロードバランサーのタイプ : ネットワーク
+
+##### 使用可能なロードバランサー／選択されたロードバランサーの詳細
+
 - ロードバランサー : 先ほど作成した NLB を選択
+
+##### 追加設定
+
 - 承諾が必要 : チェック
 - プライベート DNS 名をサービスに関連付ける : **チェックを外す**
 - サポートされている IP アドレスタイプ : IPv4
@@ -232,7 +283,9 @@ VPC のメニューから「エンドポイントサービス」を選択し、�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_054.png)
 
-「追加するプリンシパル」に HeatWave on AWS アカウントの ARN を入力します（固定値です）。
+##### 追加するプリンシパル
+
+HeatWave on AWS アカウントの ARN を入力します（固定値です）。
 
 - ARN : arn:aws:iam::612981981079:root
 
@@ -248,30 +301,67 @@ Resources タブ → DB Systems タブで「Create DB System」をクリック�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_061.png)
 
+##### Basic information
+
 - Display name : 任意
+
+##### Administrator credentials
+
 - Username・Password : 任意
+
+##### Hardware configuration
+
 - Shape : 任意（ここでは MySQL.2.16GB を選択）
 - Data storage size : 任意（同じく 32 を指定）
-- Availability Zone : ソース DB を作成した AZ に合わせる
+
+##### Availability zone
+
+- Select placement : ソース DB を作成した AZ に合わせる
+
+##### MySQL Configuration
+
 - MySQL Configuration : デフォルトで OK だがカスタムでタイムゾーンを調整しておいたほうが良い
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_062.png)
 
-- MySQL version : ソース DB より後で出たバージョン（かつメジャーバージョン番号が同等以上・ここでは 8.4.0）を選択
-- Maintenance window : 任意
+##### MySQL version
+
+- ソース DB より後で出たバージョン（かつメジャーバージョン番号が同等以上・ここでは 8.4.0）を選択
+
+##### Maintenance window
+
+- Select start time : 任意
+
+##### Networking
+
 - enable inbound connectivity from allowed public IP address ranges : チェックしない
 - Port : 3306
 - X Plugin Port : 空欄
-- Backup policy : 任意
-- IAM roles : 無指定
+
+##### Backup policy
+
+- 各設定 : 任意
+
+##### IAM roles
+
+- 無指定
 
 入力・選択したら「Next」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_063.png)
 
 - Provision HeatWave Cluster : チェック
+
+##### Basic information
+
 - Display name : 任意
+
+##### HeatWave Lakehouse
+
 - Enable HeatWave Lakehouse : チェックしない
+
+##### HeatWave Cluster configuretion
+
 - Shape : 任意（ここでは HeatWave.16GB を選択）
 - Node count : 任意（同じく 1 を指定）
 
@@ -287,14 +377,24 @@ Resources タブ → PrivateLinks タブで「Create PrivateLink」をクリッ�
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_071.png)
 
+##### Basic information
+
 - Display name : 任意
+
+##### Select PrivateLink type
+
 - PrivateLink type : Egress
 
 入力・選択したら「Next」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_072.png)
 
+##### Configure external endpoint service name
+
 - Service name : 先ほど作成したエンドポイントのサービス名
+
+##### Configure egress endpoints
+
 - Source :
   - Hostname : 空欄のまま
   - Port : 3306 のまま
@@ -323,6 +423,8 @@ State が Active になったら完了です。
 HeatWave on AWS 側で作成したエンドポイント接続が一覧に Pending acceptance 状態で表示されるのでそれを選択し、「アクション」から「エンドポイント接続リクエストの承諾」を選択します。
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_082.png)
 
+##### エンドポイント接続リクエストの承諾
+
 内容を確認し、確認フィールドに「承諾」と入力して「承諾」（ボタン）をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_083.png)
@@ -337,9 +439,18 @@ Resources タブ → Channels タブで「Create Channel」をクリックしま
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_091.png)
 
+##### Basic information
+
 - Display name : 任意
-- Enable channel replication upon creation : チェック
-- Target DB System : レプリカ DB を選択
+- Replication status
+  - Enable channel replication upon creation : チェック
+
+##### Target DB System
+
+- Selected DB System : レプリカ DB を選択
+
+##### Source connection
+
 - Channel over PrivateLink を選択
 - Egress PrivateLink : 先ほど作成した Egress PrivateLink を選択
 - Hostname : 先ほど確認した Egress PrivateLink の Default hostname の内容を入力
@@ -349,13 +460,24 @@ Resources タブ → Channels タブで「Create Channel」をクリックしま
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_092.png)
 
+##### Replication positioning
+
 - Do not use GTID auto-positioning を選択
 - UUID specification : Same UUID as target DB system を選択
 - Binary log file name : 最初のほうで確認したバイナリログファイル名を入力
 - Binary log offset : 同様にログポジションを入力
-- Replication details : デフォルトのまま
-- Tables without primary key : お好みで選択
-- Channel filters : AWS Aurora MySQL v3 (8.0) を選択（実質フィルタなし）
+
+##### Replication details
+
+- Channel name・Applier username・Replication delay : デフォルトのまま
+
+##### Tables without primary key
+
+- お好みで選択
+
+##### Channel filters
+
+- Select a filter template : AWS Aurora MySQL v3 (8.0) を選択（実質フィルタなし）
 
 入力・選択したら「Create」をクリックします。
 
