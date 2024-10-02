@@ -186,6 +186,10 @@ def lambda_handler(event, context):
 - `TARGET_GROUP_ARN` :
   - 前の記事で作成したターゲットグループの ARN】
 
+:::message
+2 つ以上の Reader インスタンスをクラスターに追加する場合は、フェイルオーバー対象になるすべてのインスタンス ID と IP アドレスの組み合わせを列挙します。
+:::
+
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_012.png)
 
 ここで一旦「コード」タブに戻って「Deploy」をクリックしておきます。
