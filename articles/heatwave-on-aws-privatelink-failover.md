@@ -28,6 +28,12 @@ NLB にはターゲットグループ内のターゲットに対して定期的�
 
 Oracle が公式ドキュメントで提示している設定手順でも（HeatWave on AWS 側で「異常な接続を繰り返している」と判定されて接続拒否されないよう）ヘルスチェック用のポートを TCP:3306 ではなく TCP:40000 など **MySQL に無関係のポート番号で上書きする**指定になっています（つまり、ヘルスチェック自体が有効に作動しないようにしている）。
 
+https://dev.mysql.com/doc/heatwave-aws/en/heatwave-aws-source-configuration-ibr-egress-privatelink.html#GUID-6A253464-BA7D-4696-A601-215FECB1B9AB
+
+> - Under **Health checks**
+>   - Select **TCP** for **Health check protocol**
+>   - Under **Advanced health check settings**, select **Override**, and enter any port number other than the port for your source (e.g., 40000). This is to prevent a loss of connection on the PrivateLink.
+
 そのため、NLB のヘルスチェック機能とは別の仕組みを用意してターゲットの切り替え（入れ替え）を行う必要があります。
 
 ## PrivateLink 用のターゲットグループ属性を編集
