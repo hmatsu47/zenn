@@ -36,7 +36,9 @@ https://dev.mysql.com/doc/heatwave-aws/en/heatwave-aws-source-configuration-ibr-
 
 そのため、NLB のヘルスチェック機能とは別の仕組みを用意してターゲットの切り替え（入れ替え）を行う必要があります。
 
-## PrivateLink 用のターゲットグループ属性を編集
+## フェイルオーバー追従の仕組みを実装する
+
+### PrivateLink 用のターゲットグループ属性を編集
 
 PrivateLink 用のターゲットグループの画面で「属性」タブを開いて右端の「編集」をクリックします。
 
@@ -59,11 +61,11 @@ PrivateLink 用のターゲットグループの画面で「属性」タブを�
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_002.png)
 
-## ソース DB（Aurora）のクラスターに Reader を追加
+### ソース DB（Aurora）のクラスターに Reader を追加
 
 （RDS のメニューで）ソース DB（Aurora）のクラスターの画面から、「アクション」メニューの「リーダーの追加」を実施します。
 
-## ターゲット入れ替え用の Lambda 関数を作成
+### ターゲット入れ替え用の Lambda 関数を作成
 
 Aurora クラスターのフェイルオーバーイベントを受信した際に、PrivateLink 用のターゲットグループのターゲットを新しい Writer に入れ替えるための Lambda 関数です。
 
@@ -210,7 +212,7 @@ def lambda_handler(event, context):
 
 ここで一旦「コード」タブに戻って「Deploy」をクリックしておきます。
 
-### Lambda 関数実行用のロールに権限を追加
+#### Lambda 関数実行用のロールに権限を追加
 
 「設定」タブの「アクセス権限」でロール名のリンクをクリックし、ロール（IAM）画面の「許可」タブで「許可を追加」→「インラインポリシーを作成」をクリックします。
 
@@ -260,11 +262,11 @@ def lambda_handler(event, context):
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_023.png)
 
-## SNS トピックとサブスクリプションを作成
+### SNS トピックとサブスクリプションを作成
 
 Aurora クラスターのフェイルオーバーイベントを受けて Lambda 関数を呼び出すための SNS トピックとサブスクリプションを作成します。
 
-### SNS トピックを作成
+#### SNS トピックを作成
 
 SNS のメニューから「トピック」を選択し、「トピックの作成」をクリックします。
 
@@ -279,7 +281,7 @@ SNS のメニューから「トピック」を選択し、「トピックの作�
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_032.png)
 
-### SNS サブスクリプションを作成
+#### SNS サブスクリプションを作成
 
 SNS のメニューから「サブスクリプション」を選択し、「サブスクリプションの作成」をクリックします。
 
@@ -323,7 +325,7 @@ SNS のメニューから「サブスクリプション」を選択し、「サ�
 
 ![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_042.png)
 
-## Aurora（RDS）のイベントサブスクリプションを作成
+### Aurora（RDS）のイベントサブスクリプションを作成
 
 RDS のメニューから「イベントサブスクリプション」を選択し、「イベントサブスクリプションの作成」をクリックします。
 
