@@ -38,6 +38,10 @@ https://dev.mysql.com/doc/heatwave-aws/en/heatwave-aws-source-configuration-ibr-
 
 ## フェイルオーバー追従の仕組みを実装する
 
+図にするとこんな感じです。
+
+![](/images/heatwave-on-aws-privatelink-failover/heatwave-on-aws-privatelink-failover_image.png)
+
 ### PrivateLink 用のターゲットグループ属性を編集
 
 PrivateLink 用のターゲットグループの画面で「属性」タブを開いて右端の「編集」をクリックします。
