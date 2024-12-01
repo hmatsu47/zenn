@@ -46,7 +46,7 @@ RDS for PostgreSQL や Aurora PostgreSQL では pgvectorscale をサポートし
 pgvectorscale のバージョンは 0.2.0 です。
 :::
 
-### Dokcer コンテナ起動
+### Docker コンテナ起動
 
 [公式ドキュメント](https://docs.timescale.com/self-hosted/latest/install/installation-docker/)どおりの手順で起動しました。
 
