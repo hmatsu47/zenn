@@ -139,7 +139,7 @@ AWS マネジメントコンソールで EC2 のメニューから「ターゲ�
 
 ##### ターゲットを確認
 
-ターゲットを確認して「ターゲットグループを作成」をクリックします。
+ターゲットを確認して「ターゲットグループの作成」をクリックします。
 
 ![](/images/heatwave-on-aws-privatelink/heatwave-on-aws-privatelink_015.png)
 
