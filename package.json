@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hmatsu47/zenn#readme",
   "dependencies": {
-    "zenn-cli": "^0.1.158"
+    "zenn-cli": "^0.1.159"
   },
   "keywords": []
 }
