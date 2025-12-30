@@ -4,8 +4,9 @@ topics: ["aws", "vpc", "ipv6"] # トピック（5つまで）
 published: false # falseだと下書き
 price: 0 # 有料の場合200〜5000
 chapters:
-  - 00-top
-  - 01-summary-ip
-  - 02-summary-vpc-to-create
-  - 03-create-ipv4-env
-  - 04-review-ipv4
+  - 01-top
+  - 02-summary-ip
+  - 03-summary-vpc-to-create
+  - 04-create-ipv4-env
+  - 05-review-ipv4
+  - 06-modify-server-env-to-dualstck
