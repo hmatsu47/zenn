@@ -7,7 +7,9 @@ IPv6 対応を進める前に、まずは IPv4 環境を作成します。
 ![](/images/burikaigi2026-aws-ipv6-study/IPv6-01-v4only.drawio.png)
 
 - サーバー用 VPC および関連リソース
+  - VPC・ALB・EC2（Web サーバー）など
 - クライアント用 VPC および関連リソース
+  - VPC・VPC エンドポイント・EC2（クライアント）など
 
 の 2 種類を作成します。
 
