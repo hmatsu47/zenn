@@ -35,6 +35,8 @@ IPv6 対応を進める前に、まずは IPv4 環境を作成します。
 
 - **VPC** メニューから
 
+- **「VPC を作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/001001-ipv4-to-dualstack-create-vpc-1.png)
 
 - 名前タグの自動生成 : （チェックが入った状態のまま）`sv-ipv4-to-dualstack-vpc`
@@ -48,6 +50,8 @@ IPv6 対応を進める前に、まずは IPv4 環境を作成します。
 ### EC2 インスタンスを起動（AZ-a）
 
 - **EC2** メニューから
+
+- **「インスタンスを起動」** をクリック
 
 ![](/images/burikaigi2026-aws-ipv6-study/002001-create-server-1.png)
 
@@ -63,8 +67,9 @@ IPv6 対応を進める前に、まずは IPv4 環境を作成します。
 
 ![](/images/burikaigi2026-aws-ipv6-study/002004-create-server-4.png)
 
-- VPC : 先ほど作成したサーバー用 VPC
+- VPC : sv-ipv4-to-dualstack-vpc
 - サブネット : AZ-a パブリックサブネット
+- ファイアーウォール（セキュリティグループ） : 「セキュリティグループを作成」になっていなければ「セキュリティグループを作成」を選択
 - セキュリティグループ名 : `web-server-001a`
 - 説明 : `web-server-001a`
 - インバウンドセキュリティグループのルール : SSH を削除してから HTTP（ソース : `0.0.0.0/0`）を追加
@@ -128,7 +133,7 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 ![](/images/burikaigi2026-aws-ipv6-study/003001-create-alb-1.png)
 
 - ロードバランサー名 : `ipv4-to-dualstack`
-- VPC : 先ほど作成したサーバー用 VPC
+- VPC : sv-ipv4-to-dualstack-vpc
 - アベイラビリティゾーンとサブネット : AZ-a・AZ-b にチェックし、それぞれに属するサブネットを選択
 
 - 「新しいセキュリティグループを作成」リンクからセキュリティグループを作成
@@ -148,7 +153,7 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 ![](/images/burikaigi2026-aws-ipv6-study/003004-create-alb-tg-1.png)
 
 - ターゲットグループ名 : `ipv4-server`
-- VPC : 先ほど作成したサーバー用 VPC
+- VPC : sv-ipv4-to-dualstack-vpc
 
 ![](/images/burikaigi2026-aws-ipv6-study/003005-create-alb-tg-2.png)
 
@@ -214,6 +219,8 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 
 - **VPC** メニューから
 
+- **「VPC を作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/010001-cl-ipv4-to-dualstack-create-vpc-1.png)
 
 - 名前タグの自動生成 : （チェックが入った状態のまま）`cl-ipv4-to-dualstack-vpc`
@@ -232,11 +239,13 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 
 - **VPC** メニュー → エンドポイントから
 
+- **「エンドポイントを作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/011001-cl-create-ep-1.png)
 
 - 名前タグ : `cl-ec2-connect`
 - タイプ : EC2 インスタンス接続エンドポイント
-- VPC : 先ほど作成したクライアント用 VPC
+- VPC : cl-ipv4-to-dualstack-vpc
 - セキュリティグループ : 「default」のみ選択されているのを確認（選択されていなければ「default」のみ選択）
 - サブネット : AZ-a プライベートサブネット
 - IP アドレスタイプ : 「IPv4」が選択されているのを確認（選択されていなければ「IPv4」を選択）
@@ -248,6 +257,8 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 ### EC2 インスタンスを起動（AZ-a）
 
 - **EC2** メニューから
+
+- **「インスタンスを起動」** をクリック
 
 ![](/images/burikaigi2026-aws-ipv6-study/012001-cl-create-client-1.png)
 
@@ -264,9 +275,11 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 ![](/images/burikaigi2026-aws-ipv6-study/012003-cl-create-client-3.png)
 
 - キーペア名 : リロードボタンをクリック後「client-001」を選択
-- VPC : 先ほど作成したクライアント用 VPC
+- VPC : cl-ipv4-to-dualstack-vpc
 - サブネット : AZ-a プライベートサブネット
-- セキュリティグループ名 : `client-sg`
+- ファイアーウォール（セキュリティグループ） : 「セキュリティグループを作成」になっていなければ「セキュリティグループを作成」を選択
+- セキュリティグループ名 : `client-001-sg`
+- 説明 : `client-sg`
 
 ![](/images/burikaigi2026-aws-ipv6-study/012005-cl-create-client-5.png)
 

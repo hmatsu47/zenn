@@ -11,3 +11,4 @@ chapters:
   - 05-review-ipv4
   - 06-modify-server-env-to-dualstck
   - 07-modify-client-env-to-dualstck
+  - 08-add-client-env-to-ipv6only-subnet
