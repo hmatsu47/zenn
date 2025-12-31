@@ -100,7 +100,7 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 
 ### EC2 インスタンスを起動（AZ-b）
 
-- AZ-a 用のインスタンス画面を開いて
+- AZ-a 用のインスタンス「web-server-001a」画面を開いて
 
 ![](/images/burikaigi2026-aws-ipv6-study/002008-create-server-8.png)
 
@@ -276,7 +276,7 @@ https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-0
 
 EC2（クライアント）に接続し、サーバー環境の ALB に`curl`コマンドでアクセスしてみます。
 
-- 作成したクライアント用 EC2 の画面から **「接続」** をクリック
+- 作成したクライアント用 EC2「client-001a」画面から **「接続」** をクリック
 
 ![](/images/burikaigi2026-aws-ipv6-study/013001-cl-connect-1.png)
 
