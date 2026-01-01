@@ -12,3 +12,6 @@ chapters:
   - 06-modify-server-env-to-dualstck
   - 07-modify-client-env-to-dualstck
   - 08-add-client-env-to-ipv6only-subnet
+  - 09-add-server-env-to-ula
+  - 10-other-aws-services
+  - 11-conclusion

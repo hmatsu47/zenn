@@ -12,28 +12,28 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 各地域の RIR（ARIN / RIPE NCC / APNIC / LACNIC / AFRINIC）でも在庫の消費が進み、[2025 年 9 月 30 日時点の NRO（Number Resource Organization）の報告資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)（P.4）によると、`/8`換算で
 
-- AFRINIC が 0.05（IP アドレス約 84 万個分）
-- APNIC が 0.19（同・約 319 万個分）
+- AFRINIC（アフリカ地域を管轄）が 0.05（IP アドレス約 84 万個分）
+- APNIC（アジア太平洋地域を管轄）が 0.19（同・約 319 万個分）
 
 となっています（ARIN / RIPE NCC / LACNIC は 0）。
 
 ![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir.jpg)
 
-（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf）
+（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 :::message
 他に「予約済み」アドレスがありますがそちらは省略します。
 :::
 
-### 現在は新規割り当てではなく移転が中心
+### 現在は新規割り当て＜移転
 
-現在は、新たな IPv4 アドレスブロックの割り当てを求める組織と、「割り当て済みだが未使用（不使用）」のアドレスブロックを持つ組織の間での「移転」が中心になっています（[前述資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)の P.6 〜 9）。
+現在は、RIR およびその配下のレジストリからの新規割り当てよりも、新たな IPv4 アドレスブロックの割り当てを求める組織が「割り当て済みだが未使用（不使用）」のアドレスブロックを持つ組織からの「移転」を受けることによって IPv4 アドレスブロックを確保するケースが多くなっています（[前述資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)の P.6 〜 9）。
 
 当初、移転は同じ RIR 内に限られていましたが、現在は RIR 間移転も行われています（[同](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)・P.9）。
 
 ![](/images/burikaigi2026-aws-ipv6-study/inter-rir-ipv4-trans.jpg)
 
-（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf）
+（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 数年前には「AWS が IPv4 アドレスブロックを買い漁っている」ことが話題になりました。
 
@@ -53,7 +53,7 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 などの結果が示されています。
 
-（図の出典はいずれも同記事：https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/）
+（図の出典はいずれも同記事：https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/ ）
 
 広告ルートに載ったとしてもそれがそのまま「使う意思がある」ことにつながるわけではありませんが、移転についても今後少なくとも IPv6 の利用が一般的になるまではあまり期待できない状況ですね。
 
@@ -69,6 +69,10 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 - [新着情報 – パブリック IPv4 アドレスの利用に対する新しい料金体系を発表 / Amazon VPC IP Address Manager が Public IP Insights の提供を開始](https://aws.amazon.com/jp/blogs/news/new-aws-public-ipv4-address-charge-public-ip-insights/)
 
+:::message
+CloudFront など、サービス本体の利用料金以外にパブリック IPv4 アドレスの利用料金が掛からないサービスもあります。
+:::
+
 ## IPv6 アドレスの現況
 
 ### IPv6 アドレスの割り当て状況
@@ -83,7 +87,7 @@ RIR ごとの地域差はかなりありますが、P.15 〜 16 を見ると意�
 
 ![](/images/burikaigi2026-aws-ipv6-study/ipv6-rir-pct.jpg)
 
-（出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf）
+（出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 ### 肝心の利用状況は？
 
@@ -98,3 +102,11 @@ RIR ごとの地域差はかなりありますが、P.15 〜 16 を見ると意�
 - 主要キャリア B 社の MVNO : IPv4 アドレスを表示
 
 という結果になりました。
+
+## このチャプターのまとめ
+
+- IPv4 アドレスブロックの新規割り当ては（RIR レベルでは）ほぼ終了していて、現在は移転の割合が大きくなっている
+- AWS では 2024 年 2 月 1 日からすべてのパブリック IPv4 アドレスに対して 1 IP アドレスあたり 0.005 USD/hour が課金されるようになった
+  - CloudFront などは除く
+- IPv6 アドレスの利用は気づかないところで年々増えている
+  - 日本では特にモバイル回線での利用が進んでいる

@@ -334,12 +334,21 @@ NAT64/DNS64 を使うと、IPv6 しかサポートしないホスト（EC2）で
 4. NAT Gateway は宛先が`64:ff9b`で始まる特殊な IPv6 アドレスであることを検出し、IPv4 アドレスに変換して IPv4 で宛先のホストにアクセス
    4-1. レスポンスは IPv4 から IPv6 に変換してアクセス元ホスト（EC2）に返す
 
-ただし、最初から IPv4 でのアクセスを指定して通信を始めた場合、Route 53 Resolver は A レコードをそのまま返すため、IPv4 をサポートしない EC2 では相手先に到達できません。
+ただし、最初から IPv4 指定で通信を始めた場合、Route 53 Resolver は A レコードをそのまま返すため、IPv4 をサポートしない EC2 では相手先に到達できません。
+
+（NAT64/DNS64 は「送信元 EC2（ホスト）自身は IPv6 で通信する」ことが前提となる仕組み）
 
 先ほどの「ALB 宛ての`curl`コマンド（`-v4`措定）」がこれにあたります。
 
 :::message
 「IPv6 しかサポートしていないはずなのに、IPv4 指定の`curl`コマンドでなぜ Route 53 Resolver が応答を返せるの？」と思うかもしれませんが、VPC で IPv4 を有効にしていなくても、IPv4 リンクローカルアドレスはデフォルトで有効な状態になっており、Route 53 Resolver への問い合わせができるようになっています。
+
+**【参考】**
+
+- [Amazon DNS について理解する - Amazon DNS サーバー](https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/AmazonDNS-concepts.html#AmazonDNS)（Amazon Virtual Private Cloud ユーザーガイド）
+
+> IPv6 専用サブネットでは、"AmazonProvidedDNS" が DHCP オプションセット内のネームサーバーである限り、IPv4 リンクローカルアドレス (169.254.169.253) に引き続きアクセスできます。
+
 :::
 
 一方で、IPv4 に限定せず通信を始めた場合、Route 53 Resolver は AAAA レコードを持たず A レコードのみ持つ相手のアドレスを`64:ff9b`で始まる特殊な IPv6 アドレスに変換して返すため、NAT ゲートウェイ経由でのアクセスが可能になります。
