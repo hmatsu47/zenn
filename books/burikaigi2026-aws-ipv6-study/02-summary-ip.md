@@ -19,7 +19,11 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 ![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir.jpg)
 
-（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
+発行された IPv4 アドレスの推移を見ると、（2005 年は第 3 四半期までの集計値なので注意が必要ですが）徐々に少なくなってきているのがわかります。
+
+![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir-issued.jpg)
+
+（出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 :::message
 他に「予約済み」アドレスがありますがそちらは省略します。
@@ -29,11 +33,13 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 現在は、RIR およびその配下のレジストリからの新規割り当てよりも、新たな IPv4 アドレスブロックの割り当てを求める組織が「割り当て済みだが未使用（不使用）」のアドレスブロックを持つ組織からの「移転」を受けることによって IPv4 アドレスブロックを確保するケースが多くなっています（[前述資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)の P.6 〜 9）。
 
+![](/images/burikaigi2026-aws-ipv6-study/intra-rir-ivp4-trans-addr.jpg)
+
 当初、移転は同じ RIR 内に限られていましたが、現在は RIR 間移転も行われています（[同](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)・P.9）。
 
 ![](/images/burikaigi2026-aws-ipv6-study/inter-rir-ipv4-trans.jpg)
 
-（出典は同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
+（出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 数年前には「AWS が IPv4 アドレスブロックを買い漁っている」ことが話題になりました。
 
@@ -55,7 +61,7 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 （図の出典はいずれも同記事：https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/ ）
 
-広告ルートに載ったとしてもそれがそのまま「使う意思がある」ことにつながるわけではありませんが、移転についても今後少なくとも IPv6 の利用が一般的になるまでは積極的に進むことがあまり期待できない状況ですね。
+広告ルートに載ったとしてもそれがそのまま「使う意思がある」ことにつながるわけではありませんが（2024 年 6 月にも一時的に大きな変動が見られますがすぐに戻っています）、移転による放出が期待できるアドレスブロックが減ったとすれば、移転についても当面は増加が期待できない雰囲気です。
 
 :::message
 その他、APNIC の[同記事](https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/)には「実験用に確保されたクラス E のアドレス空間（240.0.0.0 〜 255.255.255.255）について何度か開放が議論されては立ち消えになっている話や、CGNAT（キャリアグレード NAT／文章中には「CG-NAT」と表記）についても触れられています。
