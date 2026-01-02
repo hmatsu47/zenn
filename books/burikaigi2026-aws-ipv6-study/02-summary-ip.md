@@ -10,7 +10,7 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 2011 年 2 月 3 日、IP アドレスをグローバルに管理する ICANN（IANA）から各地域の RIR（地域インターネットレジストリ：Regional Internet Registry）への最後のアドレスブロック割り当てが行われ、新規に割り当て可能な IPv4 アドレスブロックがなくなりました。
 
-各地域の RIR（ARIN / RIPE NCC / APNIC / LACNIC / AFRINIC）でも在庫の消費が進み、[2025 年 9 月 30 日時点の NRO（Number Resource Organization）の報告資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)（P.4）によると、`/8`換算で
+各地域の RIR（ARIN / RIPE NCC / APNIC / LACNIC / AFRINIC）でも在庫の消費が進み、[2025 年 9 月 30 日時点の NRO（Number Resource Organization）の報告資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)（P.4）によると、「利用可能（Available）」なアドレスは`/8`換算で
 
 - AFRINIC（アフリカ地域を管轄）が 0.05（IP アドレス約 84 万個分）
 - APNIC（アジア太平洋地域を管轄）が 0.19（同・約 319 万個分）
@@ -26,7 +26,7 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 （出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
 :::message
-他に「予約済み」アドレスがありますがそちらは省略します。
+他に「予約済み（Reserved）」アドレスがありますが、用途限定であり（利用可能（Available）なアドレスに転換されない限り）一般向けの割り当ては行われないのでそちらは省略します。
 :::
 
 ### 現在は新規割り当て＜移転
@@ -59,12 +59,10 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 - ルート未広告の IPv4 アドレスブロックは 2024 年末の Amazon の広告ルート追加により大幅に減少
   ![](/images/burikaigi2026-aws-ipv6-study/addr24-7.png)
-- 公表されている移転価格は 2022 年あたりにピークになってその後低下 → 安定（ただしばらつきが大きくなった）
-  ![](/images/burikaigi2026-aws-ipv6-study/addrfig9.png)
 
-などの結果が示されています。
+（図の出典は同記事：https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/ ）
 
-（図の出典はいずれも同記事：https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/ ）
+など、いくつかの結果が示されています。
 
 広告ルートに載ったとしてもそれがそのまま「使う意思がある」ことにつながるわけではありませんが（2024 年 6 月にも一時的に大きな変動が見られますがすぐに戻っています）、移転による放出が期待できるアドレスブロックが減ったとすれば、移転についても当面は増加が期待できない雰囲気です。
 
@@ -114,17 +112,19 @@ ChatGPT の力を借りて、[APNIC Labs Measurements and Data](https://labs.apn
 IPv6 Capable は「IPv6 に到達できた端末の割合」、IPv6 Preferred は「デュアルスタックで IPv6 が選ばれた割合」です。
 :::
 
+2023 年に 50% を超え、ここ 2 年で IPv6 Capable が 60% に迫っています。
+
 ![](/images/burikaigi2026-aws-ipv6-study/ipv6-stat-jp-mobile.png)
 
-Softbank の IPv6 比率が低いようですが、統計を取る上で何らかの問題があるのかもしれませんね。
+Softbank の IPv6 比率が低いようですが、（AS 内に含まれるモバイル回線以外の比率が高い？など）統計を取る上で何らかの問題があるのかもしれませんね。
 
 それを差し引いても、モバイル回線については意識せずに利用しているケースがかなりありそうです。
 
 実際、今回のセッションの準備のために IPv6 サーバー環境（HTTP アクセスするとアクセス元の IP アドレスを表示）を立てて手元のモバイル回線からアクセスしてみたところ、
 
-- 主要キャリア（MNO）A 社 : IPv6 アドレスを表示
-- 主要キャリア（MNO）B 社のサブキャリア C 社 : 同上
-- 主要キャリア（MNO）B 社の MVNO D 社 : IPv4 アドレスを表示
+- 主要キャリア（MNO）A 社・B 社 : IPv6 アドレスを表示
+- 主要キャリア（MNO）C 社のサブキャリア D 社 : 同上
+- MVNO E 社の C 社回線プラン : IPv4 アドレスを表示
 
 という結果になりました。
 

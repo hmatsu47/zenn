@@ -41,5 +41,6 @@ AWS での IPv6 利用について、VPC の構成を変えながらここまで
 
 - [Internet Number Resource Status Report As of 30 September 2025](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf)（[NRO RIR Statistics](https://www.nro.net/about/rirs/statistics/)）
 - [IP addresses through 2024](https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/)（[APNIC Blog](https://blog.apnic.net/)）
+- [APNIC Labs Measurements and Data](https://labs.apnic.net/measurements/)
 - [AWS IPv6 Hands On (japanese)](https://catalog.us-east-1.prod.workshops.aws/workshops/025ae486-39d3-4de4-a12b-049970983d18/ja-JP)
   - ほかに EKS などをカバーする[英語版ワークショップ（Get hands-on with IPv6）](https://catalog.workshops.aws/ipv6-on-aws/en-US)もあります
