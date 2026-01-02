@@ -19,7 +19,7 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 ![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir.jpg)
 
-発行された IPv4 アドレスの推移を見ると、（2005 年は第 3 四半期までの集計値なので注意が必要ですが）徐々に少なくなってきているのがわかります。
+発行された IPv4 アドレス（`/8`換算）の推移を見ると、（2025 年は第 3 四半期までの集計値なので注意が必要ですが）徐々に少なくなってきているのがわかります。
 
 ![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir-issued.jpg)
 
@@ -41,6 +41,9 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 （出典はいずれも同資料：https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q3-2025-FINAL.pdf ）
 
+ただし総量としては移転も横ばい〜微減傾向ですね。
+
+:::message
 数年前には「AWS が IPv4 アドレスブロックを買い漁っている」ことが話題になりました。
 
 **【参考】**
@@ -48,13 +51,15 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 - [Amazon が保有している IP アドレスだけで 2500 億円以上の資産価値がある（Gigazine）](https://gigazine.net/news/20201022-amazon-ipv4-address/)
 - [AWS とか他のパブリッククラウドプロバイダーって、どうやってあんなにたくさんのパブリック IPv4 アドレスを手に入れてるんだろう？（Reddit）](https://www.reddit.com/r/aws/comments/ds06go/where_aws_or_other_public_cloud_provider_gets_so/?tl=ja)
 
+:::
+
 ### 「割り当て済みだが未使用（不使用）」の IPv4 アドレスの状況は？
 
-そうなると「すでに IPv4 アドレスを大量に割り当てられている組織で、値段をつりあげるため『売り惜しみ』をしているのでは？」と考えたくなるところですが、そのあたりの考察が [APNIC の記事](https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/)で触れられており、
+そうなると「すでに IPv4 アドレスを大量に割り当てられている組織で、値段をつりあげるため『売り惜しみ』をしているのでは？」と考えたくなるところですが、そのあたりも含めた考察が [APNIC の記事](https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/)で触れられており、
 
 - ルート未広告の IPv4 アドレスブロックは 2024 年末の Amazon の広告ルート追加により大幅に減少
   ![](/images/burikaigi2026-aws-ipv6-study/addr24-7.png)
-- 公表されている移転価格は 2022 年あたりにピークになってその後低下（ただしばらつきが大きくなった）
+- 公表されている移転価格は 2022 年あたりにピークになってその後低下 → 安定（ただしばらつきが大きくなった）
   ![](/images/burikaigi2026-aws-ipv6-study/addrfig9.png)
 
 などの結果が示されています。
