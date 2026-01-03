@@ -22,7 +22,7 @@ title: "その他 AWS サービスの IPv6 対応状況など"
 
 Amazon Bedrock や Aurora DSQL など、「クライアント（ブラウザ）から直接アクセスさせる必要がないサービス」については、「Public endpoints support IPv6」「Private endpoints support IPv6」側のみサポートしているケースも増えている感があります。
 
-## 実際にパブリック IP(v4) アドレスは節約できるのか？
+## 実際にパブリック IP(v4) アドレスは節約できる？
 
 例えば、2025 年に外側トンネルで IPv6 がサポートされた Site-to-Site VPN のように、「接続先が固定的」なサービスについては、IPv6 化によるパブリック IPv4 アドレスの節約は可能でしょう。
 
@@ -34,8 +34,15 @@ Amazon Bedrock や Aurora DSQL など、「クライアント（ブラウザ）�
 
 したがって、「ユースケースによるが、多少の節約はできても大幅な節約をしてゼロに近付けるのは難しい」のが現状、といえるでしょう。
 
+## パブリック IP(v4) アドレス使用状況の確認方法は？
+
+IP Address Manager（IPAM）の「パブリック IP に関するインサイト」で確認できます。
+
+![](/images/burikaigi2026-aws-ipv6-study/ipam-ipv4-insights.png)
+
 ## このチャプターのまとめ
 
 - ここ数年で IPv6 をサポートするサービスが増えた
 - ただしパブリック IPv4 アドレスを節約できるケースは意外と限られる
   - IPv4・IPv6 を併用する必要があるケースがまだ多く残る
+- IP Address Mamager の「パブリック IP に関するインサイト」でパブリック IP(v4) アドレス使用状況が確認可能

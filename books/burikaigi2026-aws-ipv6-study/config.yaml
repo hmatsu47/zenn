@@ -1,7 +1,7 @@
 title: "AWS で試して学ぶ IPv6（BuriKaigi 2026 セッション補足資料）"
 summary: "BuriKaigi 2026 1/9 14:20-14:50 Room 203「AWS で試して学ぶ IPv6」の補足資料です。当日説明する環境の構築方法と利用技術を中心に、説明順序に沿って記載しています。"
 topics: ["aws", "vpc", "ipv6"] # トピック（5つまで）
-published: false # falseだと下書き
+published: true # falseだと下書き
 price: 0 # 有料の場合200〜5000
 chapters:
   - 01-top
