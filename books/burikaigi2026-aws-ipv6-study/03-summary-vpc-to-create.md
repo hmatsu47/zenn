@@ -14,5 +14,5 @@ title: "セッションで使用する VPC・リソースについて"
    ![](/images/burikaigi2026-aws-ipv6-study/IPv6-03-client-ds.drawio.png)
 4. クライアント用 VPC に IPv6（GUA）アドレスブロックのみを持つプライベートサブネットを作成するとともに EC2（クライアント）を配置し、NAT64/DNS64 を使ってインターネットにアクセスします
    ![](/images/burikaigi2026-aws-ipv6-study/IPv6-04-client-nat64-dns64.drawio.png)
-5. （オプション）サーバー用 VPC に IPv6（ULA）アドレスブロックのみを持つプライベートサブネットを作成し、EC2（Web サーバー）を配置して ALB のターゲットグループを IPv6（ULA）プライベートサブネット側に変更します
+5. サーバー用 VPC に IPv6（ULA）アドレスブロックのみを持つプライベートサブネットを作成し、EC2（Web サーバー）を配置して ALB のターゲットグループを IPv6（ULA）プライベートサブネット側に変更します（オプション）
    ![](/images/burikaigi2026-aws-ipv6-study/IPv6-05-server-tg-ipv6-ula-only.drawio.png)
