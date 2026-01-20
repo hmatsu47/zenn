@@ -147,6 +147,13 @@ IPv4 プライベートアドレスは NAT でグローバルアドレスに変�
 
 そのため、ULA だけをサブネットに割り当てるのではなく、GUA も一緒に割り当てて使う（組織内の通信にのみ ULA を使う）ことになりそうです。
 
+:::message
+[こちらのブログ](https://aws.amazon.com/jp/blogs/news/design-and-build-ipv6-internet-inspection-architectures-on-aws/)で言及されているとおり、AWS のサービス（GWLB・ELB・Network Firewall など）ではなく NAT66 または NPTv6（[RFC 6296](https://datatracker.ietf.org/doc/html/rfc6296)）をサポートしているサードパーティ検査アプライアンスを使う場合は、IPv6（ULA）専用サブネットからインターネットにアクセス可能になります。
+
+- https://aws.amazon.com/jp/blogs/news/design-and-build-ipv6-internet-inspection-architectures-on-aws/
+
+:::
+
 ### リンクローカルユニキャストアドレス（LLA）との違い
 
 「組織内の通信用」といえば ULA 以外にもリンクローカルユニキャストアドレス（LLA）があります。
