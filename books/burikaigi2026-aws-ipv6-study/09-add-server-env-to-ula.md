@@ -21,7 +21,7 @@ ALB がデュアルスタックであればターゲットサーバーは IPv4�
 - IPv6（ULA）サブネット用のターゲットグループを作成
   - ターゲットとして EC2（Web Server 用・2 個）を登録
 - ALB のターゲットグループを IPv4 用から IPv6（ULA）用に切り替え
-- `curl`コマンドで接続テスト
+- `curl`コマンドまたは IPv6 アドレスが使えるブラウザから接続テスト
 
 これらの作業が完了すると、図のような構成になります。
 
@@ -34,6 +34,92 @@ ALB がデュアルスタックであればターゲットサーバーは IPv4�
 ## AWS 環境上での作業
 
 セッションで詳細を扱わないので、こちらは後日の公開となります。
+
+※手順は順次追記しています
+
+### 既存の EC2（Web Server 用）の AMI を作成
+
+![](/images/burikaigi2026-aws-ipv6-study/030001-create-ami-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/030002-create-ami-2.png)
+
+### IP Address Manager（IPAM）を有効化
+
+![](/images/burikaigi2026-aws-ipv6-study/031001-create-ipam-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/031002-create-ipam-2.png)
+
+### IPv6 ULA のプールを作成
+
+#### `/48`の階層を作成
+
+![](/images/burikaigi2026-aws-ipv6-study/031003-create-ipam-pool-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/031004-create-ipam-pool-2.png)
+
+#### `/52`の階層を作成
+
+![](/images/burikaigi2026-aws-ipv6-study/031005-create-ipam-pool-3.png)
+![](/images/burikaigi2026-aws-ipv6-study/031006-create-ipam-pool-4.png)
+![](/images/burikaigi2026-aws-ipv6-study/031007-create-ipam-pool-5.png)
+![](/images/burikaigi2026-aws-ipv6-study/031008-create-ipam-pool-6.png)
+
+### IPv6 IPAM プール（ULA）からサーバー用 VPC に`/56`を割り当て
+
+![](/images/burikaigi2026-aws-ipv6-study/032001-add-ipam-pool-to-vpc.png)
+
+### サーバー用 VPC に新規のサブネットを作成し、IPv6 IPAM プールから`/64`を割り当て
+
+#### AZ-a のサブネットを作成
+
+![](/images/burikaigi2026-aws-ipv6-study/032002-create-ula-subnet-1.png)
+
+#### AZ-b のサブネットを作成
+
+![](/images/burikaigi2026-aws-ipv6-study/032003-create-ula-subnet-2.png)
+
+### 同サブネット用にルートテーブルを作成
+
+#### AZ-a のルートテーブルを作成
+
+![](/images/burikaigi2026-aws-ipv6-study/032004-create-rt-for-ula-subnet-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/032005-create-rt-for-ula-subnet-2.png)
+
+#### AZ-b のルートテーブルを作成
+
+![](/images/burikaigi2026-aws-ipv6-study/032006-create-rt-for-ula-subnet-3.png)
+![](/images/burikaigi2026-aws-ipv6-study/032007-create-rt-for-ula-subnet-4.png)
+
+### AMI から EC2（Web Server 用）を作成・新規追加サブネットに配置
+
+#### AZ-a の EC2（Web Server 用）インスタンスを起動
+
+![](/images/burikaigi2026-aws-ipv6-study/033001-create-server-ipv6only-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/033002-create-server-ipv6only-2.png)
+![](/images/burikaigi2026-aws-ipv6-study/033003-create-server-ipv6only-3.png)
+![](/images/burikaigi2026-aws-ipv6-study/033004-create-server-ipv6only-4.png)
+![](/images/burikaigi2026-aws-ipv6-study/033005-create-server-ipv6only-5.png)
+
+#### AZ-b の EC2（Web Server 用）インスタンスを起動
+
+![](/images/burikaigi2026-aws-ipv6-study/033006-create-server-ipv6only-6.png)
+![](/images/burikaigi2026-aws-ipv6-study/033007-create-server-ipv6only-7.png)
+![](/images/burikaigi2026-aws-ipv6-study/033008-create-server-ipv6only-8.png)
+![](/images/burikaigi2026-aws-ipv6-study/033009-create-server-ipv6only-9.png)
+
+### IPv6（ULA）サブネット用のターゲットグループを作成
+
+![](/images/burikaigi2026-aws-ipv6-study/034001-create-tg-ipv6-1.png)
+![](/images/burikaigi2026-aws-ipv6-study/034002-create-tg-ipv6-2.png)
+![](/images/burikaigi2026-aws-ipv6-study/034003-create-tg-ipv6-3.png)
+![](/images/burikaigi2026-aws-ipv6-study/034004-create-tg-ipv6-4.png)
+
+### ALB のターゲットグループを IPv4 用から IPv6（ULA）用に切り替え
+
+![](/images/burikaigi2026-aws-ipv6-study/035001-modify-alb-tg-ipv6.png)
+
+### `curl`コマンドまたは IPv6 アドレスが使えるブラウザから接続テスト
+
+※ブラウザからの接続テスト実行例
+
+![](/images/burikaigi2026-aws-ipv6-study/036001-check-alb-tg-ipv6.png)
 
 ## 構成に関する補足説明
 
