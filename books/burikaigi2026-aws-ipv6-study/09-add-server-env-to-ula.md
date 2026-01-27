@@ -87,7 +87,7 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
   - 名前タグ : `ipam-pool-ipv6`
 - プロビジョンする CIDR
   - 「ネットマスクで ULA CIDR を追加」をクリック
-  - ULA ネットマスク : /48
+  - ULA ネットマスク : `/48`
 
 ![](/images/burikaigi2026-aws-ipv6-study/031004-create-ipam-pool-2.png)
 
@@ -95,7 +95,7 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 
 #### `/52`の階層を作成
 
-- 「ipam-pool-ipv6」作成後の画面で
+- 作成した「ipam-pool-ipv6」画面から
 
 ![](/images/burikaigi2026-aws-ipv6-study/031005-create-ipam-pool-3.png)
 
@@ -103,8 +103,7 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 
 ![](/images/burikaigi2026-aws-ipv6-study/031006-create-ipam-pool-4.png)
 
-- プールの設定
-  - 名前タグ : `ipam-pool-ipv6-osaka`
+- 名前タグ : `ipam-pool-ipv6-osaka`
 
 ![](/images/burikaigi2026-aws-ipv6-study/031007-create-ipam-pool-5.png)
 
@@ -112,17 +111,16 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
   - ロケール（下のほう）: `ap-northeast-3`
 - プロビジョンする CIDR
   - 「CIDR を入力」をクリック
-  - CIDR : アドレスブロックの最初の /52
+  - CIDR : アドレスブロックの先頭の`/52`を選択
+    - 下向き「>」を 1 回クリック
 
 ![](/images/burikaigi2026-aws-ipv6-study/031008-create-ipam-pool-6.png)
 
-- 割り振りルール設定
-  - このプールの割り振りルール設定を構成 : 有効化
-  - ネットマスクコンプライアンス
-    - ネットマスクの最小長 : /52
-    - デフォルトのネットマスク長 : /56
-    - ネットマスクの最大長 : /60
-
+- このプールの割り振りルール設定を構成 : 有効化
+- ネットマスクコンプライアンス
+  - ネットマスクの最小長 : `/52`
+  - デフォルトのネットマスク長 : `/56`
+  - ネットマスクの最大長 : `/60`
 - **「プールを作成」** をクリック
 
 ### IPv6 IPAM プール（ULA）からサーバー用 VPC に`/56`を割り当て
@@ -132,22 +130,45 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 ![](/images/burikaigi2026-aws-ipv6-study/032001-add-ipam-pool-to-vpc.png)
 
 - 「新しい IPv6 CIDR を追加」をクリック
-
-- IPv6 CIDR ブロック : IPAM 割り当ての IPv6 CIDR ブロック
-- IPv6 IPAM プール : ipam-pool-ipv6-osaka
-- CIDR ブロック : ネットマスク長・56
-
+- IPv6 CIDR を追加
+  - IPv6 CIDR ブロック : IPAM 割り当ての IPv6 CIDR ブロック
+  - IPv6 IPAM プール : ipam-pool-ipv6-osaka
+  - CIDR ブロック : ネットマスク長・`56`
 - **「CIDR を選択」** をクリック
 
 ### サーバー用 VPC に新規のサブネットを作成し、IPv6 IPAM プールから`/64`を割り当て
 
 #### AZ-a のサブネットを作成
 
+- **「VPC」** メニュー → サブネットから
+
+- **「サブネットを作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/032002-create-ula-subnet-1.png)
+
+- VPC ID : 「sv-ipv4-to-dualstack-vpc」の VPC ID
+- サブネット名 : `cl-ipv4-to-dualstack-v6only-subnet-private1-ap-northeast-3a`
+- アベイラビリティゾーン : AZ-a
+- IPv4 CIDR ブロック : IPv4 CIDR がありません
+- IPv6 CIDR ブロック : 手動入力
+- IPv6 VPC CIDR ブロック : VPC の CIDR ブロックの先頭の`/64`を選択
+  - 下向き「>」を 2 回クリック
+- **「サブネットを作成」** をクリック
 
 #### AZ-b のサブネットを作成
 
+- サブネット → **「サブネットを作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/032003-create-ula-subnet-2.png)
+
+- VPC ID : 「sv-ipv4-to-dualstack-vpc」の VPC ID
+- サブネット名 : `cl-ipv4-to-dualstack-v6only-subnet-private1-ap-northeast-3b`
+- アベイラビリティゾーン : AZ-b
+- IPv4 CIDR ブロック : IPv4 CIDR がありません
+- IPv6 CIDR ブロック : 手動入力
+- IPv6 VPC CIDR ブロック : VPC の CIDR ブロックの 2 番目の`/64`（プレフィックスの最後が「`1`」）を選択
+  - 下向き「>」を 2 回クリック後、右向き「>」を 1 回クリック
+- **「サブネットを作成」** をクリック
 
 ### 同サブネット用にルートテーブルを作成
 
