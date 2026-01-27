@@ -162,7 +162,7 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 ![](/images/burikaigi2026-aws-ipv6-study/032003-create-ula-subnet-2.png)
 
 - VPC ID : 「sv-ipv4-to-dualstack-vpc」の VPC ID
-- サブネット名 : `cl-ipv4-to-dualstack-v6only-subnet-private1-ap-northeast-3b`
+- サブネット名 : `cl-ipv4-to-dualstack-v6only-subnet-private2-ap-northeast-3b`
 - アベイラビリティゾーン : AZ-b
 - IPv4 CIDR ブロック : IPv4 CIDR がありません
 - IPv6 CIDR ブロック : 手動入力
@@ -174,13 +174,39 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 
 #### AZ-a のルートテーブルを作成
 
+- **「VPC」** メニュー → ルートテーブルから
+
+- **「ルートテーブルを作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/032004-create-rt-for-ula-subnet-1.png)
+
+- 名前 : `sv-ipv4-to-dualstack-rtb-v6only-private1-ap-northeast-3a`
+- VPC : sv-ipv4-to-dualstack-vpc
+- **「ルートテーブルを作成」** をクリック
+
+- 作成したルートテーブル「sv-ipv4-to-dualstack-rtb-v6only-private1-ap-northeast-3a」画面 → **「アクション」** → **「サブネットの関連付けを編集」** から
+
 ![](/images/burikaigi2026-aws-ipv6-study/032005-create-rt-for-ula-subnet-2.png)
+
+- 利用可能なサブネット : 「sv-ipv4-to-dualstack-v6only-subnet-private1-ap-northeast-3a」にチェック
+- **「関連付けを保存」** をクリック
 
 #### AZ-b のルートテーブルを作成
 
+- ルートテーブル → **「ルートテーブルを作成」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/032006-create-rt-for-ula-subnet-3.png)
+
+- 名前 : `sv-ipv4-to-dualstack-rtb-v6only-private2-ap-northeast-3b`
+- VPC : sv-ipv4-to-dualstack-vpc
+- **「ルートテーブルを作成」** をクリック
+
+- 作成したルートテーブル「sv-ipv4-to-dualstack-rtb-v6only-private2-ap-northeast-3b」画面 → **「アクション」** → **「サブネットの関連付けを編集」** から
+
 ![](/images/burikaigi2026-aws-ipv6-study/032007-create-rt-for-ula-subnet-4.png)
+
+- 利用可能なサブネット : 「sv-ipv4-to-dualstack-v6only-subnet-private2-ap-northeast-3b」にチェック
+- **「関連付けを保存」** をクリック
 
 ### AMI から EC2（Web Server 用）を作成・新規追加サブネットに配置
 
