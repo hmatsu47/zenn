@@ -127,7 +127,17 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 
 ### IPv6 IPAM プール（ULA）からサーバー用 VPC に`/56`を割り当て
 
+- **VPC** メニュー → 「アクション」 → 「CIDR の編集」
+
 ![](/images/burikaigi2026-aws-ipv6-study/032001-add-ipam-pool-to-vpc.png)
+
+- 「新しい IPv6 CIDR を追加」をクリック
+
+- IPv6 CIDR ブロック : IPAM 割り当ての IPv6 CIDR ブロック
+- IPv6 IPAM プール : ipam-pool-ipv6-osaka
+- CIDR ブロック : ネットマスク長・56
+
+- **「CIDR を選択」** をクリック
 
 ### サーバー用 VPC に新規のサブネットを作成し、IPv6 IPAM プールから`/64`を割り当て
 
