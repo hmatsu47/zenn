@@ -212,18 +212,63 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 
 #### AZ-a の EC2（Web Server 用）インスタンスを起動
 
+- **EC2** メニュー → AMI から
+
+- 「web-server」にチェック → **「AMI からインスタンスを起動」** をクリック
+
 ![](/images/burikaigi2026-aws-ipv6-study/033001-create-server-ipv6only-1.png)
+
+- 名前 : `web-server-002a-ipv6only`
+- キーペア名 : キーペアなしで続行
+
 ![](/images/burikaigi2026-aws-ipv6-study/033002-create-server-ipv6only-2.png)
+
+- VPC : sv-ipv4-to-dualstack-vpc
+- サブネット : 先ほど作成した AZ-a プライベートサブネット（IPv6 専用）
+- IPv6 IP を自動で割り当てる : 「有効化」になっていることを確認
+- ファイアーウォール（セキュリティグループ） : 「セキュリティグループを作成」になっていなければ「セキュリティグループを作成」を選択
+- セキュリティグループ名 : `web-server-002a-ipv6only`
+- 説明 : `web-server-002a-ipv6only`
+- インバウンドセキュリティグループのルール
+  - SSH（TCP 22）のかわりに HTTP（TCP 80）をソース`::/0`から受信許可
+- **「高度なネットワーク設定」** セクションをクリックして開く
+
 ![](/images/burikaigi2026-aws-ipv6-study/033003-create-server-ipv6only-3.png)
+
+- プライマリ IPv6 IP を割り当てる : はい
+- **「高度な詳細」** セクションをクリックして開く
+
 ![](/images/burikaigi2026-aws-ipv6-study/033004-create-server-ipv6only-4.png)
+
+- リソースベースの IPv6 (AAAA レコード) DNS リクエストを有効化 : チェック
+
 ![](/images/burikaigi2026-aws-ipv6-study/033005-create-server-ipv6only-5.png)
+
+- **「インスタンスを起動」** をクリック
 
 #### AZ-b の EC2（Web Server 用）インスタンスを起動
 
+- **EC2** メニュー → インスタンスから
+
 ![](/images/burikaigi2026-aws-ipv6-study/033006-create-server-ipv6only-6.png)
+
+- 「web-server-002a-ipv6only」にチェック → 「アクション」 → 「イメージとテンプレート」 → 「同様のものを起動」
+
 ![](/images/burikaigi2026-aws-ipv6-study/033007-create-server-ipv6only-7.png)
+
+- 名前 : `web-server-002b-ipv6only`
+- キーペア名 : キーペアなしで続行
+
 ![](/images/burikaigi2026-aws-ipv6-study/033008-create-server-ipv6only-8.png)
+
+- VPC : sv-ipv4-to-dualstack-vpc
+- サブネット : 先ほど作成した AZ-b プライベートサブネット（IPv6 専用）
+- ファイアーウォール（セキュリティグループ） : 既存のセキュリティグループを選択する・web-server-002a-ipv6only
+- プライマリ IPv6 IP を割り当てる : はい
+
 ![](/images/burikaigi2026-aws-ipv6-study/033009-create-server-ipv6only-9.png)
+
+- **「インスタンスを起動」** をクリック
 
 ### IPv6（ULA）サブネット用のターゲットグループを作成
 
@@ -249,6 +294,8 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 IPv4 プライベートアドレスのように、組織内で利用しインターネットアクセスに使わないアドレスです。
 
 `fc00::/7`の範囲が ULA 用に確保されていますが、現在は`fd00::/8`の範囲が実際に使われています。
+
+組織の統合などの際にアドレス空間がなるべく重複しないよう、サブネットプレフィックスのうち 9 ビット目から 48 ビット目までは「グローバル ID」として [RFC 4086](https://datatracker.ietf.org/doc/html/rfc4086) に基づくランダム値を割り当てるルールになっています（固定値の割り当ては禁止）。
 
 ### ULA と IPv4 プライベートアドレスとの違い
 
