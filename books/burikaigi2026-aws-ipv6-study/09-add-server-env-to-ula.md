@@ -75,7 +75,7 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 - プールから
 
 - **「プールを作成」** をクリック
- 
+
 ![](/images/burikaigi2026-aws-ipv6-study/031003-create-ipam-pool-1.png)
 
 - プールの設定
@@ -281,7 +281,6 @@ AMI の作成を待つ間に IP Address Manager（IPAM）の設定を進めま�
 ![](/images/burikaigi2026-aws-ipv6-study/034002-create-tg-ipv6-2.png)
 
 - **「次へ」** をクリック
-  - 注：画像要入れ替え（赤枠がない）
 
 ![](/images/burikaigi2026-aws-ipv6-study/034003-create-tg-ipv6-3.png)
 
