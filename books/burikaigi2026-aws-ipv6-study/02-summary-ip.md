@@ -70,6 +70,27 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 その他、APNIC の[同記事](https://blog.apnic.net/2025/01/13/ip-addresses-through-2024/)には「実験用に確保されたクラス E のアドレス空間（240.0.0.0 〜 255.255.255.255）について何度か開放が議論されては立ち消えになっている話や、CGNAT（キャリアグレード NAT／文章中には「CG-NAT」と表記）についても触れられています。
 :::
 
+---
+
+:::message
+**2026/2/6 追記：**
+
+[APNIC の 2025 年版の記事](https://blog.apnic.net/2026/01/20/ip-addresses-through-2025/)が公開され、2025 年中に生じた
+
+- 大きなアドレスブロックの売買・移転市場への供給増
+- それによる移転価格の大幅下落
+- Amazon を中心としたルート広告状況の変化
+
+などが記されています。
+
+- https://blog.apnic.net/2026/01/20/ip-addresses-through-2025/
+
+大規模ブロック供給の急増による価格下落については、CircleID の[こちらの記事](https://circleid.com/posts/ipv4-prices-decline-amid-surge-in-large-block-supply)でも触れられています。
+
+- https://circleid.com/posts/ipv4-prices-decline-amid-surge-in-large-block-supply
+
+:::
+
 ### AWS では？
 
 2024 年 2 月 1 日より、特定のサービスに割り当てられているかどうかに関わらず、すべてのパブリック IPv4 アドレス（AWS 内で利用する、インターネット接続用の IPv4 グローバルアドレス）の利用に対して 1 IP アドレスあたり 0.005 USD/hour が課金されるようになりました。
