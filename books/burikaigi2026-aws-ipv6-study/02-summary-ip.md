@@ -17,6 +17,19 @@ IPv6 について学ぶ前に、まずは IP アドレス、特に全世界で�
 
 となっています（ARIN / RIPE NCC / LACNIC は 0）。
 
+:::message
+**2026/3/17 追記：**
+
+[2025 年 12 月 31 日時点の NRO（Number Resource Organization）の報告資料](https://www.nro.net/wp-content/uploads/NRO-Number-Resource-Status-Report-Q4-2025-FINAL.pdf)が公開されています。
+
+それによると、
+
+- 2025Q4 時点の AFRINIC のアドレス在庫が微減（Q3：0.5 → Q4：0.46）
+- 2025 年の新規割り当てはほぼ横ばい（前年比で微増）
+
+でした。
+:::
+
 ![](/images/burikaigi2026-aws-ipv6-study/ipv4-rir.jpg)
 
 発行された IPv4 アドレス（`/8`換算）の推移を見ると、（2025 年は第 3 四半期までの集計値なので注意が必要ですが）徐々に少なくなってきているのがわかります。
